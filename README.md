@@ -1,2 +1,3 @@
 # DART 공시파일 HTML로 저장
-## 코드는 금융감독원 전자공시시스템(DART ; Data Analysis, Retrieval and Transfer System)에서 
+## 개요
+### FSS가 오픈API(https://opendart.fss.or.kr/intro/main.do)를 통해 제공하는 Data의 범위나 기간을 벗어나는 Data를 

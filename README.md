@@ -7,8 +7,8 @@ FSS는 오픈API(https://opendart.fss.or.kr/intro/main.do) 에서 Macro Data를 
 예를 들면 외부감사실시내역 상 감사시간이나 사업보고서 감사에 관한 사항에 제시되는 감사보수 정보 등의 입수가 필요할 때가 그렇다.
 
 ## 코드 종류
-### Disclosure-to-HTML
-#### 사용언어: Python 3
+### Disclosure-to-HTML (Python 3)
+
 #### 코드: scraper
 DART 공시파일 중, 예를 들면, 사업보고서는 다음과 같은 깊이가 3인 문서 계층 구조를 사용하고 있다.
 

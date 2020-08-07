@@ -104,6 +104,7 @@ def content_link_producer(number, contentSoup):
         문서/첨부 문서 수 입력됨
     contentSoup : str
         문서 소스 수프 입력
+        contentSoup.text가 EC2(python v3.8)에서 이상하게 반응해서 str(contentSoup)으로 변경
 
     Returns
     -------
@@ -113,8 +114,8 @@ def content_link_producer(number, contentSoup):
  
     contentNumber = "// " + str(number)
 
-    startBlock = re.compile(contentNumber).search(contentSoup.text).start()
-    subBlock = contentSoup.text[int(startBlock): int(startBlock) + 270]
+    startBlock = re.compile(contentNumber).search(str(contentSoup)).start()
+    subBlock = str(contentSoup)[int(startBlock): int(startBlock) + 270]
 
     linkList = re.compile(r"'\S+'").findall(subBlock)
 
@@ -137,6 +138,7 @@ def content_name_producer(number, contentSoup):
         문서/첨부 문서 수 입력됨
     contentSoup : str
         문서 소스 수프 입력
+        contentSoup.text가 EC2(python v3.8)에서 이상하게 반응해서 str(contentSoup)으로 변경
 
     Returns
     -------
@@ -147,8 +149,8 @@ def content_name_producer(number, contentSoup):
    
     contentNumber = "// " + str(number)
 
-    startBlock = re.compile(contentNumber).search(contentSoup.text).start()
-    subBlock = contentSoup.text[int(startBlock): int(startBlock) + 270]
+    startBlock = re.compile(contentNumber).search(str(contentSoup)).start()
+    subBlock = str(contentSoup)[int(startBlock): int(startBlock) + 270]
 
     contentName = re.compile("text:.+\"\,\\n\\t\\t\\tid:")
     contentName = contentName.findall(subBlock)[0].replace('text: "',"").replace('",\n\t\t\tid:', "").replace("<BR>", "")
@@ -162,14 +164,14 @@ def content_name_producer(number, contentSoup):
 A001 사업보고서    A002 반기보고서   A003 분기보고서
 F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서    F004 회계법인사업보고서    F005 감사전재무제표미제출신고서
 """
-startDate = "20200101"  # 19990101 부터 가능
-endDate = "20200131"
-reportType = "F001" 
+startDate = "20190101"  # 19990101 부터 가능
+endDate = "20191231"
+reportType = "A001" 
 
 # 건당 입수 지연시간
 """ FSS OpenAPI 가이드라인에서는 분당 100건 이상 (건당 0.6초 미만) 접속하면 차단할 수 있다고 한다. 따라서 0.6 이상 delay를 주지 않으면 차단된다.
 """
-delay = 1
+delay = 2
 
 # 저장 폴더 경로 입력
 path = r"C:\Users\user\Desktop\test"

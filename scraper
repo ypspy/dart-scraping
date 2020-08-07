@@ -17,26 +17,26 @@ def soup_maker(i, startDate, endDate, reportType):
     
     Parameters
     ----------
-    i : TYPE
-        DESCRIPTION.
-    startDate : TYPE
-        DESCRIPTION.
-    endDate : TYPE
-        DESCRIPTION.
+    i : int
+        전체 페이지 중 현재 진행중인 페이지 번호
+    startDate : int
+        대상기간 시작일. yyyymmdd 포멧으로 입력 사업보고서/감사보고서는 1999년 3월부터 공시내역이 존재
+    endDate : int
+        대상기간 종료일. yyyymmdd 포멧. 공시일이므로, 회계기간 종료일과 혼동하지 말 것
     reportType : str
         상세유형 (출처: DART 오픈API 개발가이드)
         A001:사업보고서    A002:반기보고서    A003:분기보고서
 
     Returns
     -------
-    TYPE
-        DESCRIPTION.
+    Soup
+        BeautifulSoup 라이브러리로 생성한 수프가 반환됨
 
     """
    
     annualReportList = "http://dart.fss.or.kr/dsab001/search.ax"
     data = {  
-              'currentPage': i,  # 현재 페이지 최종적으로 루프를 돌릴 대상 (1+i)
+              'currentPage': i,
               'maxResults': '15',
               'maxLinks': '10',
               'sort': 'date',
@@ -44,8 +44,8 @@ def soup_maker(i, startDate, endDate, reportType):
               'textCrpCik': '',
               'textCrpNm': '',
               'finalReport': 'recent',
-              'startDate': startDate,  # 입수시작일 (조정)
-              'endDate': endDate,  # 입수종료일 (조정)
+              'startDate': startDate,
+              'endDate': endDate,
               'publicType': reportType,  
            }
     companyList = requests.post(annualReportList, data=data)
@@ -53,7 +53,18 @@ def soup_maker(i, startDate, endDate, reportType):
 
 def soup_maker_second(url):
     """
+        Parameters
+    ----------
+    url : str
+        타겟 페이지 url
+
+    Returns
+    -------
+    Soup
+        BeautifulSoup 라이브러리로 생성한 수프가 반환됨
+
     """
+    
     html = requests.post(url)
     return BeautifulSoup(html.content, "html.parser")
 
@@ -62,13 +73,13 @@ def ID_card(companyInfoLink):
     
     Parameters
     ----------
-    companyInfoLink : TYPE
-        DESCRIPTION.
+    companyInfoLink : str
+        기업개황 링크로 연결됨
 
     Returns
     -------
-    header : TYPE
-        DESCRIPTION.
+    header : str
+        파일에 tag될 기업 식별 정보 반환
 
     """
       
@@ -89,16 +100,15 @@ def content_link_producer(number, contentSoup):
     
     Parameters
     ----------
-    number : TYPE
-        DESCRIPTION.
-    contentSoup : TYPE
-        DESCRIPTION.
+    number : int
+        문서/첨부 문서 수 입력됨
+    contentSoup : str
+        문서 소스 수프 입력
 
     Returns
     -------
-    reportLink : TYPE
-        DESCRIPTION.
-
+    reportLink : str
+        문서와 첨부의 링크 반환
     """
  
     contentNumber = "// " + str(number)
@@ -123,15 +133,15 @@ def content_name_producer(number, contentSoup):
     
     Parameters
     ----------
-    number : TYPE
-        DESCRIPTION.
-    contentSoup : TYPE
-        DESCRIPTION.
+    number : int
+        문서/첨부 문서 수 입력됨
+    contentSoup : str
+        문서 소스 수프 입력
 
     Returns
     -------
-    contentName : TYPE
-        DESCRIPTION.
+    contentName : str
+        문서와 첨부의 문서명 반환
 
     """        
    
@@ -139,8 +149,7 @@ def content_name_producer(number, contentSoup):
 
     startBlock = re.compile(contentNumber).search(contentSoup.text).start()
     subBlock = contentSoup.text[int(startBlock): int(startBlock) + 270]
-    
-    # 보고서 분류 2 (보고서 분류 3과 중복)
+
     contentName = re.compile("text:.+\"\,\\n\\t\\t\\tid:")
     contentName = contentName.findall(subBlock)[0].replace('text: "',"").replace('",\n\t\t\tid:', "").replace("<BR>", "")
     contentName = "".join(contentName.split())
@@ -149,22 +158,18 @@ def content_name_producer(number, contentSoup):
 
 
 # 입수 대상 변수 입력
+""" 상세유형  bsn_tp 설명 (출처: DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart)
+A001 사업보고서    A002 반기보고서   A003 분기보고서
+F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서    F004 회계법인사업보고서    F005 감사전재무제표미제출신고서
+"""
 startDate = "20200101"  # 19990101 부터 가능
 endDate = "20200131"
 reportType = "F001" 
 
-""" 상세유형  bsn_tp 설명 (출처: DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart)
-A001 사업보고서
-A002 반기보고서
-A003 분기보고서
-F001 감사보고서
-F002 연결감사보고서 F003 결합감사보고서
-F004 회계법인사업보고서
-F005 감사전재무제표미제출신고서
-"""
-
 # 건당 입수 지연시간
-delay = 1.5
+""" FSS OpenAPI 가이드라인에서는 분당 100건 이상 (건당 0.6초 미만) 접속하면 차단할 수 있다고 한다. 따라서 0.6 이상 delay를 주지 않으면 차단된다.
+"""
+delay = 1
 
 # 저장 폴더 경로 입력
 path = r"C:\Users\user\Desktop\test"
@@ -241,8 +246,7 @@ while i <= jailKey:
         
             while jailBreaker:
                 startTimeDocument = time.time()
-                try:
-                    # startTimeDocument = time.time()                    
+                try:                                    
                     contentLink = content_link_producer(contentCount, contentSoup)
                                         
                     filename = (reportType + '_' +
@@ -281,5 +285,5 @@ while i <= jailKey:
                     totalDuration = int(time.time() - startTimeTotal)
                     sys.stdout.writelines('[' + str(companyDuration) + '/' + str(totalDuration) + ']' "\n")
                
-    i += 1
+    i += 1  # 페이지 넘기기
     

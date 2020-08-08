@@ -262,6 +262,14 @@ while i <= jailKey:
                     
                     fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
                     fullname = os.path.join(path, fullname)
+                    
+                    # 사업보고서에 대표이사 
+                    
+                    if os.path.exists(fullname):
+                        filename = filename + "duplicated"
+                        fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
+                        fullname = os.path.join(path, fullname)
+                    
                     file = open(fullname + ".html", "w", encoding="utf-8")
                   
                     documentSoup = BeautifulSoup(requests.post(contentLink).content, "html.parser")

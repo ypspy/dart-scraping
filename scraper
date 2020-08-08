@@ -159,25 +159,35 @@ def content_name_producer(number, contentSoup):
     return contentName
 
 
-# 입수 대상 변수 입력
-""" 상세유형  bsn_tp 설명 (출처: DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart)
-A001 사업보고서    A002 반기보고서   A003 분기보고서
-F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서    F004 회계법인사업보고서    F005 감사전재무제표미제출신고서
-"""
-startDate = "20190101"  # 19990101 부터 가능
-endDate = "20191231"
+# 변수 입력
+
+# 입수대상 기간
+targetYear = "2019"
+startDate = targetYear + "0101"
+endDate = targetYear + "1231"
+
+# 보고서 유형 
 reportType = "A001" 
 
-# 건당 입수 지연시간
-""" FSS OpenAPI 가이드라인에서는 분당 100건 이상 (건당 0.6초 미만) 접속하면 차단할 수 있다고 한다. 따라서 0.6 이상 delay를 주지 않으면 차단된다.
+""" 
+상세유형  bsn_tp 설명 (출처: DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart)
+A001 사업보고서    A002 반기보고서   A003 분기보고서
+F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서    F004 회계법인사업보고서
 """
-delay = 2
+
+# 건당 입수 지연시간 (분당 100건 이상 접속 시도시 차단)
+delay = 1
 
 # 저장 폴더 경로 입력
-path = r"C:\Users\user\Desktop\test"
+path = r"C:\Users\user\Desktop\\" + reportType + "_" + targetYear
+if os.path.exists(path) != True:
+    os.makedirs(path)
+
+# 대상 기간 입수 페이지 (오류 발생시 변수 확인 후 변경하는 방법으로 복구)
+i = 1
 
 # 입수 코드 시작
-i = 1
+
 jailKey = 99999999
 
 while i <= jailKey:
@@ -261,7 +271,7 @@ while i <= jailKey:
                                 companyID)
                     
                     fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
-                         fullname = os.path.join(path, fullname + ".html")
+                    fullname = os.path.join(path, fullname + ".html")
                     
                     # 사업보고서에 대표이사 서명 페이지가 두 건 들어간 경우의 처리
                     

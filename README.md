@@ -1,4 +1,4 @@
-# DART 공시파일 .HTML로 입수
+# DART 공시파일 입수/가공
 ## 개요
 FSS는 오픈API(https://opendart.fss.or.kr/intro/main.do) 에서 Macro Data를 제공하고 있다. 
 

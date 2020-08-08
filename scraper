@@ -261,16 +261,16 @@ while i <= jailKey:
                                 companyID)
                     
                     fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
-                    fullname = os.path.join(path, fullname)
+                         fullname = os.path.join(path, fullname + ".html")
                     
-                    # 사업보고서에 대표이사 
+                    # 사업보고서에 대표이사 서명 페이지가 두 건 들어간 경우의 처리
                     
                     if os.path.exists(fullname):
                         filename = filename + "duplicated"
                         fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
-                        fullname = os.path.join(path, fullname)
+                        fullname = os.path.join(path, fullname + ".html")
                     
-                    file = open(fullname + ".html", "w", encoding="utf-8")
+                    file = open(fullname, "w", encoding="utf-8")
                   
                     documentSoup = BeautifulSoup(requests.post(contentLink).content, "html.parser")
                     

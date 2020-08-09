@@ -74,4 +74,4 @@ DART 공시자료의 특성상 정정공시가 될 때 정정전 공시가 포�
 2019 | 2020.8.| - | - | - | - | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55)
 2018 | 2020.8.| - | - | - | - | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
 2017 | 2020.8.| - | - | - | - | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj)
-2016 | 2020.8.| - | - | - | - | - | [77MB](https://bit.ly/2PzJgjm)
+2016 | 2020.8.| - | - | - | - | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP)

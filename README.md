@@ -34,6 +34,36 @@ DART 공시파일 중, 예를 들면, 사업보고서는 다음과 같은 깊이
 
 
 #### 사용방법
+- Anaconda를 설치하면 따라오는 통합개발환경인 Spyder에 코드를 붙여서 쓴다. Anaconda 설치시 BeautifulSoup, requests 같은 라이브러리가 따라오기 때문에 사용이 간편하다.
+
+- scraper 코드의 아래 부분을 필요에 맞게 조정하여 입수한다. (설명을 위해 Comment 삭제)
+
+    ~~~
+    targetYear = "2019"
+    startDate = targetYear + "0101"
+    endDate = targetYear + "1231"
+
+    reportType = "A001" 
+
+    delay = 1
+
+    path = r"C:\Users\user\Desktop\\" + reportType + "_" + targetYear
+    if os.path.exists(path) != True:
+        os.makedirs(path)
+
+    i = 1
+    ~~~
+
+<표>
+변수(예시) | 설명
+--- | ---
+targetYear = "2019" | 입수하고자 하는 보고서가 등록된 연도
+startDate = targetYear + "0101" | 입력된 MMDD 형식의 날짜부터 입수
+endDate = targetYear + "1231" | 입력된 MMDD 형식의 날짜까지 입수
+reportType = "A001" | 보고서 타입 (A001 사업보고서, A002 반기보고서, A003 분기보고서, F001 감사보고서, F002 연결감사보고서, F004 회계법인사업보고서)
+path = r"C:\Users\user\Desktop\\" + reportType + \'\_'\ + targetYear | 로컬의 다운로드 경로를 지정. 후속 코드에서 해당 경로가 없는 경우 새로 생성
+i = 1 | 다트 공시 화면은 조회 대상 리스트를 만들 때 (default로) 15건당 1페이지 생성. 입력값은 페이지 번호이며, 1 page부터 시작. 오류 등 이유로 코드가 중단되는 경우 i 변수에 들어가있는 값을 찾아 넣어서 중단지점의 근처에서 재시작 
+
 
 #### 입수파일명
 파일명은 입수 자료와 회사의 정보로 구성되어 있다. 아래에 예시 파일과 파일명에 포함된 정보를 설명하는 표를 작성하였다.

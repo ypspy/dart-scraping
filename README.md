@@ -60,7 +60,7 @@ DART 공시파일 중, 예를 들면, 사업보고서는 다음과 같은 깊이
 targetYear = "2019" | 입수하고자 하는 보고서가 등록된 연도
 startDate = targetYear + "0101" | 입력된 MMDD 형식의 날짜부터 입수
 endDate = targetYear + "1231" | 입력된 MMDD 형식의 날짜까지 입수
-reportType = "A001" | 보고서 타입 (A001 사업보고서, A002 반기보고서, A003 분기보고서, F001 감사보고서, F002 연결감사보고서, F004 회계법인사업보고서)
+reportType = "A001" | 보고서 타입 (A001 사업보고서, A002 반기보고서, A003 분기보고서, F001 감사보고서, F002 연결감사보고서, F004 회계법인사업보고서. 전체 리스트 DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart 참조)
 path = r"C:\Users\user\Desktop\\" + reportType + \'\_'\ + targetYear | 로컬의 다운로드 경로를 지정. 후속 코드에서 해당 경로가 없는 경우 새로 생성
 i = 1 | 다트 공시 화면은 조회 대상 리스트를 만들 때 (default로) 15건당 1페이지 생성. 입력값은 페이지 번호이며, 1 page부터 시작. 오류 등 이유로 코드가 중단되는 경우 i 변수에 들어가있는 값을 찾아 넣어서 중단지점의 근처에서 재시작 
 

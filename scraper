@@ -303,7 +303,8 @@ while i <= jailKey:
                     
                     companyDuration = int(time.time() - startTimeCompany)
                     totalDuration = int(time.time() - startTimeTotal)
-                    sys.stdout.writelines('[' + str(companyDuration) + '/' + str(totalDuration) + ']' "\n")
+                    sys.stdout.writelines('[' + str(companyDuration) + '/' + str(totalDuration) + ']')
+                    sys.stdout.writelines(' | (' + str(k) + '/' + str(i) + '/' + str(jailKey) + ')' + "\n")
                
     i += 1  # 페이지 넘기기
     

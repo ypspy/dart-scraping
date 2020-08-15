@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import re
 import os.path
 import sys
-
+import smtplib
 
 def soup_maker(i, startDate, endDate, reportType):
     """
@@ -179,7 +179,7 @@ F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서   
 delay = 1
 
 # 저장 폴더 경로 입력
-path = r"C:\Users\user\Desktop\\" + reportType + "_" + targetYear
+path = r"C:\Users\user\Desktop\\" + reportType + "_" + targetYear  # Administrator
 if os.path.exists(path) != True:
     os.makedirs(path)
 
@@ -307,4 +307,17 @@ while i <= jailKey:
                     sys.stdout.writelines(' | (' + str(k) + '/' + str(i) + '/' + str(jailKey) + ')' + "\n")
                
     i += 1  # 페이지 넘기기
-    
+
+# 프로세스 종료시 E-mail Notification (Connection Error 발생시에도 연락 필요)
+
+subject = "Process Notification"
+text = reportType + "_" + targetYear + " done"
+content = 'Subject: %s\n\n%s' % (subject, text)
+mail = smtplib.SMTP('smtp.gmail.com',587)
+mail.ehlo()
+mail.starttls()
+mail.login('your+gmail+account@gmail.com','your-password')
+mail.sendmail('your+gmail+account@gmail.com','your+gmail+account@gmail.com',content) 
+mail.close()
+
+print("Sent")

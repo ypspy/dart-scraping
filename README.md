@@ -108,7 +108,7 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 2018 | 2020.8.| [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | - | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
 2017 | 2020.8.| [900MB](https://bit.ly/2DNMcqv) | [508MB](https://bit.ly/30LPMKk) | [788MB](https://bit.ly/2PVDVmP) | [785MB](https://bit.ly/2DHpwYV) | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj)
 2016 | 2020.8.| [840MB](https://bit.ly/33UOazN) | [482MB](https://bit.ly/2DViuiZ) | - | [729MB](https://bit.ly/2XW0LyO) | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP)
-2015 | 2020.8.| [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | - | - | [72MB](https://bit.ly/33HAVT5) | (주1)
+2015 | 2020.8.| [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | - | [694MB](https://bit.ly/346jYBV) | [72MB](https://bit.ly/33HAVT5) | (주1)
 2014 | 2020.8.| [650MB](https://bit.ly/3430KwT) | [376MB](https://bit.ly/2DYkxCX) | - | [672MB](https://bit.ly/310sVdZ) | [67MB](https://bit.ly/33JttGV) | (주1)
 2013 | 2020.8.| [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | - | - | [63MB](https://bit.ly/3a9Dizg) | (주1)
 2012 | 2020.8.| - | [327MB](https://bit.ly/2CsB8hO) | - | - | [61MB](https://bit.ly/3iDuDbk) | (주1)

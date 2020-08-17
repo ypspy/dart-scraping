@@ -105,14 +105,14 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 :---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 2020 | - | - | - | - | - | - | -
 2019 | 2020.8.| [1GB](https://bit.ly/31SEzHh) | [591MB](https://bit.ly/31yIQzt) | [903MB](https://bit.ly/3h1qYnb) | [882MB](https://bit.ly/2XTYfJt)  | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55)
-2018 | 2020.8.| [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | - | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
+2018 | 2020.8.| [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | [867MB](https://bit.ly/2PZD5Ft) | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
 2017 | 2020.8.| [900MB](https://bit.ly/2DNMcqv) | [508MB](https://bit.ly/30LPMKk) | [788MB](https://bit.ly/2PVDVmP) | [785MB](https://bit.ly/2DHpwYV) | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj)
 2016 | 2020.8.| [840MB](https://bit.ly/33UOazN) | [482MB](https://bit.ly/2DViuiZ) | - | [729MB](https://bit.ly/2XW0LyO) | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP)
 2015 | 2020.8.| [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | - | [694MB](https://bit.ly/346jYBV) | [72MB](https://bit.ly/33HAVT5) | (주1)
 2014 | 2020.8.| [650MB](https://bit.ly/3430KwT) | [376MB](https://bit.ly/2DYkxCX) | - | [672MB](https://bit.ly/310sVdZ) | [67MB](https://bit.ly/33JttGV) | (주1)
-2013 | 2020.8.| [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | - | - | [63MB](https://bit.ly/3a9Dizg) | (주1)
-2012 | 2020.8.| - | [327MB](https://bit.ly/2CsB8hO) | - | - | [61MB](https://bit.ly/3iDuDbk) | (주1)
-2011 | 2020.8.| - | [336MB](https://bit.ly/2PUzgkW) | - | - | [52MB](https://bit.ly/3127QzX) | (주1)
+2013 | 2020.8.| [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | - | [552MB](https://bit.ly/3iUatdn) | [63MB](https://bit.ly/3a9Dizg) | (주1)
+2012 | 2020.8.| [564MB](https://bit.ly/349exCe) | [327MB](https://bit.ly/2CsB8hO) | - | - | [61MB](https://bit.ly/3iDuDbk) | (주1)
+2011 | 2020.8.| [455MB](https://bit.ly/2E8neSj) | [336MB](https://bit.ly/2PUzgkW) | - | - | [52MB](https://bit.ly/3127QzX) | (주1)
 
 
 (주1) 회계법인 사업보고서는 2016년7월 1일부터 공시하였고 따라서 2016년 이전 입수할 수 없음
@@ -121,14 +121,14 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 [패널 2] 2001년-2010년
 공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서
 :---:|:---:|:---:|:---:|:---:|:---:|:---:
-2010 | 2020.8. | - | [256MB](https://bit.ly/3kIOLum) | - | - | [62MB](https://bit.ly/3h4X7ui) 
+2010 | 2020.8. | [446MB](https://bit.ly/3az7R1f) | [256MB](https://bit.ly/3kIOLum) | - | - | [62MB](https://bit.ly/3h4X7ui) 
 2009 | 2020.8. | - | [252MB](https://bit.ly/3kJtSzn) | - | - | [74MB](https://bit.ly/3iXQgn1)
 2008 | 2020.8. | - | [258MB](https://bit.ly/3gWzjsl) | - | - | [62MB](https://bit.ly/344xpCs)
 2007 | 2020.8. | - | [260MB](https://bit.ly/3iXPdn5) | - | - | [53MB](https://bit.ly/2E3rcvw)
 2006 | 2020.8. | - | [277MB](https://bit.ly/3g5rfnQ) | - | - | [46MB](https://bit.ly/3asRXpi) 
 2005 | 2020.8. | - | [263MB](https://bit.ly/340W6zD) | - | - | [40MB](https://bit.ly/3axNEt0)
-2004 | 2020.8. | - | - | - | - | [36MB](https://bit.ly/2CuVabi)
-2003 | 2020.8. | - | - | - | - | [31MB](https://bit.ly/3kWGW4D)
+2004 | 2020.8. | - | [272MB](https://bit.ly/315jdXT) | - | - | [36MB](https://bit.ly/2CuVabi)
+2003 | 2020.8. | - | [240MB](https://bit.ly/2FAOI3X) | - | - | [31MB](https://bit.ly/3kWGW4D)
 2002 | 2020.8. | - | - | - | - | [27MB](https://bit.ly/3g0LaEC)
 2001 | 2020.8. | - | - | - | - | [22MB](https://bit.ly/30YkJeo) 
 

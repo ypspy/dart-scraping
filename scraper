@@ -219,7 +219,10 @@ while i <= jailKey:
  
     for j in range(reportCount):        
         companyName.append(tdTags[j*6+1].text.split()[0])
-        reportYearEnd.append(tdTags[j*6+2].text.split()[1])
+        try:
+            reportYearEnd.append(tdTags[j*6+2].text.split()[1])
+        except IndexError:
+            reportYearEnd.append("미기재")
         reportName.append(tdTags[j*6+2].text.split()[0])
         
     for k in range(reportCount):

@@ -123,7 +123,7 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 :---:|:---:|:---:|:---:|:---:|:---:|:---:
 2010 | 2020.8. | [446MB](https://bit.ly/3az7R1f) | [256MB](https://bit.ly/3kIOLum) | - | - | [62MB](https://bit.ly/3h4X7ui) 
 2009 | 2020.8. | [469MB](https://bit.ly/2Q5GDpU) | [252MB](https://bit.ly/3kJtSzn) | - | - | [74MB](https://bit.ly/3iXQgn1)
-2008 | 2020.8. | - | [258MB](https://bit.ly/3gWzjsl) | - | - | [62MB](https://bit.ly/344xpCs)
+2008 | 2020.8. | [472MB](https://bit.ly/3g8YmqI) | [258MB](https://bit.ly/3gWzjsl) | - | - | [62MB](https://bit.ly/344xpCs)
 2007 | 2020.8. | - | [260MB](https://bit.ly/3iXPdn5) | - | - | [53MB](https://bit.ly/2E3rcvw)
 2006 | 2020.8. | - | [277MB](https://bit.ly/3g5rfnQ) | - | - | [46MB](https://bit.ly/3asRXpi) 
 2005 | 2020.8. | - | [263MB](https://bit.ly/340W6zD) | - | - | [40MB](https://bit.ly/3axNEt0)

@@ -111,8 +111,8 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 2015 | 2020.8.| [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | [746MB](https://bit.ly/349mC9V) | [694MB](https://bit.ly/346jYBV) | [72MB](https://bit.ly/33HAVT5) | (주1)
 2014 | 2020.8.| [650MB](https://bit.ly/3430KwT) | [376MB](https://bit.ly/2DYkxCX) | [662MB](https://bit.ly/3aBbRyp) | [672MB](https://bit.ly/310sVdZ) | [67MB](https://bit.ly/33JttGV) | (주1)
 2013 | 2020.8.| [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | - | [552MB](https://bit.ly/3iUatdn) | [63MB](https://bit.ly/3a9Dizg) | (주1)
-2012 | 2020.8.| [564MB](https://bit.ly/349exCe) | [327MB](https://bit.ly/2CsB8hO) | - | - | [61MB](https://bit.ly/3iDuDbk) | (주1)
-2011 | 2020.8.| [455MB](https://bit.ly/2E8neSj) | [336MB](https://bit.ly/2PUzgkW) | - | - | [52MB](https://bit.ly/3127QzX) | (주1)
+2012 | 2020.8.| [564MB](https://bit.ly/349exCe) | [327MB](https://bit.ly/2CsB8hO) | - | [522MB](https://bit.ly/3g8NQje) | [61MB](https://bit.ly/3iDuDbk) | (주1)
+2011 | 2020.8.| [455MB](https://bit.ly/2E8neSj) | [336MB](https://bit.ly/2PUzgkW) | - | [461MB](https://bit.ly/3209Bgs) | [52MB](https://bit.ly/3127QzX) | (주1)
 
 
 (주1) 회계법인 사업보고서는 2016년7월 1일부터 공시하였고 따라서 2016년 이전 입수할 수 없음

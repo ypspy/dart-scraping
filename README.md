@@ -130,7 +130,7 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 2004 | 2020.8. | - | [272MB](https://bit.ly/315jdXT) | - | - | [36MB](https://bit.ly/2CuVabi)
 2003 | 2020.8. | [374MB](https://bit.ly/32aOAQc) | [240MB](https://bit.ly/2FAOI3X) | - | - | [31MB](https://bit.ly/3kWGW4D)
 2002 | 2020.8. | - | [210MB](https://bit.ly/3gaVSZ2) | - | - | [27MB](https://bit.ly/3g0LaEC)
-2001 | 2020.8. | - | [184MB](https://bit.ly/3kYXQiV) | - | - | [22MB](https://bit.ly/30YkJeo) 
+2001 | 2020.8. | [270MB](https://bit.ly/2FIudlN) | [184MB](https://bit.ly/3kYXQiV) | - | - | [22MB](https://bit.ly/30YkJeo) 
 
 
 [패널 3] 1999년-2000년

@@ -104,7 +104,7 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서 | F004 회계법인보고서
 :---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 2020 | - | - | - | - | - | - | -
-2019 | 2020.8.| [1GB](https://bit.ly/31SEzHh) <br> [검증](https://bit.ly/31SEzHh)| [591MB](https://bit.ly/31yIQzt) | [903MB](https://bit.ly/3h1qYnb) | [882MB](https://bit.ly/2XTYfJt)  | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55)
+2019 | 2020.8.| [1GB](https://bit.ly/31SEzHh) <br> [(검증)](https://bit.ly/31SEzHh)| [591MB](https://bit.ly/31yIQzt) | [903MB](https://bit.ly/3h1qYnb) | [882MB](https://bit.ly/2XTYfJt)  | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55)
 2018 | 2020.8.| [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | [867MB](https://bit.ly/2PZD5Ft) | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
 2017 | 2020.8.| [900MB](https://bit.ly/2DNMcqv) | [508MB](https://bit.ly/30LPMKk) | [788MB](https://bit.ly/2PVDVmP) | [785MB](https://bit.ly/2DHpwYV) | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj)
 2016 | 2020.8.| [840MB](https://bit.ly/33UOazN) | [482MB](https://bit.ly/2DViuiZ) | [750MB](https://bit.ly/3gcU1mG) | [729MB](https://bit.ly/2XW0LyO) | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP)

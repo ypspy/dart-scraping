@@ -122,12 +122,12 @@ IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경�
 공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서
 :---:|:---:|:---:|:---:|:---:|:---:|:---:
 2010 | 2020.8. | [446MB](https://bit.ly/3az7R1f) | [256MB](https://bit.ly/3kIOLum) | [423MB](https://bit.ly/3aFVGQk) | [448MB](https://bit.ly/2CLGB3q) | [62MB](https://bit.ly/3h4X7ui) 
-2009 | 2020.8. | [469MB](https://bit.ly/2Q5GDpU) | [252MB](https://bit.ly/3kJtSzn) | - | [538MB](https://bit.ly/2CFUkbQ) | [74MB](https://bit.ly/3iXQgn1)
+2009 | 2020.8. | [469MB](https://bit.ly/2Q5GDpU) | [252MB](https://bit.ly/3kJtSzn) | [411MB](https://bit.ly/2Qcsase) | [538MB](https://bit.ly/2CFUkbQ) | [74MB](https://bit.ly/3iXQgn1)
 2008 | 2020.8. | [472MB](https://bit.ly/3g8YmqI) | [258MB](https://bit.ly/3gWzjsl) | [431MB](https://bit.ly/3hktG7E) | [528MB](https://bit.ly/34iQ7Gj) | [62MB](https://bit.ly/344xpCs)
 2007 | 2020.8. | [428MB](https://bit.ly/3aEb8fN) | [260MB](https://bit.ly/3iXPdn5) | - | [459MB](https://bit.ly/34qN6Uq) | [53MB](https://bit.ly/2E3rcvw)
 2006 | 2020.8. | [440MB](https://bit.ly/2E9QW9P) | [277MB](https://bit.ly/3g5rfnQ) | - | [418MB](https://bit.ly/2CPtRc2) | [46MB](https://bit.ly/3asRXpi) 
 2005 | 2020.8. | [420MB](https://bit.ly/2QdOFg8) | [263MB](https://bit.ly/340W6zD) | - | [373MB](https://bit.ly/2YkZ4Lv) | [40MB](https://bit.ly/3axNEt0)
-2004 | 2020.8. | - | [272MB](https://bit.ly/315jdXT) | - | [342MB](https://bit.ly/3gf4X35) | [36MB](https://bit.ly/2CuVabi)
+2004 | 2020.8. | [563MB](https://bit.ly/2Ek0z63) | [272MB](https://bit.ly/315jdXT) | - | [342MB](https://bit.ly/3gf4X35) | [36MB](https://bit.ly/2CuVabi)
 2003 | 2020.8. | [374MB](https://bit.ly/32aOAQc) | [240MB](https://bit.ly/2FAOI3X) | - | - | [31MB](https://bit.ly/3kWGW4D)
 2002 | 2020.8. | [342MB](https://bit.ly/2YpHuGy) | [210MB](https://bit.ly/3gaVSZ2) | - | - | [27MB](https://bit.ly/3g0LaEC)
 2001 | 2020.8. | [270MB](https://bit.ly/2FIudlN) | [184MB](https://bit.ly/3kYXQiV) | - | - | [22MB](https://bit.ly/30YkJeo) 

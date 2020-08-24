@@ -35,7 +35,7 @@ DART 공시파일 중, 예를 들면, 사업보고서는 다음과 같은 깊이
 
 #### 사용방법
 Anaconda를 설치하면 따라오는 통합개발환경인 Spyder에 코드를 붙여서 쓴다. Anaconda 설치시 BeautifulSoup, requests 같은 라이브러리가 따라오기 때문에 사용이 간편하다.
-scraper 코드의 아래 부분을 필요에 맞게 조정하여 입수한다. (설명을 위해 Comment 삭제)
+scraper 코드의 아래 부분을 필요에 맞게 조정하여 입수한다. 필요하다면 코드를 수정하여 코드 실행 후 콘솔에서 필요한 변수를 지정할 수 있다. (설명을 위해 Comment 삭제)
 
     targetYear = "2019"
     startDate = targetYear + "0101"

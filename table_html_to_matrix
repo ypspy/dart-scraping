@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import sys
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+
+html = open("html.html", "r", encoding="utf-8")
+soup = BeautifulSoup(html, "lxml")
+
+table = soup.find_all("table")[2]
+table_row = table.find_all("tr")
+
+columnCount = 0
+for i in table_row:
+    columnNumber = 0
+    for j in i.find_all(["th", "td"]):
+        try:
+            columnNumber += int(j["colspan"])
+        except KeyError:
+            columnNumber += 1
+        if columnNumber > columnCount:
+            columnCount = columnNumber        
+
+rowCount = len(table_row)
+
+matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
+
+for i in range(len(table_row)):
+    locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
+    column, colSpan = 0, 0
+    for j in table_row[i].find_all(["th", "td"]):
+        rowSpanCount = row_span_count(j)
+        colSpanCount = col_span_count(j)
+   
+        for k in range(rowSpanCount):
+            for l in range(colSpanCount):
+                row = i + k
+                column = locator[l+colSpan]
+                matrix[row][column] = j.text.strip()
+                       
+        colSpan += col_span_count(j)
+
+html.close()

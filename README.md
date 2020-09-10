@@ -98,56 +98,6 @@ DART 공시자료의 특성상 정정공시가 될 때 정정전 공시가 포�
 용량은 크지 않지만, FSS의 접근 허용 수준(Max. 분당 100건)을 준수하며 많으면 10만건이 넘는 아주 작은 .HTML 파일을 입수하는 것은 굉장히 많은 시간이 소요된다.
 IP를 달리하는 여러 컴퓨터를 사용해서 병렬로 입수하는 경우 전체 소요시간은 동일하지만 입수기간을 단축할 수 있다. 여기서는 AWS EC2 16대를 사용하였다.
 
-<표3 기간/타입 >
-
-[패널 1] 2011년-2020년
-공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서 | F004 회계법인보고서
-:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
-2020 | - | - | - | - | - | - | -
-2019 | 2020.8.| [1GB](https://bit.ly/31SEzHh) | [591MB](https://bit.ly/31yIQzt) | [903MB](https://bit.ly/3h1qYnb) | [882MB](https://bit.ly/2XTYfJt)  | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55)
-2018 | 2020.8.| [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | [867MB](https://bit.ly/2PZD5Ft) | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z)
-2017 | 2020.8.| [900MB](https://bit.ly/2DNMcqv) | [508MB](https://bit.ly/30LPMKk) | [788MB](https://bit.ly/2PVDVmP) | [785MB](https://bit.ly/2DHpwYV) | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj)
-2016 | 2020.8.| [840MB](https://bit.ly/33UOazN) | [482MB](https://bit.ly/2DViuiZ) | [750MB](https://bit.ly/3gcU1mG) | [729MB](https://bit.ly/2XW0LyO) | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP)
-2015 | 2020.8.| [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | [746MB](https://bit.ly/349mC9V) | [694MB](https://bit.ly/346jYBV) | [72MB](https://bit.ly/33HAVT5) | (주1)
-2014 | 2020.8.| [650MB](https://bit.ly/3430KwT) | [376MB](https://bit.ly/2DYkxCX) | [662MB](https://bit.ly/3aBbRyp) | [672MB](https://bit.ly/310sVdZ) | [67MB](https://bit.ly/33JttGV) | (주1)
-2013 | 2020.8.| [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | [655MB](https://bit.ly/3gf1qBV) | [552MB](https://bit.ly/3iUatdn) | [63MB](https://bit.ly/3a9Dizg) | (주1)
-2012 | 2020.8.| [564MB](https://bit.ly/349exCe) | [327MB](https://bit.ly/2CsB8hO) | [544MB](https://bit.ly/31dZANr) | [522MB](https://bit.ly/3g8NQje) | [61MB](https://bit.ly/3iDuDbk) | (주1)
-2011 | 2020.8.| [455MB](https://bit.ly/2E8neSj) | [336MB](https://bit.ly/2PUzgkW) | [564MB](https://bit.ly/34dYRhb) | [461MB](https://bit.ly/3209Bgs) | [52MB](https://bit.ly/3127QzX) | (주1)
-
-
-(주1) 회계법인 사업보고서는 2016년7월 1일부터 공시하였고 따라서 2016년 이전 입수할 수 없음
-
-
-[패널 2] 2001년-2010년
-공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서
-:---:|:---:|:---:|:---:|:---:|:---:|:---:
-2010 | 2020.8. | [446MB](https://bit.ly/3az7R1f) | [256MB](https://bit.ly/3kIOLum) | [423MB](https://bit.ly/3aFVGQk) | [448MB](https://bit.ly/2CLGB3q) | [62MB](https://bit.ly/3h4X7ui) 
-2009 | 2020.8. | [469MB](https://bit.ly/2Q5GDpU) | [252MB](https://bit.ly/3kJtSzn) | [411MB](https://bit.ly/2Qcsase) | [538MB](https://bit.ly/2CFUkbQ) | [74MB](https://bit.ly/3iXQgn1)
-2008 | 2020.8. | [472MB](https://bit.ly/3g8YmqI) | [258MB](https://bit.ly/3gWzjsl) | [431MB](https://bit.ly/3hktG7E) | [528MB](https://bit.ly/34iQ7Gj) | [62MB](https://bit.ly/344xpCs)
-2007 | 2020.8. | [428MB](https://bit.ly/3aEb8fN) | [260MB](https://bit.ly/3iXPdn5) | [453MB](https://bit.ly/2Ec7azw) | [459MB](https://bit.ly/34qN6Uq) | [53MB](https://bit.ly/2E3rcvw)
-2006 | 2020.8. | [440MB](https://bit.ly/2E9QW9P) | [277MB](https://bit.ly/3g5rfnQ) | [421MB](https://bit.ly/2YqWmnU) | [418MB](https://bit.ly/2CPtRc2) | [46MB](https://bit.ly/3asRXpi) 
-2005 | 2020.8. | [420MB](https://bit.ly/2QdOFg8) | [263MB](https://bit.ly/340W6zD) | [399MB](https://bit.ly/32kxdfF) | [373MB](https://bit.ly/2YkZ4Lv) | [40MB](https://bit.ly/3axNEt0)
-2004 | 2020.8. | [563MB](https://bit.ly/2Ek0z63) | [272MB](https://bit.ly/315jdXT) | [550MB](https://bit.ly/3j9C36y) | [342MB](https://bit.ly/3gf4X35) | [36MB](https://bit.ly/2CuVabi)
-2003 | 2020.8. | [374MB](https://bit.ly/32aOAQc) | [240MB](https://bit.ly/2FAOI3X) | [453MB](https://bit.ly/3l6Kkdf) | [291MB](https://bit.ly/3hnQD9W) | [31MB](https://bit.ly/3kWGW4D)
-2002 | 2020.8. | [342MB](https://bit.ly/2YpHuGy) | [210MB](https://bit.ly/3gaVSZ2) | [325MB](https://bit.ly/3lcDumb) | [260MB](https://bit.ly/2FQIqx9) | [27MB](https://bit.ly/3g0LaEC)
-2001 | 2020.8. | [270MB](https://bit.ly/2FIudlN) | [184MB](https://bit.ly/3kYXQiV) | [272MB](https://bit.ly/2EiFskv) | [206MB](https://bit.ly/3j4q0XZ) | [22MB](https://bit.ly/30YkJeo) 
-
-
-[패널 3] 1999년-2000년
-공시기간 | 입수 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서
-:---:|:---:|:---:|:---:|:---:|:---:|:---:
-2000 | 2020.8. | [196MB](https://bit.ly/3hcmdr0) | [150MB](https://bit.ly/3iVmP4X) | [272MB](https://bit.ly/3hlwJME) | [131MB](https://bit.ly/3aPWQcn) | [14MB](https://bit.ly/3h3pEA7) 
-1999 | 2020.8. | [179MB](https://bit.ly/3hhccbX) | [70MB](https://bit.ly/3gbYHZU) | (주1) | (주1) | (주1) 
-
-
-(주1) 2000년부터 공시됨
-
-
-[패널 4] 결합감사보고서
-공시기간 | 입수 | 결합감사보고서 | 설명 
-:---:|:---:|:---:|:---
-전기간 | 2020.8. | [9MB](https://bit.ly/3j8IAOJ) | 2000년부터 2011년까지 공시된 결합감사보고서 
-
 
 # 입수 파일 가공
 ## 개요

@@ -1,0 +1,105 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 22 10:56:13 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def matrix_generator(table):
+    
+    table_row = table.find_all("tr")
+
+    columnCount = 0
+    for i in table_row:
+        columnNumber = 0
+        for j in i.find_all(["th", "td"]):
+            try:
+                columnNumber += int(j["colspan"])
+            except KeyError:
+                columnNumber += 1
+            if columnNumber > columnCount:
+                columnCount = columnNumber        
+
+    rowCount = len(table_row)
+
+    matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
+
+    for i in range(len(table_row)):
+        locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
+        column, colSpan = 0, 0
+        for j in table_row[i].find_all(["th", "td"]):
+            rowSpanCount = row_span_count(j)
+            colSpanCount = col_span_count(j)
+
+            for k in range(rowSpanCount):
+                for l in range(colSpanCount):
+                    row = i + k
+                    column = locator[l+colSpan]
+                    matrix[row][column] = j.text.strip()
+
+            colSpan += col_span_count(j)
+
+    return matrix
+
+path = r'C:\Users\user\Desktop\업무 이외\A001_2017'
+pathList = glob.glob(r"C:\Users\user\Desktop\업무 이외\A001_2017\*외부감사실시내용*.*")
+
+directory = r'C:\Users\user\Desktop\\'
+txtName = os.path.join(directory, "summary.txt")
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+for file in pathList:
+    
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    
+    ptag = soup.find_all("p", string="3. 주요 감사실시내용")
+    for sibling in ptag[0].next_siblings:
+        if sibling.name == "table":
+            table = sibling
+            break
+     
+    matrix = matrix_generator(table)
+      
+    string = ""
+    string = string + file
+    string = string + "_" + matrix[1][0] + "_" + matrix[1][2] + "_" + matrix[1][7] + "___" +  matrix[2][2]
+    string = string.replace("\n"," ") + "\n"
+
+    result.write(string)
+    
+    i = 5
+    while matrix[i][0] != "재고자산실사(입회)":
+        string = ""
+        string = string + file
+        string = string + "_" + matrix[i][0] + "_" + matrix[i][1] + "_" + matrix[i][2] + "_" + matrix[i][4] + "_" + matrix[i][6] + "_" + matrix[i][8] + "\n"
+        string = string.replace("\n"," ") + "\n"
+        
+        result.write(string)
+        
+        i += 1
+    
+    progress += 1
+    print(progress, "-", len(pathList))
+
+result.close()

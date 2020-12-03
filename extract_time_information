@@ -73,11 +73,11 @@ def MatrixGenerator(table):
 
     return matrix
 
-path = r'C:\Users\user\Desktop\업무 이외\가공 연습\F001_2018'
-pathList = glob.glob(r"C:\Users\user\Desktop\업무 이외\가공 연습\F001_2018\*외부감사실시내용*.*")
+os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+pathList = glob.glob(".\A001\*.*") 
 
-directory = r'C:\Users\user\Desktop\\'
-txtName = os.path.join(directory, "summary2.txt")
+directory = r'.\\'
+txtName = os.path.join(directory, "summary_A001.txt")
 result = open(txtName, 'w', encoding="utf-8")
 
 progress = 0
@@ -85,8 +85,7 @@ for file in pathList:
 
     html = open(file, "r", encoding="utf-8")
     soup = BeautifulSoup(html, "lxml")
-    
-    # ptag = soup.find_all("p", string="2. 감사참여자 구분별 인원수 및 감사시간")
+
     table = FindTargetTable(soup)
     
     matrix = MatrixGenerator(table)
@@ -98,14 +97,13 @@ for file in pathList:
         tableLength = int(tableLength / 2)
         for i in range(tableLength):
             result.write(file + "_" + matrix[1][2+2*i] + "_" + matrix[5][2+2*i] + "\n")
-            print(matrix[1][2+2*i] + "_" + matrix[5][2+2*i] + "\n")
+
     else:
         tableLength = int(tableLength)
         for i in range(tableLength):
             result.write(file + "_" + matrix[1][2+i] + "_" + matrix[5][2+i] + "\n")
-            print(matrix[1][2+i] + "_" + matrix[5][2+i] + "\n")
+    print('.')
          
     html.close()
 
 result.close()
-

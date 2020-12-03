@@ -1,10 +1,11 @@
+  
 """
 Created on Thu Aug 13 15:19:08 2020
 
 @author: user
 
 Working Directory → 입수통 → pool(1) → pool에서 불필요한 파일(*) dump(2)로 이동 → 취합 폴더로 이동
-(*) Key : duplicated, 연결감사보고서(사업보고서만), 기재정정, [정정](첨부정정의 경우),  
+(*) Key : duplicated, 연결감사보고서(사업보고서만), [정정](첨부정정의 경우),  
 
 """
 import os
@@ -14,7 +15,7 @@ from shutil import copyfile, move
 # 준비
 
 os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
-pathList = glob.glob(".\F001_2018\*외부감사실시내용*.*")  # 추출 폴더와 Key Word 입력
+pathList = glob.glob(".\A001_2017\*외부감사실시내용*.*")  # 추출 폴더와 Key Word 입력
 
 # 대상 문서 폴더 1로 풀링
 
@@ -29,17 +30,12 @@ for item in pathList:
     filename = os.path.basename(item)
     move(item, os.path.join(r".\dump", filename))
 
-# pathList = glob.glob(".\pool\*연결감사보고서*.*")  # F002의 경우 Comment-out
-# for item in pathList:
-#     filename = os.path.basename(item)
-#     move(item, os.path.join(r".\dump", filename))
-
-pathList = glob.glob(".\pool\*기재정정*.*")
+pathList = glob.glob(".\pool\*연결감사보고서*.*")  # F002의 경우 Comment-out
 for item in pathList:
     filename = os.path.basename(item)
     move(item, os.path.join(r".\dump", filename))
 
-pathList = glob.glob(".\pool\*[정정]*.*")
+pathList = glob.glob(".\pool\*[[]정정[]]*.*")  # https://stackoverflow.com/questions/2595119/python-glob-and-bracket-characters
 for item in pathList:
     filename = os.path.basename(item)
     move(item, os.path.join(r".\dump", filename))
@@ -49,14 +45,14 @@ for item in pathList:
 pathList = glob.glob(".\pool\*(2017.*.*")
 for item in pathList:
     filename = os.path.basename(item)
-    move(item, os.path.join(r".\F001", filename))
+    move(item, os.path.join(r".\A001", filename))
 
 pathList = glob.glob(".\pool\*(2018.*.*")
 for item in pathList:
     filename = os.path.basename(item)
-    move(item, os.path.join(r".\F001", filename))
+    move(item, os.path.join(r".\A001", filename))
 
 pathList = glob.glob(".\pool\*(2019.*.*")
 for item in pathList:
     filename = os.path.basename(item)
-    move(item, os.path.join(r".\F001", filename))
+    move(item, os.path.join(r".\A001", filename))

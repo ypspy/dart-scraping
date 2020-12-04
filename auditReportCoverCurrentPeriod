@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def FindTargetTable(soup):
+    tables = soup.find_all("table")
+    return tables
+
+os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+
+pathList = glob.glob(".\F001_auditReport\*.*")
+
+directory = ".\\"
+txtName = os.path.join(directory, "wp001_data_003R_2.txt")
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+
+for file in pathList:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close() 
+    
+    if len(soup) == 0:  # A001_2020.03.30_글로벌텍스프리_사업보고서_(2019.12)_2020.03.30 감사보고서_감사보고서
+        returnText = file + '_' + "\n"
+    else:
+        table = FindTargetTable(soup)
+        
+        currentPeriod = ''.join(table[0].text.split())
+        
+        i = 1
+        while "20" not in currentPeriod:
+            currentPeriod = ''.join(table[i].text.split())
+            i += 1
+             
+        if '期' in currentPeriod:
+            period = currentPeriod.split('期')[1]
+        elif '기' in currentPeriod:
+            period = currentPeriod.split('기')[1]
+        else:
+            period = currentPeriod
+           
+        returnText = file + '_' + period + "\n"
+    result.write(returnText)
+    
+    print('.', end='')
+
+result.close()

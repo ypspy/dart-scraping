@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def FindTargetTable(soup):
+    tables = soup.find_all("table")
+    return tables
+
+os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+
+pathList = glob.glob(".\A001_auditReport\*.*")
+
+directory = ".\\"
+txtName = os.path.join(directory, "auditFirmData.txt")
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+
+for file in pathList:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close() 
+    table = FindTargetTable(soup)
+    for i in soup.find_all('p'):
+        pText = ''.join(i.text.split())
+        if "회계법인" in pText:
+            firmName = pText
+        if "감사반" in pText:
+            firmName = pText
+       
+    returnText = file + '_' + firmName + "\n"
+    result.write(returnText)
+    print('.', end='')
+
+result.close()

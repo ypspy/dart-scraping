@@ -9,69 +9,12 @@ from bs4 import BeautifulSoup
 import os
 import glob
 
-def col_span_count(soup):
-    try:
-        result = int(soup["colspan"])
-    except KeyError:
-        result= 1
-    return result
-
-def row_span_count(soup):
-    try:
-        result = int(soup["rowspan"])
-    except KeyError:
-        result= 1
-    return result
-
-def FindTargetTable(soup):
-    tables = soup.find_all("table")
-    # for i in tables:
-    #     tds = i.find_all("td")
-    #     if len(tds) > 1:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
-    #         break
-    return tables
-    
-def MatrixGenerator(table):
-    table_row = table.find_all("tr")
-
-    columnCount = 0
-    for i in table_row:
-        columnNumber = 0
-        for j in i.find_all(["th", "td"]):
-            try:
-                columnNumber += int(j["colspan"])
-            except KeyError:
-                columnNumber += 1
-            if columnNumber > columnCount:
-                columnCount = columnNumber        
-
-    rowCount = len(table_row)
-
-    matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
-
-    for i in range(len(table_row)):
-        locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
-        column, colSpan = 0, 0
-        for j in table_row[i].find_all(["th", "td"]):
-            rowSpanCount = row_span_count(j)
-            colSpanCount = col_span_count(j)
-
-            for k in range(rowSpanCount):
-                for l in range(colSpanCount):
-                    row = i + k
-                    column = locator[l+colSpan]
-                    matrix[row][column] = j.text.strip()
-
-            colSpan += col_span_count(j)
-
-    return matrix
-
 os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
 
 pathList = glob.glob(".\A001_cover\*.*")
 
 directory = ".\\"
-txtName = os.path.join(directory, "coverData.txt")
+txtName = os.path.join(directory, "wp001_data_001R.txt")
 result = open(txtName, 'w', encoding="utf-8")
 
 progress = 0
@@ -79,35 +22,29 @@ for file in pathList:
 
     html = open(file, "r", encoding="utf-8")
     soup = BeautifulSoup(html, "lxml")
-     
-    table = FindTargetTable(soup)
-    
-    for i in table:
-        if i.text.count("사업연도") == 1:
-            table1 = i
-        if i.text.count("제출대상법인") == 1:
-            table2 = i
-        if i.text.count("홈페이지") == 1:
-            table3 = i
-    
-    matrix1 = MatrixGenerator(table1)
-    matrix2 = MatrixGenerator(table2)
-    matrix3 = MatrixGenerator(table3)
-    
-    
-    if len(matrix3[1]) == 1:  # A001 2019.07.19_씨엠에스에듀 처리
-        matrix4 = matrix3[1][0]
-        if len(matrix4) == 0:
-            matrix4 = matrix3[2][0]
-    else:
-        matrix4 = matrix3[1][1]
-        if len(matrix4) == 0:
-            matrix4 = matrix3[2][1]
-       
-    returnText = file + '_' + "".join(matrix4.split()) + '_' + matrix2[0][1] + '_' + matrix1[0][1] + '_' + matrix1[1][1] + "\n"
-    
-    result.write(returnText)
-         
     html.close()
+    
+    container = [file]
+    for i in soup.find_all("tr"):
+        j = "".join(i.text.replace("\n", "").split())
+        start, end, companyName, companyType = "","","",""
+
+        if j.count("부터") - j.count("면제") - j.count("제외") == 1:
+            container.append(j)
+            start = j
+        elif j.count("까지") == 1:
+            container.append(j)
+            end = j
+        elif j.count("회사명") == 1:
+            container.append(j)
+            companyName = j
+        elif j.count("법인유형") == 1:
+            container.append(j)
+            companyType = j
+    
+    joinedString = "_".join(container) + "\n"
+    result.write(joinedString)
+
+    del start, end, companyName, companyType
 
 result.close()

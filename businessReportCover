@@ -27,24 +27,17 @@ for file in pathList:
     container = [file]
     for i in soup.find_all("tr"):
         j = "".join(i.text.replace("\n", "").split())
-        start, end, companyName, companyType = "","","",""
 
         if j.count("부터") - j.count("면제") - j.count("제외") == 1:
             container.append(j)
-            start = j
         elif j.count("까지") == 1:
             container.append(j)
-            end = j
         elif j.count("회사명") == 1:
             container.append(j)
-            companyName = j
         elif j.count("법인유형") == 1:
             container.append(j)
-            companyType = j
     
     joinedString = "_".join(container) + "\n"
     result.write(joinedString)
-
-    del start, end, companyName, companyType
 
 result.close()

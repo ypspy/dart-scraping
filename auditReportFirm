@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+
+os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+
+file = open('auditor.txt', 'r', encoding='utf-8')
+importList = file.readlines()
+auditorList = []
+
+for i in importList:
+    auditorList.append(i.replace("\n",''))
+
+pathList = glob.glob(".\A001_auditReport\*.*")
+
+directory = ".\\"
+txtName = os.path.join(directory, "wp001_data_004R_1.txt")
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+
+for file in pathList:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close() 
+    
+    content = ''.join(soup.text.split())
+    dictionary = {}
+        
+    container = []
+    for i in auditorList:
+        if i in content:
+            loc = content.find(i)
+            dictionary[i] = loc
+            container.append(i)
+            content = content.replace(i, '')
+    
+    if len(container) == 0:
+        container.append('-')
+        dictionary["None"] = '-'
+
+    sorted_dictionary = {}
+    sorted_keys = sorted(dictionary, key=dictionary.get)
+
+    for w in sorted_keys:
+        sorted_dictionary[w] = dictionary[w]
+
+    auditFirm = list(sorted_dictionary)[-1]    
+    
+    returnText = file + '_' + auditFirm + "\n"
+    result.write(returnText)
+    
+result.close()

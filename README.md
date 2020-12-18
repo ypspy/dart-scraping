@@ -6,7 +6,7 @@ FSS는 오픈API(https://opendart.fss.or.kr/intro/main.do) 에서 Macro Data를 
 여기서 제시하는 여러 코드는 FSS 제공 Data의 범위(종류, 기간)를 벗어난 정보가 필요할 때 사용한다.
 예를 들면 외부감사실시내역 상 감사시간이나 사업보고서 감사에 관한 사항에 제시되는 감사보수 정보 등의 입수가 필요할 때가 그렇다.
 
-<img src="https://user-images.githubusercontent.com/33425859/102577796-1587da00-413c-11eb-827f-23e9640a7fc1.png" width="90%"></img>
+<img src="https://user-images.githubusercontent.com/33425859/102588510-e0d24d80-4150-11eb-8af3-b7523123c995.png" width="200%"></img>
 
 ## 코드 종류
 ### Disclosure-to-HTML (Python 3)

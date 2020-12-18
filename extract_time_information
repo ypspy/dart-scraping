@@ -44,11 +44,8 @@ def MatrixGenerator(table):
                 columnNumber += 1
             if columnNumber > columnCount:
                 columnCount = columnNumber        
-
     rowCount = len(table_row)
-
     matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
-
     for i in range(len(table_row)):
         locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
         column, colSpan = 0, 0
@@ -61,29 +58,59 @@ def MatrixGenerator(table):
                     row = i + k
                     column = locator[l+colSpan]
                     matrix[row][column] = j.text.strip()
-
             colSpan += col_span_count(j)
-
     return matrix
 
 def ParsingTime(matrix, isComparative, tableLength, file, report):
     if isComparative:
+        container = []
         tableLength = int(tableLength / 2)
         for i in range(tableLength):
-            return file + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i] + "\n"
+            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i] + "\n")
     else:
+        container = []
         tableLength = int(tableLength)
         for i in range(tableLength):
-            return file + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i] + "\n"
+            container(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i] + "\n")
+    return container
+
+def Indexing(matrix):
+    """
+    당기, 전기 부분 삭제한 경우들이 있어서 찾아야함
+    """
+    container = []
+    for i in matrix:
+        try:
+            i[0:2].index("투입 인원수")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("분ㆍ반기검토")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("감사")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("합계")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+    return container
 
 os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
 
 pathList = glob.glob(".\A001_external\*.*")
 directory = ".\\"
-txtName = os.path.join(directory, "summary2.txt")
+txtName = os.path.join(directory, "wp001_data_007R_1.txt")
 result = open(txtName, 'w', encoding="utf-8")
 
 progress = 0
+
 for file in pathList:
 
     html = open(file, "r", encoding="utf-8")
@@ -96,7 +123,13 @@ for file in pathList:
     isComparative = matrix[1][2] == matrix[1][3]
     tableLength = len(matrix[1]) - 2
     
-    for j in [3, 4, 5, 6]:
-        result.write(ParsingTime(matrix, isComparative, tableLength, file, j))
+    container = Indexing(matrix)
+    
+    for j in container:
+        returnList = ParsingTime(matrix, isComparative, tableLength, file, j)
+        for k in returnList:
+            result.write(k)
+            print(k)
+    print('.', end="")
 
 result.close()

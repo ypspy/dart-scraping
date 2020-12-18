@@ -23,7 +23,7 @@ FSS에 따르면 DART 오픈API는 다음과 같은 목적으로 활용 가능�
 <img src="https://user-images.githubusercontent.com/33425859/102588905-84236280-4151-11eb-9b97-28a015a55db3.png" width="100%"></img>
 
 ## 코드 종류
-### (Disclosure-to-HTML (Python 3)
+### (A) Disclosure-to-HTML (Python 3)
 
 #### 코드: scraper
 DART 공시파일 중, 예를 들면, 사업보고서는 다음과 같은 깊이가 3인 문서 계층 구조를 사용하고 있다.

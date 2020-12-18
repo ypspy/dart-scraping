@@ -66,12 +66,12 @@ def ParsingTime(matrix, isComparative, tableLength, file, report):
         container = []
         tableLength = int(tableLength / 2)
         for i in range(tableLength):
-            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i] + "\n")
+            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i].replace('-', '0').replace(',','') + "\n")
     else:
         container = []
         tableLength = int(tableLength)
         for i in range(tableLength):
-            container(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i] + "\n")
+            container(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i].replace('-', '0').replace(',','') + "\n")
     return container
 
 def Indexing(matrix):
@@ -129,7 +129,6 @@ for file in pathList:
         returnList = ParsingTime(matrix, isComparative, tableLength, file, j)
         for k in returnList:
             result.write(k)
-            print(k)
     print('.', end="")
 
 result.close()

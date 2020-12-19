@@ -8,9 +8,9 @@ Created on Tue Dec  8 23:18:32 2020
 import os
 import pandas as pd
 
-os.chdir("C:\workingDirectory\pandas\\")  
+os.chdir("C:\workingDirectory\\")  
 
-dataA001 = pd.read_csv("wp001_data_001R.txt",
+dataA001 = pd.read_csv("wp001_data_002R_1.txt",
                     sep="_",
                     header=None,
                     dtype={5:str, 8:str, 10:str},
@@ -28,10 +28,13 @@ data = dataA001.append(dataF001)
 
 data["key1"] = data[5] + data[6].str.slice(stop=10) + data[8] + data[10]
 data["key2"] = data[2] + data[5] + data[8] + data[10]
-data["duplc"] = data.duplicated(subset=["key1"], keep=False)
+data["duplc1"] = data.duplicated(subset=["key1"], keep=False)
+data["duplc2"] = data.duplicated(subset=["key2"], keep=False)
 
-isTrue = data[data["duplc"] == True]
-dataOut = data.drop_duplicates(subset=["key1"])
+isTrue1 = data[data["duplc1"] == True]
+isTrue2 = data[data["duplc2"] == True]
+data1 = data.drop_duplicates(subset=["key1"])
+dataOut = data1.drop_duplicates(subset=["key2"])
 
-result = dataOut[["key2",3, 5, 15, 16, 17, 18]]
-result.to_csv("wp001_data_001R_output.txt", sep="\t")
+result = dataOut[["key2",3, 5, 15]]
+result.to_csv("wp001_data_002R_output.txt", sep="\t")

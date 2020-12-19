@@ -8,6 +8,7 @@ Created on Thu Aug 13 15:19:08 2020
 from bs4 import BeautifulSoup
 import os
 import glob
+import pandas as pd
 
 def col_span_count(soup):
     try:
@@ -104,14 +105,38 @@ def Indexing(matrix):
 
 os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
 
-pathList = glob.glob(".\A001_external\*.*")
+# 풀링된 폴더에서 경로를 가져와서 key1, key2 생성 후 중복 파일 제거
+pathList1 = glob.glob(".\A001_external\*.*")  # _external  _auditReport
+pathList2 = glob.glob(".\F001_external\*.*")  # _external  _auditReport
+pathList3 = glob.glob(".\F002_external\*.*")  # _external  _auditReport
+pathList = pathList1 + pathList2 + pathList3
+
+dfPathList1 = pd.DataFrame(pathList)
+dfPathList = pd.DataFrame([x.split("_") for x in pathList])
+dfPathList["path"] = dfPathList1[0]
+df = dfPathList
+
+df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
+df["key2"] = df[2] + df[5] + df[8] + df[10]
+
+df["duplc1"] = df.duplicated(subset=["key1"], keep=False)
+df["duplc2"] = df.duplicated(subset=["key2"], keep=False)
+
+isTrue1 = df[df["duplc1"] == True]
+isTrue2 = df[df["duplc2"] == True]
+data1 = df.drop_duplicates(subset=["key1"])
+dataOut = data1.drop_duplicates(subset=["key2"])
+
+pathListOut = dataOut["path"].tolist()
+
+# Long data 입수
 directory = ".\\"
-txtName = os.path.join(directory, "wp001_data_007R_1.txt")
+txtName = os.path.join(directory, "wp001_data_007R.txt")
 result = open(txtName, 'w', encoding="utf-8")
 
 progress = 0
 
-for file in pathList:
+for file in pathListOut:
 
     html = open(file, "r", encoding="utf-8")
     soup = BeautifulSoup(html, "lxml")

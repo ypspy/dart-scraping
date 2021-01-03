@@ -1,75 +1,36 @@
-# -*- coding: utf-8 -*-
+  
 """
 Created on Thu Aug 13 15:19:08 2020
 
 @author: user
-"""
 
-from bs4 import BeautifulSoup
+Working Directory → 입수통 → 입수통 path 생성 → 불필요한 파일(*) 제거 → 연도별 분리
+(*) Key : duplicated, 연결감사보고서(사업보고서만), [정정](첨부정정의 경우),  
+
+"""
 import os
 import glob
-import pandas as pd
 
-os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+# 1. 작업 폴더로 변경
+os.chdir("F:\workingDirectory\\")  # 작업 폴더로 변경
 
-# 풀링된 폴더에서 경로를 가져와서 key1, key2 생성 후 중복 파일 제거
-pathList1 = glob.glob(".\A001_auditReport\*.*")  # _external  _auditReport
-pathList2 = glob.glob(".\F001_auditReport\*.*")  # _external  _auditReport
-pathList = pathList1 + pathList2
+# 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
+pathList = []
+for path in [".\A001_2017\\", ".\A001_2018\\", ".\A001_2019\\", ".\A001_2020\\"]:
+    path = path + "*외부감사실시내용*.*"  # 필요한 Keyword 입력
+    pathInProcess = glob.glob(path)
+    pathList= pathList + pathInProcess
 
-dfPathList1 = pd.DataFrame(pathList)
-dfPathList = pd.DataFrame([x.split("_") for x in pathList])
-dfPathList["path"] = dfPathList1[0]
-df = dfPathList
+# 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
+pathList = [x for x in pathList if "duplicated" not in x]
 
-df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
-df["key2"] = df[2] + df[5] + df[8] + df[10]
+# 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
+pathList = [x for x in pathList if "연결감사보고서" not in x]
 
-df["duplc1"] = df.duplicated(subset=["key1"], keep=False)
-df["duplc2"] = df.duplicated(subset=["key2"], keep=False)
+# 5. '[정정]'이 포함된 문서 제거
+pathList = [x for x in pathList if "[정정]" not in x]
 
-isTrue1 = df[df["duplc1"] == True]
-isTrue2 = df[df["duplc2"] == True]
-data1 = df.drop_duplicates(subset=["key1"])
-dataOut = data1.drop_duplicates(subset=["key2"])
-
-pathListOut = dataOut["path"].tolist()
-
-directory = ".\\"
-txtName = os.path.join(directory, "wp001_data_008R_qualified.txt")
-result = open(txtName, 'w', encoding="utf-8")
-
-progress = 0
-
-"""
-감사보고서 사례 2014 (https://www.kicpa.or.kr/portal//default/kicpa/gnb/kr_pc/menu08/menu01/menu12/menu01.page?action=READ&boardId=acc1201&bltnNo=11539847365665)
-감사보고서 사례 2018 (https://www.kicpa.or.kr/portal//default/kicpa/gnb/kr_pc/menu08/menu01/menu12/menu01.page?action=READ&boardId=acc1201&bltnNo=11539847365665)
-"""
-
-# disclaimer of opinion
-# keyWord = ['의견거절근거', '의견을표명하지않습', '감사의견을표명하지아니합니다']
-# qualified 
-keyWord = ['한정의견근거', '한정의견근거단락에기술된사항이미치는영향을제외']
-# adverse
-# keyWord = ['부적정의견근거', '부적정의견근거단락에서기술된사항의유의성']
-
-opinion = "한정"
-
-for file in pathListOut:
-
-    html = open(file, "r", encoding="utf-8")
-    soup = BeautifulSoup(html, "lxml")
-    html.close() 
-    
-    content = ''.join(soup.text.split())
-        
-    container = []
-    for i in keyWord:
-        if i in content:        
-            returnText = file + "_" + opinion + "_" + content + "\n" 
-            print(returnText)
-            result.write(returnText)
-            print('.', end='')
-            break
-
-result.close()
+# 6. 분리
+pathList2017 = [x for x in pathList if "(2017." in x]
+pathList2018 = [x for x in pathList if "(2018." in x]
+pathList2019 = [x for x in pathList if "(2019." in x]

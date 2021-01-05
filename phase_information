@@ -1,0 +1,219 @@
+  
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+
+Working Directory → 입수통 → 입수통 path 생성 → 불필요한 파일(*) 제거 → 연도별 분리
+(*) Key : duplicated, 연결감사보고서(사업보고서만), [정정](첨부정정의 경우),  
+
+"""
+from bs4 import BeautifulSoup
+import os
+import glob
+import pandas as pd
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def FindTargetTable(soup):
+    tables = soup.find_all("table")
+    for i in tables:
+        tds = i.find_all("td")
+        if len(tds) > 20:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
+            break
+    return i
+    
+def MatrixGenerator(table):
+    table_row = table.find_all("tr")
+
+    columnCount = 0
+    for i in table_row:
+        columnNumber = 0
+        for j in i.find_all(["th", "td"]):
+            try:
+                columnNumber += int(j["colspan"])
+            except KeyError:
+                columnNumber += 1
+            if columnNumber > columnCount:
+                columnCount = columnNumber        
+    rowCount = len(table_row)
+    matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
+    for i in range(len(table_row)):
+        locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
+        column, colSpan = 0, 0
+        for j in table_row[i].find_all(["th", "td"]):
+            rowSpanCount = row_span_count(j)
+            colSpanCount = col_span_count(j)
+
+            for k in range(rowSpanCount):
+                for l in range(colSpanCount):
+                    row = i + k
+                    column = locator[l+colSpan]
+                    matrix[row][column] = j.text.strip()
+            colSpan += col_span_count(j)
+    return matrix
+
+def ParsingTime(matrix, isComparative, tableLength, file, report):
+    if isComparative:
+        container = []
+        tableLength = int(tableLength / 2)
+        for i in range(tableLength):
+            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i].replace('-', '0').replace(',','') + "\n")
+    else:
+        container = []
+        tableLength = int(tableLength)
+        for i in range(tableLength):
+            container(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i].replace('-', '0').replace(',','') + "\n")
+    return container
+
+def Indexing(matrix):
+    """
+    당기, 전기 부분 삭제한 경우들이 있어서 찾아야함
+    """
+    container = []
+    for i in matrix:
+        try:
+            i[0:2].index("투입 인원수")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("분ㆍ반기검토")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("감사")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("합계")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+    return container
+
+# 1. 작업 폴더로 변경
+os.chdir("F:\workingDirectory\\")  # 작업 폴더로 변경
+
+# 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
+pathList = []
+for path in [".\A001_2019\\", ".\A001_2020\\"]: #,
+              #".\F001_2019\\", ".\F001_2020\\",
+              #".\F002_2019\\", ".\F001_2020\\"]:
+    path = path + "*외부감사실시내용*.*"  # 필요한 Keyword 입력
+    pathInProcess = glob.glob(path)
+    pathList= pathList + pathInProcess
+
+# 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
+pathList = [x for x in pathList if "duplicated" not in x]
+
+# 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
+pathList = [x for x in pathList if "연결감사보고서" not in x]
+
+# 5. '[정정]'이 포함된 문서 제거
+pathList = [x for x in pathList if "[정정]" not in x]
+
+# 6. 분리
+pathList = [x for x in pathList if "(2019." in x]
+
+PathListDf = pd.DataFrame(pathList)
+df = pd.DataFrame([x.split("_") for x in pathList])
+df["path"] = PathListDf[0]
+
+df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
+df["key2"] = df[2] + df[5] + df[8] + df[10]
+
+df["duplc1"] = df.duplicated(subset=["key1"], keep=False)
+df["duplc2"] = df.duplicated(subset=["key2"], keep=False)
+
+isTrue1 = df[df["duplc1"] == True]
+isTrue2 = df[df["duplc2"] == True]
+data1 = df.drop_duplicates(subset=["key1"])
+dataOut = data1.drop_duplicates(subset=["key2"])
+
+pathListOut = dataOut["path"].tolist()
+
+# Long data 입수 
+directory = ".\\"
+workInProcess = "wp001_data_009R.txt"
+
+txtName = os.path.join(directory, workInProcess)
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+
+for file in pathListOut:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close()
+    
+    ptag = soup.find_all("p", string="3. 주요 감사실시내용")
+    for sibling in ptag[0].next_siblings:
+        if sibling.name == "table":
+            table = sibling
+            break
+     
+    matrix = MatrixGenerator(table)
+      
+    string = ""
+    string = string + file
+    string = string + "_" + matrix[1][0] + "_" + matrix[1][7] + "___" +  matrix[2][2]
+    # + "_" + matrix[1][2]
+    string = string.replace("\n"," ") + "\n"
+
+    result.write(string)
+    
+    i = 5
+    while matrix[i][0] != "재고자산실사(입회)":
+        string = ""
+        string = string + file
+        string = string + "_" + matrix[i][0] + "_" + matrix[i][2] + "_" + matrix[i][4] + "_" + matrix[i][6] + "_" + matrix[i][8].replace('_','') + "\n"
+        #  기간 정보 제거 + "_" + matrix[i][1] 
+        string = string.replace("\n"," ") + "\n"
+        
+        if matrix[i][1] != '-':  # 기간 정보가 빈
+            result.write(string)
+        i += 1
+    
+    progress += 1
+    print(progress, "-", len(pathList))
+
+result.close()
+
+# Long to Wide
+
+product = "wp001_data_009R_output_2019.txt"
+
+df1= pd.read_csv(workInProcess,
+                sep="_",
+                header=None,
+                dtype={5:str, 8:str, 10:str},
+                skip_blank_lines=True,
+                keep_default_na=False,
+                names=["A","B","C","D","E","F","G","H","I","J",
+                        "K","L","M","N","O","P","Q"])
+    
+# df1["key1"] = df1.E+ df1.F.str.slice(stop=10) + df1.H + df1.J
+# df1["key2"] = df1.B + df1.E + df1.H + df1.J
+
+# df2 = df1.pivot_table(values='Q',
+#                       index=["key1","key2"],
+#                       columns=['O', 'P'])
+                      
+result = df1
+result.to_csv(product, sep="\t")

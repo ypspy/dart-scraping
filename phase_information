@@ -171,9 +171,7 @@ for file in pathListOut:
     matrix = MatrixGenerator(table)
       
     string = ""
-    string = string + file
-    string = string + "_" + matrix[1][0] + "_" + matrix[1][7] + "___" +  matrix[2][2]
-    # + "_" + matrix[1][2]
+    string = file + "_" + matrix[1][0] + "_" + matrix[1][7] + "___" +  matrix[2][2]
     string = string.replace("\n"," ") + "\n"
 
     result.write(string)
@@ -181,14 +179,23 @@ for file in pathListOut:
     i = 5
     while matrix[i][0] != "재고자산실사(입회)":
         string = ""
-        string = string + file
-        string = string + "_" + matrix[i][0] + "_" + matrix[i][2] + "_" + matrix[i][4] + "_" + matrix[i][6] + "_" + matrix[i][8].replace('_','') + "\n"
-        #  기간 정보 제거 + "_" + matrix[i][1] 
+        string = file + "_" + matrix[i][0] + "_" + matrix[i][2] + "_" + matrix[i][4] + "_" + matrix[i][6] + "_" + matrix[i][8].replace('_','')
         string = string.replace("\n"," ") + "\n"
         
         if matrix[i][1] != '-':  # 기간 정보가 빈
             result.write(string)
         i += 1
+    
+    for j in [0, 3, 11]:
+        string = ""
+        string = file + "_" + matrix[i+j][0] + "_" + matrix[i+j][7] + "___"
+        string = string.replace("\n"," ") + "\n"
+        result.write(string)
+    
+    string = ""
+    string = file + "_" + matrix[i+8][0] + "_" + matrix[i+8][2] + "___"
+    string = string.replace("\n"," ") + "\n"     
+    result.write(string)
     
     progress += 1
     print(progress, "-", len(pathList))
@@ -196,7 +203,6 @@ for file in pathListOut:
 result.close()
 
 # Long to Wide
-
 product = "wp001_data_009R_output_2019.txt"
 
 df1= pd.read_csv(workInProcess,
@@ -208,12 +214,5 @@ df1= pd.read_csv(workInProcess,
                 names=["A","B","C","D","E","F","G","H","I","J",
                         "K","L","M","N","O","P","Q"])
     
-# df1["key1"] = df1.E+ df1.F.str.slice(stop=10) + df1.H + df1.J
-# df1["key2"] = df1.B + df1.E + df1.H + df1.J
-
-# df2 = df1.pivot_table(values='Q',
-#                       index=["key1","key2"],
-#                       columns=['O', 'P'])
-                      
 result = df1
 result.to_csv(product, sep="\t")

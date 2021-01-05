@@ -1,10 +1,13 @@
-# -*- coding: utf-8 -*-
+  
 """
 Created on Thu Aug 13 15:19:08 2020
 
 @author: user
-"""
 
+Working Directory → 입수통 → 입수통 path 생성 → 불필요한 파일(*) 제거 → 연도별 분리
+(*) Key : duplicated, 연결감사보고서(사업보고서만), [정정](첨부정정의 경우),  
+
+"""
 from bs4 import BeautifulSoup
 import os
 import glob
@@ -103,18 +106,33 @@ def Indexing(matrix):
             pass
     return container
 
-os.chdir("C:\workingDirectory\\")  # 작업 폴더로 변경
+# 1. 작업 폴더로 변경
+os.chdir("F:\workingDirectory\\")  # 작업 폴더로 변경
 
-# 풀링된 폴더에서 경로를 가져와서 key1, key2 생성 후 중복 파일 제거
-pathList1 = glob.glob(".\A001_external\*.*")  # _external  _auditReport
-pathList2 = glob.glob(".\F001_external\*.*")  # _external  _auditReport
-pathList3 = glob.glob(".\F002_external\*.*")  # _external  _auditReport
-pathList = pathList1 + pathList2 + pathList3
+# 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
+pathList = []
+for path in [".\A001_2019\\", ".\A001_2020\\",
+              ".\F001_2019\\", ".\F001_2020\\",
+              ".\F002_2019\\", ".\F001_2020\\"]:
+    path = path + "*외부감사실시내용*.*"  # 필요한 Keyword 입력
+    pathInProcess = glob.glob(path)
+    pathList= pathList + pathInProcess
 
-dfPathList1 = pd.DataFrame(pathList)
-dfPathList = pd.DataFrame([x.split("_") for x in pathList])
-dfPathList["path"] = dfPathList1[0]
-df = dfPathList
+# 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
+pathList = [x for x in pathList if "duplicated" not in x]
+
+# 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
+pathList = [x for x in pathList if "연결감사보고서" not in x]
+
+# 5. '[정정]'이 포함된 문서 제거
+pathList = [x for x in pathList if "[정정]" not in x]
+
+# 6. 분리
+pathList = [x for x in pathList if "(2019." in x]
+
+PathListDf = pd.DataFrame(pathList)
+df = pd.DataFrame([x.split("_") for x in pathList])
+df["path"] = PathListDf[0]
 
 df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
 df["key2"] = df[2] + df[5] + df[8] + df[10]
@@ -129,9 +147,11 @@ dataOut = data1.drop_duplicates(subset=["key2"])
 
 pathListOut = dataOut["path"].tolist()
 
-# Long data 입수
+# Long data 입수 
 directory = ".\\"
-txtName = os.path.join(directory, "wp001_data_007R.txt")
+workInProcess = "wp001_data_007R.txt"
+
+txtName = os.path.join(directory, workInProcess)
 result = open(txtName, 'w', encoding="utf-8")
 
 progress = 0
@@ -157,3 +177,26 @@ for file in pathListOut:
     print('.', end="")
 
 result.close()
+
+# Long to Wide
+
+product = "wp001_data_007R_output_2019.txt"
+
+df1= pd.read_csv(workInProcess,
+                sep="_",
+                header=None,
+                dtype={5:str, 8:str, 10:str, 19:int},
+                skip_blank_lines=True,
+                keep_default_na=False,
+                names=["A","B","C","D","E","F","G","H","I","J",
+                        "K","L","M","N","O","P","Q"])
+    
+df1["key1"] = df1.E+ df1.F.str.slice(stop=10) + df1.H + df1.J
+df1["key2"] = df1.B + df1.E + df1.H + df1.J
+
+df2 = df1.pivot_table(values='Q',
+                      index=["key1","key2"],
+                      columns=['O', 'P'])
+                      
+result = df2
+result.to_csv(product, sep="\t")

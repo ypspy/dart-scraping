@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 import os
 import glob
 import pandas as pd
+import numpy as np
 
 def col_span_count(soup):
     try:
@@ -171,7 +172,7 @@ for file in pathListOut:
     matrix = MatrixGenerator(table)
       
     string = ""
-    string = file + "_" + matrix[1][0] + "_" + matrix[1][7] + "___" +  matrix[2][2]
+    string = file + "_" + matrix[1][0] + "_" + matrix[1][7].replace('-', '0') + "_0_0_" +  matrix[2][2]
     string = string.replace("\n"," ") + "\n"
 
     result.write(string)
@@ -179,21 +180,21 @@ for file in pathListOut:
     i = 5
     while matrix[i][0] != "재고자산실사(입회)":
         string = ""
-        string = file + "_" + matrix[i][0] + "_" + matrix[i][2] + "_" + matrix[i][4] + "_" + matrix[i][6] + "_" + matrix[i][8].replace('_','')
+        string = file + "_" + matrix[i][0] + "_" + matrix[i][2].replace('-', '0') + "_" + matrix[i][4].replace('-', '0') + "_" + matrix[i][6].replace('-', '0')+ "_" + matrix[i][8].replace('_','')
         string = string.replace("\n"," ") + "\n"
         
-        if matrix[i][1] != '-':  # 기간 정보가 빈
+        if matrix[i][1] != '-':  # 기간 정보가 빈 경우 skip
             result.write(string)
         i += 1
     
     for j in [0, 3, 11]:
         string = ""
-        string = file + "_" + matrix[i+j][0] + "_" + matrix[i+j][7] + "___"
+        string = file + "_" + matrix[i+j][0] + "_" + matrix[i+j][7].replace('-', '0') + "_0_0_"
         string = string.replace("\n"," ") + "\n"
         result.write(string)
     
     string = ""
-    string = file + "_" + matrix[i+8][0] + "_" + matrix[i+8][2] + "___"
+    string = file + "_" + matrix[i+8][0] + "_" + matrix[i+8][2].replace('-', '0') + "_0_0_"
     string = string.replace("\n"," ") + "\n"     
     result.write(string)
     
@@ -212,7 +213,17 @@ df1= pd.read_csv(workInProcess,
                 skip_blank_lines=True,
                 keep_default_na=False,
                 names=["A","B","C","D","E","F","G","H","I","J",
-                        "K","L","M","N","O","P","Q"])
+                        "K","L","M","N","업무구분","일수","상근","비상근","S"])
+
+df1["key1"] = df1.E+ df1.F.str.slice(stop=10) + df1.H + df1.J
+df1["key2"] = df1.B + df1.E + df1.H + df1.J
+
+df2 = df1.pivot_table(values=["일수", "상근", "비상근"],
+                      index=["key1","key2"],
+                      columns=['업무구분'],
+                      aggfunc={"일수" : np.sum,
+                               "상근" : np.sum,
+                               "비상근" : np.sum})
     
-result = df1
+result = df2
 result.to_csv(product, sep="\t")

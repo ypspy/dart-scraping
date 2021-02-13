@@ -26,11 +26,11 @@ def row_span_count(soup):
 
 def FindTargetTable(soup):
     tables = soup.find_all("table")
-    for i in tables:
-        tds = i.find_all("td")
-        if len(tds) > 20:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
-            break
-    return i
+    # for i in tables:
+    #     tds = i.find_all("td")
+    #     if len(tds) > 20:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
+    #         break
+    return tables
 
 def MatrixGenerator(table):
     table_row = table.find_all("tr")
@@ -106,16 +106,23 @@ def Indexing(matrix):
 # 1. 작업 폴더로 변경
 os.chdir("E:\workingDirectory\\")  # 작업 폴더로 변경
 
+file = open(r"wp001_data_002R_auditor.txt", 'r', encoding='utf-8')
+importList = file.readlines()
+auditorList = []
+
+for i in importList:
+    auditorList.append(i.replace("\n",''))
+
 # 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
 pathList = []
 for path in [".\A001_2017\\", ".\A001_2018\\",
-              ".\A001_2019\\", ".\A001_2020\\",
-              ".\F001_2017\\", ".\F001_2018\\",
-              ".\F001_2019\\", ".\F001_2020\\",
-              ".\F002_2017\\", ".\F002_2018\\",
-              ".\F002_2019\\", ".\F002_2020\\",
+             ".\A001_2019\\", ".\A001_2020\\",
+             ".\F001_2017\\", ".\F001_2018\\",
+             ".\F001_2019\\", ".\F001_2020\\",
+             ".\F002_2017\\", ".\F002_2018\\",
+             ".\F002_2019\\", ".\F002_2020\\"              
               ]:
-    path = path + "*감사보고서_감사보고서*.*"  # 필요한 Keyword 입력
+    path = path + "*감사인의감사보고서*.*"  # 필요한 Keyword 입력
     pathInProcess = glob.glob(path)
     pathList= pathList + pathInProcess
 
@@ -134,23 +141,16 @@ pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(20
 PathListDf = pd.DataFrame(pathList)
 df = pd.DataFrame([x.split("_") for x in pathList])
 df["path"] = PathListDf[0]
-
-df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
-df["key2"] = df[2] + df[5] + df[8] + df[10]
-
-df["duplc1"] = df.duplicated(subset=["key1"], keep=False)
-df["duplc2"] = df.duplicated(subset=["key2"], keep=False)
-
-isTrue1 = df[df["duplc1"] == True]
-isTrue2 = df[df["duplc2"] == True]
-data1 = df.drop_duplicates(subset=["key1"])
-dataOut = data1.drop_duplicates(subset=["key2"])
+df["key"] = df[2] + df[6].str.slice(stop=10) + df[5] + df[8] + df[10]
+df["duplc"] = df.duplicated(subset=["key"], keep=False)
+isTrue = df[df["duplc"] == True]
+dataOut = df.drop_duplicates(subset=["key"])
 
 pathListOut = dataOut["path"].tolist()
 
 # Long data 입수 
 directory = r"C:\\Users\\yoont\\Desktop\\output\\"
-workInProcess = directory + "wp001_data_002R.txt"
+workInProcess = directory + "wp001_data_004R.txt"
 
 txtName = os.path.join(directory, workInProcess)
 result = open(txtName, 'w', encoding="utf-8")
@@ -163,32 +163,39 @@ for file in pathListOut:
     soup = BeautifulSoup(html, "lxml")
     html.close()
     
-    firmName = ''
-    
-    table = FindTargetTable(soup)
-    for i in soup.find_all('p'):
-        pText = ''.join(i.text.split())
-        if "회계법인" in pText:
-            firmName = pText
-        if "감사반" in pText:
-            firmName = pText
-       
-    for i in soup.find_all('td'):
-        pText = ''.join(i.text.split())
-        if "회계법인" in pText:
-            firmName = pText
-        if "감사반" in pText:
-            firmName = pText
-    
-    returnText = file + '_' + firmName + "\n"
+    content = ''.join(soup.text.split())
+    dictionary = {}
+
+    container = []
+    for i in auditorList:
+        if i in content:
+            loc = content.find(i)
+            dictionary[i] = loc
+            container.append(i)
+            content = content.replace(i, '')
+
+    if len(container) == 0:
+        container.append('-')
+        dictionary["None"] = '-'
+
+    sorted_dictionary = {}
+    sorted_keys = sorted(dictionary, key=dictionary.get)
+
+    for w in sorted_keys:
+        sorted_dictionary[w] = dictionary[w]
+
+    auditFirm = list(sorted_dictionary)[-1]    
+
+    returnText = file + '_' + auditFirm + "\n"
     result.write(returnText)
+    
     print('.', end='')
 
 result.close()
 
 # Long to Wide
 
-product = directory + "wp001_data_002R_output.txt"
+product = directory + "wp001_data_004R_output.txt"
 
 df1= pd.read_csv(workInProcess,
                 sep="_",
@@ -199,10 +206,10 @@ df1= pd.read_csv(workInProcess,
                 names=["A","B","C","D","E","F","G","H","I","J",
                         "K","L","M","N","O","P"])
 
-df1["key1"] = df1.F+ df1.G.str.slice(stop=10) + df1.I + df1.K
-df1["key2"] = df1.C + df1.F + df1.I + df1.K
+df1["key"] = df1.C + df1.G.str.slice(stop=10) + df1.F + df1.I + df1.K
+df1["con"] = df1.G.str.contains("연결")
 
-df2 = df1[["key1", "key2", "D", "E", "F", "I", "K", "P"]]
+df2 = df1[["key", "C", "G", "con", "D", "E", "F", "I", "K", "P"]]
                       
 result = df2
 result.to_csv(product, sep="\t")

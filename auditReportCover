@@ -112,6 +112,8 @@ for path in [".\A001_2017\\", ".\A001_2018\\",
               ".\A001_2019\\", ".\A001_2020\\",
               ".\F001_2017\\", ".\F001_2018\\",
               ".\F001_2019\\", ".\F001_2020\\",
+              ".\F002_2017\\", ".\F002_2018\\",
+              ".\F002_2019\\", ".\F002_2020\\",
               ]:
     path = path + "*감사보고서_감사보고서*.*"  # 필요한 Keyword 입력
     pathInProcess = glob.glob(path)
@@ -161,6 +163,8 @@ for file in pathListOut:
     soup = BeautifulSoup(html, "lxml")
     html.close()
     
+    firmName = ''
+    
     table = FindTargetTable(soup)
     for i in soup.find_all('p'):
         pText = ''.join(i.text.split())
@@ -169,6 +173,13 @@ for file in pathListOut:
         if "감사반" in pText:
             firmName = pText
        
+    for i in soup.find_all('td'):
+        pText = ''.join(i.text.split())
+        if "회계법인" in pText:
+            firmName = pText
+        if "감사반" in pText:
+            firmName = pText
+    
     returnText = file + '_' + firmName + "\n"
     result.write(returnText)
     print('.', end='')

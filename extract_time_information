@@ -1,13 +1,10 @@
-  
+# -*- coding: utf-8 -*-
 """
 Created on Thu Aug 13 15:19:08 2020
 
 @author: user
-
-Working Directory → 입수통 → 입수통 path 생성 → 불필요한 파일(*) 제거 → 연도별 분리
-(*) Key : duplicated, 연결감사보고서(사업보고서만), [정정](첨부정정의 경우),  
-
 """
+
 from bs4 import BeautifulSoup
 import os
 import glob
@@ -34,7 +31,7 @@ def FindTargetTable(soup):
         if len(tds) > 20:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
             break
     return i
-    
+
 def MatrixGenerator(table):
     table_row = table.find_all("tr")
 
@@ -107,13 +104,17 @@ def Indexing(matrix):
     return container
 
 # 1. 작업 폴더로 변경
-os.chdir("F:\workingDirectory\\")  # 작업 폴더로 변경
+os.chdir("E:\workingDirectory\\")  # 작업 폴더로 변경
 
 # 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
 pathList = []
-for path in [".\A001_2019\\", ".\A001_2020\\",
-              ".\F001_2019\\", ".\F001_2020\\",
-              ".\F002_2019\\", ".\F001_2020\\"]:
+for path in [".\A001_2017\\", ".\A001_2018\\",
+             ".\A001_2019\\", ".\A001_2020\\",
+             ".\F001_2017\\", ".\F001_2018\\",
+             ".\F001_2019\\", ".\F001_2020\\",
+             ".\F002_2017\\", ".\F002_2018\\",
+             ".\F002_2019\\", ".\F002_2020\\"              
+              ]:
     path = path + "*외부감사실시내용*.*"  # 필요한 Keyword 입력
     pathInProcess = glob.glob(path)
     pathList= pathList + pathInProcess
@@ -122,34 +123,27 @@ for path in [".\A001_2019\\", ".\A001_2020\\",
 pathList = [x for x in pathList if "duplicated" not in x]
 
 # 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
-pathList = [x for x in pathList if "연결감사보고서" not in x]
+# pathList = [x for x in pathList if "연결감사보고서" not in x]
 
 # 5. '[정정]'이 포함된 문서 제거
-pathList = [x for x in pathList if "[정정]" not in x]
+# pathList = [x for x in pathList if "[정정]" not in x]
 
 # 6. 분리
-pathList = [x for x in pathList if "(2019." in x]
+pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(2018." in x] + [x for x in pathList if "(2019." in x] 
 
 PathListDf = pd.DataFrame(pathList)
 df = pd.DataFrame([x.split("_") for x in pathList])
 df["path"] = PathListDf[0]
-
-df["key1"] = df[5]+ df[6].str.slice(stop=10) + df[8] + df[10]
-df["key2"] = df[2] + df[5] + df[8] + df[10]
-
-df["duplc1"] = df.duplicated(subset=["key1"], keep=False)
-df["duplc2"] = df.duplicated(subset=["key2"], keep=False)
-
-isTrue1 = df[df["duplc1"] == True]
-isTrue2 = df[df["duplc2"] == True]
-data1 = df.drop_duplicates(subset=["key1"])
-dataOut = data1.drop_duplicates(subset=["key2"])
+df["key"] = df[2] + df[6].str.slice(stop=10) + df[5] + df[8] + df[10]
+df["duplc"] = df.duplicated(subset=["key"], keep=False)
+isTrue = df[df["duplc"] == True]
+dataOut = df.drop_duplicates(subset=["key"])
 
 pathListOut = dataOut["path"].tolist()
 
 # Long data 입수 
-directory = ".\\"
-workInProcess = "wp001_data_007R.txt"
+directory = r"C:\\Users\\yoont\\Desktop\\output\\"
+workInProcess = directory + "wp001_data_007R.txt"
 
 txtName = os.path.join(directory, workInProcess)
 result = open(txtName, 'w', encoding="utf-8")
@@ -174,29 +168,30 @@ for file in pathListOut:
         returnList = ParsingTime(matrix, isComparative, tableLength, file, j)
         for k in returnList:
             result.write(k)
-    print('.', end="")
+    
+    print('.', end='')
 
 result.close()
 
 # Long to Wide
 
-product = "wp001_data_007R_output_2019.txt"
+product = directory + "wp001_data_007R_output.txt"
 
 df1= pd.read_csv(workInProcess,
                 sep="_",
                 header=None,
-                dtype={5:str, 8:str, 10:str, 19:int},
+                dtype={5:str, 8:str, 10:str, 18:int},
                 skip_blank_lines=True,
                 keep_default_na=False,
                 names=["A","B","C","D","E","F","G","H","I","J",
-                        "K","L","M","N","O","P","Q"])
-    
-df1["key1"] = df1.E+ df1.F.str.slice(stop=10) + df1.H + df1.J
-df1["key2"] = df1.B + df1.E + df1.H + df1.J
+                        "K","L","M","N","O","P","Q","R"])
 
-df2 = df1.pivot_table(values='Q',
-                      index=["key1","key2"],
-                      columns=['O', 'P'])
-                      
+df1["key"] = df1.C + df1.G.str.slice(stop=10) + df1.F + df1.I + df1.K
+df1["con"] = df1.G.str.contains("연결")
+
+df2 = df1.pivot_table(values='R',
+                      index=["key","C", "G", "con", "D", "E", "F", "I", "K"],
+                      columns=["P", "Q"])
+
 result = df2
 result.to_csv(product, sep="\t")

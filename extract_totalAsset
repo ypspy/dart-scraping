@@ -1,0 +1,228 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+import pandas as pd
+
+def col_span_count(soup):
+    try:
+        result = int(soup["colspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def row_span_count(soup):
+    try:
+        result = int(soup["rowspan"])
+    except KeyError:
+        result= 1
+    return result
+
+def FindTargetTable(soup):
+    tables = soup.find_all("table")
+    return tables
+
+def MatrixGenerator(table):
+    table_row = table.find_all("tr")
+
+    columnCount = 0
+    for i in table_row:
+        columnNumber = 0
+        for j in i.find_all(["th", "td"]):
+            try:
+                columnNumber += int(j["colspan"])
+            except KeyError:
+                columnNumber += 1
+            if columnNumber > columnCount:
+                columnCount = columnNumber        
+    rowCount = len(table_row)
+    matrix = [['#' for x in range(columnCount)] for y in range(rowCount)] 
+    for i in range(len(table_row)):
+        locator = [i for i, x in enumerate(matrix[i]) if x=='#']  # https://stackoverflow.com/questions/9542738/python-find-in-list
+        column, colSpan = 0, 0
+        for j in table_row[i].find_all(["th", "td"]):
+            rowSpanCount = row_span_count(j)
+            colSpanCount = col_span_count(j)
+
+            for k in range(rowSpanCount):
+                for l in range(colSpanCount):
+                    row = i + k
+                    column = locator[l+colSpan]
+                    matrix[row][column] = ''.join(j.text.replace("\xa0", "").strip().split())
+            colSpan += col_span_count(j)
+    return matrix
+
+def ParsingTime(matrix, isComparative, tableLength, file, report):
+    if isComparative:
+        container = []
+        tableLength = int(tableLength / 2)
+        for i in range(tableLength):
+            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i].replace('-', '0').replace(',','') + "\n")
+    else:
+        container = []
+        tableLength = int(tableLength)
+        for i in range(tableLength):
+            container(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i].replace('-', '0').replace(',','') + "\n")
+    return container
+
+def Indexing(matrix):
+    """
+    당기, 전기 부분 삭제한 경우들이 있어서 찾아야함
+    """
+    container = []
+    for i in matrix:
+        try:
+            i[0:2].index("투입 인원수")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("분ㆍ반기검토")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("감사")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+        try:
+            i[0:2].index("합계")
+            container.append(matrix.index(i))
+        except ValueError:
+            pass
+    return container
+
+# 1. 작업 폴더로 변경
+os.chdir("E:\workingDirectory\\")  # 작업 폴더로 변경
+
+# 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
+pathList = []
+for path in [".\A001_2017\\", ".\A001_2018\\",
+              ".\A001_2019\\", ".\A001_2020\\",
+              ".\F001_2017\\", ".\F001_2018\\",
+              ".\F001_2019\\", ".\F001_2020\\",
+              ".\F002_2017\\", ".\F002_2018\\",
+              ".\F002_2019\\", ".\F002_2020\\",
+              ]:
+    path = path + "*연결감사보고서_(첨부)연결재무제표*.*"  # 필요한 Keyword 입력
+    """
+    1) 감사보고서_(첨부)재무제표
+    2) 연결감사보고서_(첨부)연결재무제표
+    """
+    pathInProcess = glob.glob(path)
+    pathList= pathList + pathInProcess
+
+# 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
+pathList = [x for x in pathList if "duplicated" not in x]
+
+# 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
+# pathList = [x for x in pathList if "연결감사보고서" not in x]
+
+# 5. '[정정]'이 포함된 문서 제거
+# pathList = [x for x in pathList if "[정정]" not in x]
+
+# 6. 분리
+pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(2018." in x] + [x for x in pathList if "(2019." in x] 
+
+PathListDf = pd.DataFrame(pathList)
+df = pd.DataFrame([x.split("_") for x in pathList])
+df["path"] = PathListDf[0]
+df["key"] = df[2] + df[6].str.slice(stop=10) + df[5] + df[8] + df[10]
+df["duplc"] = df.duplicated(subset=["key"], keep=False)
+isTrue = df[df["duplc"] == True]
+dataOut = df.drop_duplicates(subset=["key"])
+
+pathListOut = dataOut["path"].tolist()
+
+# Long data 입수 
+directory = r"C:\\Users\\yoont\\Desktop\\"
+workInProcess = directory + "wp001_data_008R_con.txt"
+
+txtName = os.path.join(directory, workInProcess)
+result = open(txtName, 'w', encoding="utf-8")
+
+progress = 0
+
+for file in pathListOut:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close()
+    
+    # 분석
+    for td in soup.find_all("td"):
+        if ''.join(td.text.split()).find("단위") > 0:
+            unit = ''.join(td.text.split())
+            if unit.find(":원") > 0:
+                unit = '1'
+            elif unit.find(":천원") > 0:
+                unit = '1000'
+            elif unit.find(":백만원") > 0:
+                unit = '1000000'
+            else:
+                unit = "NA"           
+            break
+    
+    for table in soup.find_all("table"):
+        if ''.join(table.text.split()).find("부채") > 0:
+            break
+        table = BeautifulSoup("<table></table>", features="lxml").table  # 의견 거절 등 BS가 안붙어있을 때 처리
+    
+    matrix = MatrixGenerator(table)
+    
+    # 부채와자본총계(=자산총계) Parsing
+    
+    if len(matrix) > 0:  # BS가 있을 때
+        i = matrix[len(matrix)-1]
+        if len(matrix[0]) == 2:  # 오리온 (2018.12)
+            bsLine = [i[0], unit, i[1].replace("=", "")]        
+        elif len(matrix[0]) % 2 == 1:  # 주석 Column이 없을 때
+            if i[1]:
+                bsLine = [i[0], unit, i[1].replace("=", "")]
+            elif i[2]:
+                bsLine = [i[0], unit, i[2].replace("=", "")]
+        
+        else:  # 주석 Column이 있을 때
+            if i[2]:
+                bsLine = [i[0], unit, i[2].replace("=", "")]
+            elif i[3]:
+                bsLine = [i[0], unit, i[3].replace("=", "")]
+        
+        resultString = "_".join(bsLine)
+    elif len(matrix) == 0:  # BS가 없을 때
+        resultString = ""
+    
+    returnText = file + '_' + resultString + "\n"
+    result.write(returnText)
+    print('.', end='')
+
+result.close()
+
+# Long to Wide
+
+product = directory + "wp001_data_008R_output_con.txt"
+
+df1= pd.read_csv(workInProcess,
+                sep="_",
+                header=None,
+                dtype={5:str, 8:str, 10:str},
+                skip_blank_lines=True,
+                keep_default_na=False,
+                index_col=False,
+                names=["A","B","C","D","E","F","G","H","I","J",
+                        "K","L","M","N","O","P","Q","R"])
+
+df1["key"] = df1.C + df1.G.str.slice(stop=10) + df1.F + df1.I + df1.K
+df1["con"] = df1.G.str.contains("연결")
+
+df2 = df1[["key", "C", "G", "con", "D", "E", "F", "I", "K", "P", "Q", "R"]]
+                      
+result = df2
+result.to_csv(product, sep="\t")

@@ -111,13 +111,15 @@ for path in [".\A001_2017\\", ".\A001_2018\\",
               ".\F002_2017\\", ".\F002_2018\\",
               ".\F002_2019\\", ".\F002_2020\\",
               ]:
-    path = path + "*연결감사보고서_(첨부)연결재무제표*.*"  # 필요한 Keyword 입력
+    pathSep = path + "*감사보고서_(첨부)재무제표*.*"  # 필요한 Keyword 입력
+    pathCon = path + "*연결감사보고서_(첨부)연결재무제표*.*"  # 필요한 Keyword 입력
     """
     1) 감사보고서_(첨부)재무제표
     2) 연결감사보고서_(첨부)연결재무제표
     """
-    pathInProcess = glob.glob(path)
-    pathList= pathList + pathInProcess
+    pathSep = glob.glob(pathSep)
+    pathCon = glob.glob(pathCon)
+    pathList= pathList + pathSep + pathCon
 
 # 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
 pathList = [x for x in pathList if "duplicated" not in x]
@@ -156,8 +158,12 @@ for file in pathListOut:
     soup = BeautifulSoup(html, "lxml")
     html.close()
     
+    soup = str(soup).split("주석</A>")[0]
+    soup = soup.replace("\n", '')
+    soup = BeautifulSoup(soup, "lxml")  
+    
     # 분석
-    for td in soup.find_all("td"):
+    for td in soup.find_all(["p","td"]):
         if ''.join(td.text.split()).find("단위") > 0:
             unit = ''.join(td.text.split())
             if unit.find(":원") > 0:

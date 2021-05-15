@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import os
 import glob
 import pandas as pd
+import numpy as np
 
 def col_span_count(soup):
     try:
@@ -122,33 +123,25 @@ for path in [".\A001_2017\\", ".\A001_2018\\",
 # 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
 pathList = [x for x in pathList if "duplicated" not in x]
 
-# 4. 연결감사보고서 첨부 문서 제거 (외부감사실시내용/사업보고서 optional)
-# pathList = [x for x in pathList if "연결감사보고서" not in x]
-
-# 5. '[정정]'이 포함된 문서 제거
-# pathList = [x for x in pathList if "[정정]" not in x]
-
-# 6. 분리
+# 4. 분리
 pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(2018." in x] + [x for x in pathList if "(2019." in x] 
 
+# 5. Preprocess
 PathListDf = pd.DataFrame(pathList)
 df = pd.DataFrame([x.split("_") for x in pathList])
 df["path"] = PathListDf[0]
-df["key"] = df[2] + df[6].str.slice(stop=10) + df[5] + df[8] + df[10]
+df["con"] = df[6].str.contains("연결")
+df['con'] = np.where(df['con']==True, "C", "S")
+df['amend'] = df[6].str.contains("정정")
+df['amend'] = np.where(df['amend']==True, "A", "B")
+df["key"] = df[2] + df[6].str.slice(stop=10) + df["con"] + df["amend"] + df[5] + df[8] + df[10]
+# key = 접수일 + 보고서 제출일(DRT 인증일) + 연결(C/S) + 정정(A/B) + 보고기간종료월 + 종목코드 + 법인등록번호
+
 df["duplc"] = df.duplicated(subset=["key"], keep=False)
 isTrue = df[df["duplc"] == True]
-dataOut = df.drop_duplicates(subset=["key"])
+df = df.drop_duplicates(subset=["key"])
 
-pathListOut = dataOut["path"].tolist()
-
-# Long data 입수 
-directory = r"C:\\Users\\yoont\\Desktop\\output\\"
-workInProcess = directory + "wp001_data_009R.txt"
-
-txtName = os.path.join(directory, workInProcess)
-result = open(txtName, 'w', encoding="utf-8")
-
-progress = 0
+pathListOut = df["path"].tolist()
 
 """
 감사보고서 사례 2014 (https://www.kicpa.or.kr/portal//default/kicpa/gnb/kr_pc/menu08/menu01/menu12/menu01.page?action=READ&boardId=acc1201&bltnNo=11539847365665)
@@ -165,6 +158,8 @@ keyWord3 = ['부적정의견근거', '부적정의견근거단락에서기술된
 keyWord = [keyWord1, keyWord2, keyWord3]
 opinion = ["의견거절", "한정", "부적정"]
 
+result = []
+
 for file in pathListOut:
 
     html = open(file, "r", encoding="utf-8")
@@ -175,36 +170,18 @@ for file in pathListOut:
     
     num = 0
     container = []
-    returnText = file + "_" + "적정" + "\n" 
+    returnText = "적정" 
     for i in keyWord:
         for j in i:
             if j in content:        
-                returnText = file + "_" + opinion[num] + "\n" 
+                returnText = opinion[num] 
                 break
-
         num += 1
-    result.write(returnText)
+    result.append(returnText)
+    # result.write(returnText)
     print('.', end='')
 
-result.close()
+df["opinion"] = result
 
-# Long to Wide
-
-product = directory + "wp001_data_009R_output.txt"
-
-df1= pd.read_csv(workInProcess,
-                sep="_",
-                header=None,
-                dtype={5:str, 8:str, 10:str},
-                skip_blank_lines=True,
-                keep_default_na=False,
-                names=["A","B","C","D","E","F","G","H","I","J",
-                        "K","L","M","N","O","P"])
-
-df1["key"] = df1.C + df1.G.str.slice(stop=10) + df1.F + df1.I + df1.K
-df1["con"] = df1.G.str.contains("연결")
-
-df2 = df1[["key", "C", "G", "con", "D", "E", "F", "I", "K", "P"]]
-                      
-result = df2
-result.to_csv(product, sep="\t")
+os.chdir(r"C:\\Users\\yoont\\Desktop\\output\\") 
+df.to_csv("output.csv", sep="\t")

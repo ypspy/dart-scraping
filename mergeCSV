@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 17 23:40:48 2021
+
+@author: yoonseok
+"""
+
+import os
+import pandas as pd
+
+os.chdir(r"C:\Users\yoont\Desktop\output\\")
+
+# 외부감사 실시내용 정보 (MultiHeader 조정 필요)
+df1 = pd.read_csv('wp001_data_007_output.csv', header=[0,1], sep="\t")
+df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
+df1 = df1.drop([0])  # 0번 row 삭제
+df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
+
+# 총자산(total_asset) 정보
+df2 = pd.read_csv('wp001_data_008_output.csv', sep="\t")
+df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
+
+# 감사의견(opinion) 정보
+df3 = pd.read_csv('wp001_data_009_output.csv', sep="\t")
+df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
+
+# 입수 정보 Key로 병합(merge)
+df = pd.merge(df2, df3[["key", "opinion"]], on="key")
+df = pd.merge(df, df1, on="key")

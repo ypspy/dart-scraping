@@ -24,6 +24,20 @@ df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
 df3 = pd.read_csv('wp001_data_009_output.csv', sep="\t")
 df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
 
-# 입수 정보 Key로 병합(merge)
+# 감사보고서 표지의 감사인 정보
+df4 = pd.read_csv('wp001_data_001_output.csv', sep="\t")
+df4 = df4.loc[:, ~df4.columns.str.contains('^Unnamed')]  # 제거
+
+# 감사보고서 표지의 감사인 정보
+df5 = pd.read_csv('wp001_data_002_output.csv', sep="\t")
+df5 = df5.loc[:, ~df5.columns.str.contains('^Unnamed')]  # 제거
+
+# 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
 df = pd.merge(df2, df3[["key", "opinion"]], on="key")
-df = pd.merge(df, df1, on="key")
+df = pd.merge(df, df4[["key", "auditReportFirmName"]], on="key")
+df = pd.merge(df, df5[["key", "auditReportCoverPeriod"]], on="key")
+
+# 타임정보 마지막
+df = pd.merge(df, df1, how="left", on="key")
+
+dfNa = df[df['합계_합계'].isna()]

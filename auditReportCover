@@ -151,11 +151,7 @@ for file in pathListOut:
     html = open(file, "r", encoding="utf-8")
     soup = BeautifulSoup(html, "lxml")
     html.close()
-
-    soup = str(soup).split("주석</A>")[0]
-    soup = soup.replace("\n", '')
-    soup = BeautifulSoup(soup, "lxml")
-    
+  
     # 분석
     firmName = ''
     

@@ -111,6 +111,9 @@ file = open(r"wp01.data02_auditor.txt", 'r', encoding='utf-8')
 importList = file.readlines()
 auditorList = []
 
+for i in importList:
+    auditorList.append(i.replace("\n",''))
+
 # 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
 pathList = []
 for path in [".\A001_2017\\", ".\A001_2018\\",

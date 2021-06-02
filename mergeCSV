@@ -10,34 +10,44 @@ import pandas as pd
 
 os.chdir(r"C:\Users\yoont\Desktop\output\\")
 
-# 외부감사 실시내용 정보 (MultiHeader 조정 필요)
-df1 = pd.read_csv('wp001_data_007_output.csv', header=[0,1], sep="\t")
+# 외부감사 실시내용 총시간 정보 (MultiHeader 조정 필요)
+df1 = pd.read_csv('wp01.data06.output.csv', header=[0,1], sep="\t")
 df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
 df1 = df1.drop([0])  # 0번 row 삭제
 df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
 
 # 총자산(total_asset) 정보
-df2 = pd.read_csv('wp001_data_008_output.csv', sep="\t")
+df2 = pd.read_csv('wp01.data07.output.csv', sep="\t")
 df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
 
 # 감사의견(opinion) 정보
-df3 = pd.read_csv('wp001_data_009_output.csv', sep="\t")
+df3 = pd.read_csv('wp01.data08.output.csv', sep="\t")
 df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
 
 # 감사보고서 표지의 감사인 정보
-df4 = pd.read_csv('wp001_data_001_output.csv', sep="\t")
+df4 = pd.read_csv('wp01.data01.output.csv', sep="\t")
 df4 = df4.loc[:, ~df4.columns.str.contains('^Unnamed')]  # 제거
 
 # 감사보고서 표지의 감사인 정보
-df5 = pd.read_csv('wp001_data_002_output.csv', sep="\t")
+df5 = pd.read_csv('wp01.data02.output.csv', sep="\t")
 df5 = df5.loc[:, ~df5.columns.str.contains('^Unnamed')]  # 제거
+
+# 외부감사 실시내용 활동 정보 (MultiHeader 조정 필요)
+df6 = pd.read_csv('wp01.data11.output.csv', sep="\t", keep_default_na=False)
+df6 = df6.rename(columns={'0': 'P1',
+                          '1': "P2",
+                          '2': "P3",
+                          '3': "INT"})  # key 헤더명 변경
 
 # 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
 df = pd.merge(df2, df3[["key", "opinion"]], on="key")
 df = pd.merge(df, df4[["key", "auditReportFirmName"]], on="key")
 df = pd.merge(df, df5[["key", "auditReportCoverPeriod"]], on="key")
 
-# 타임정보 마지막
+# 타임정보/활동정보 마지막
 df = pd.merge(df, df1, how="left", on="key")
+df = pd.merge(df, df6, how="left", on="key")
 
-dfNa = df[df['합계_합계'].isna()]
+# dfNa = df[df['합계_합계'].isna()]
+
+df.to_csv("df_output.csv", sep="\t")

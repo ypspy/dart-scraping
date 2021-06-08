@@ -155,7 +155,6 @@ for file in pathListOut:
     # 분석
     firmName = ''
     
-    table = FindTargetTable(soup)
     for i in soup.find_all('p'):
         pText = ''.join(i.text.split())
         if "회계법인" in pText:

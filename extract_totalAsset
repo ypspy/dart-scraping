@@ -178,6 +178,9 @@ for file in pathListOut:
     
     # 부채와자본총계(=자산총계) Parsing
     
+    resultString = ''
+    bsLine = ''
+    
     if len(matrix) > 0:  # BS가 있을 때
         i = matrix[len(matrix)-1]
         if len(matrix[0]) == 2:  # 오리온 (2018.12)

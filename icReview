@@ -116,9 +116,13 @@ for path in [".\A001_2017\\", ".\A001_2018\\",
               ".\F002_2017\\", ".\F002_2018\\",
               ".\F002_2019\\", ".\F002_2020\\"              
               ]:
-    path = path + "*감사보고서_내부회계관리제도검토*.*"  # 필요한 Keyword 입력
-    pathInProcess = glob.glob(path)
-    pathList= pathList + pathInProcess
+    review = path + "*감사보고서_내부회계관리제도*.*"  # 필요한 Keyword 입력
+    pathReivew = glob.glob(review)
+    
+    audit = path + "*감사보고서_내부회계관리제도*.*"  # 필요한 Keyword 입력
+    pathAudit = glob.glob(audit)
+    
+    pathList= pathList + pathReivew + pathAudit
 
 # 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
 pathList = [x for x in pathList if "duplicated" not in x]
@@ -145,37 +149,69 @@ pathListOut = df["path"].tolist()
 
 result = []
 
-# disclaimer of opinion
-keyWord1 = ['검토의견을표명하지']
-# qualified 
-keyWord2 = ['를얻을수', '절차를수', '미치는영향을']
-# material weakness
-keyWord3 = ['중요한취약점이언급', "중요한취약점이발견되었"]
+# 내부회계관리제도 감사보고서
 
-keyWord = [keyWord1, keyWord2, keyWord3]
-opinion = ["의견거절", "한정", "중요한취약점"]
+# disclaimer of opinion
+AkeyWord1 = ['의견을표명하지', '의견거절근거']
+# adverse
+AkeyWord2 = ['효과적으로설계및운영되고있지', '부적정의견근거']
+# material weakness
+AkeyWord3 = ['중요한취약점이언급', "중요한취약점이발견되었"]
+
+AkeyWord = [AkeyWord1, AkeyWord2, AkeyWord3]
+Aopinion = ["의견거절", "부적정", "중요한취약점"]
+
+
+# 내부회계관리제도 검토보고서
+
+# disclaimer of opinion
+RkeyWord1 = ['검토의견을표명하지']
+# qualified 
+RkeyWord2 = ['를얻을수', '절차를수', '미치는영향을']
+# material weakness
+RkeyWord3 = ['중요한취약점이언급', "중요한취약점이발견되었"]
+
+RkeyWord = [RkeyWord1, RkeyWord2, RkeyWord3]
+Ropinion = ["의견거절", "한정", "중요한취약점"]
+
+count = 0
 
 for file in pathListOut:
 
     html = open(file, "r", encoding="utf-8")
     soup = BeautifulSoup(html, "lxml")
     html.close()
+    reportType = ""
     
     content = ''.join(soup.text.split())
     
+    if "내부회계관리제도에대한경영진과지배기구의책임" in content:
+        reportType = "A"
+    else:
+        reportType = "R"
+    
     num = 0
     container = []
-    returnText = "적정" 
+    returnText = reportType + "_" + "적정" 
+    
+    if reportType =="A":
+        keyWord = AkeyWord
+        opinion = Aopinion
+    else:
+        keyWord = RkeyWord
+        opinion = Ropinion
+    
+    
     for i in keyWord:
         for j in i:
             if j in content:        
-                returnText = opinion[num]
-                print(content)
+                returnText = reportType + "_" + opinion[num]
                 break
 
         num += 1
     result.append(returnText)
-    print('.', end='')
+    count += 1
+    print(count, end='  ')
 
 df["opinion"] = result
 

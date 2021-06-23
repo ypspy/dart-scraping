@@ -75,7 +75,7 @@ df = df[(df["5"] == "(2017.12)") | (df["5"] == "(2018.12)") | (df["5"] == "(2019
 # 금융업 제거
 
 df_ind = pd.read_excel("industry.xlsx", dtype={'KSIC': str}, sheet_name='data')
-df = df.rename(columns={"11": "INDUSTRY"})
+df = df.rename(columns={11: "INDUSTRY"})
 
 df = pd.merge(df, df_ind, on = "INDUSTRY", how ='left')
 df = df[df["FIN"] == 0]

@@ -149,7 +149,9 @@ for file in pathListOut:
         for i in matrix:
            for j in i:
 
-               matchesNeg = ["계속", "중단", "귀속"]
+               matchesNeg = ["계속", "중단", "귀속", "미처분", "미처리", "처분전",
+                             "지배기업", "차감전", "이익잉여금"]
+               j = "".join(j.split())
                
                if "당기순" in j and all(x not in j for x in matchesNeg):
                                         

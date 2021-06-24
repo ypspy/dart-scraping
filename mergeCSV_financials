@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 17 23:40:48 2021
+
+@author: yoonseok
+"""
+
+import os
+import pandas as pd
+
+os.chdir(r"C:\Users\yoont\Desktop\output\\")
+
+# 외부감사 실시내용 총시간 정보 (MultiHeader 조정 필요)
+df1 = pd.read_csv('wp01.data06.output.csv', header=[0,1], sep="\t")
+df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
+df1 = df1.drop([0])  # 0번 row 삭제
+df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
+
+# 총자산(total_asset) 정보
+df2 = pd.read_csv('wp01.data07.output.csv', sep="\t")
+df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
+
+# 자본총계 정보
+df3 = pd.read_csv('wp01.data09.output.csv', sep="\t")
+df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
+
+# 당기순손실 정보
+df4 = pd.read_csv('wp01.data14.output.csv', sep="\t")
+df4 = df4.loc[:, ~df4.columns.str.contains('^Unnamed')]  # 제거
+
+# 재고자산
+df5 = pd.read_csv('wp01.data15.output.csv', sep="\t")
+df5 = df5.loc[:, ~df5.columns.str.contains('^Unnamed')]  # 제거
+
+# 매출채권
+df6 = pd.read_csv('wp01.data16.output.csv', sep="\t")
+df6 = df6.loc[:, ~df6.columns.str.contains('^Unnamed')]  # 제거
+
+# 장기매출채권
+df7 = pd.read_csv('wp01.data11.output.csv', sep="\t")
+df7 = df7.loc[:, ~df7.columns.str.contains('^Unnamed')]  # 제거
+
+# 감사보고서 본문의 의견
+df8 = pd.read_csv('wp01.data08.output.csv', sep="\t")
+df8 = df8.loc[:, ~df8.columns.str.contains('^Unnamed')]  # 제거
+
+# 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
+df = pd.merge(df2, df3[["key", "totalEquity"]], on="key")
+df = pd.merge(df, df4[["key", "netIncome"]], on="key")
+df = pd.merge(df, df5[["key", "inventory"]], on="key")
+df = pd.merge(df, df6[["key", "receivable1"]], on="key")
+df = pd.merge(df, df7[["key", "receivable2"]], on="key")
+df = pd.merge(df, df8[["key", "opinion"]], on="key")
+
+# 타임정보/활동정보 마지막
+df = pd.merge(df, df1[["key", "감사_합계"]], how="left", on="key")
+
+# 12월 말이 아닌 기업 제거
+
+df = df[(df["5"] == "(2017.12)") | (df["5"] == "(2018.12)") | (df["5"] == "(2019.12)")]
+
+# 금융업 제거
+
+df_ind = pd.read_excel("industry.xlsx", dtype={'KSIC': str}, sheet_name='data')
+df = df.rename(columns={"11": "INDUSTRY"})
+
+df = pd.merge(df, df_ind, on = "INDUSTRY", how ='left')
+df = df[df["FIN"] == 0]
+
+# 감사시간 합계 100시간 미만 제거
+
+df = df[df["감사_합계"] >= 100]
+
+# dfNa = df[df['합계_합계'].isna()]
+df.to_csv("wp01.data.financials.csv", sep="\t")

@@ -149,8 +149,10 @@ for file in pathListOut:
         exitKey = False
         for i in matrix:
            for j in i:
-               matchesPos = ["재고"]  # 매출/장기매출
-               matchesNeg = ["충당"]
+               matchesPos = ["재고"]  # 매출/장기매출 ["매출채", "매출금"] 
+               matchesNeg = ["충당"]  # 매출/장기매출 ["장기매출", "장기성매출", "충당"]
+                                             
+               j = "".join(j.split())
                
                if any(x in j for x in matchesPos) and all(x not in j for x in matchesNeg):
                                         

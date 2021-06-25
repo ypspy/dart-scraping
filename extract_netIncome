@@ -132,9 +132,11 @@ for file in pathListOut:
     # IS 찾기
     
     for table in soup.find_all("table"):
-        if ''.join(table.text.split()).find("당기순") > 0:
+        matchesNeg = ["미처분", "미처리", "이익잉여금"]
+        i = "".join(table.text.split())
+        if "당기순" in i and all(x not in i for x in matchesNeg):
             break
-        table = BeautifulSoup("<table></table>", features="lxml").table  # 의견 거절 등 BS가 안붙어있을 때 처리
+        table = BeautifulSoup("<table></table>", features="lxml").table
     
     matrix = MatrixGenerator(table)
         
@@ -150,7 +152,7 @@ for file in pathListOut:
            for j in i:
 
                matchesNeg = ["계속", "중단", "귀속", "미처분", "미처리", "처분전",
-                             "지배기업", "차감전", "이익잉여금"]
+                             "지배", "비지배", "관계", "공동", "차감전", "이익잉여금"]
                j = "".join(j.split())
                
                if "당기순" in j and all(x not in j for x in matchesNeg):

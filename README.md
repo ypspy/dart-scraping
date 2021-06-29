@@ -30,7 +30,7 @@ DART의 목적이 기업공시이기 때문에, 표준화되지 않는, 아니 �
 ### From Disclosure to Data
 아래 그림 1에서 DART 공시내용을 입수, 가공(전처리, 요약 등)하여 분석용 Data로 취합하는 절차를 보여준다.   
 
-[그림 1] 공시자료에서 가공된 table까지 흐름도
+[그림 1] 공시자료에서 가공된 table까지 흐름도 (클릭하면 커짐)
 
 <img src="https://user-images.githubusercontent.com/33425859/123667214-e71a5280-d874-11eb-9abf-4563d0938cd7.png" width="100%"></img>
 

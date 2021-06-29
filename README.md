@@ -32,7 +32,7 @@ DART의 목적이 기업공시이기 때문에, 표준화되지 않는, 아니 �
 
 [그림 1] 공시자료에서 가공된 table까지 흐름도 (클릭하면 커짐)
 
-<img src="https://user-images.githubusercontent.com/33425859/123667214-e71a5280-d874-11eb-9abf-4563d0938cd7.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/33425859/123768690-838b3600-d903-11eb-89dc-d66af9a4de62.png" width="100%"></img>
 
 ## 코드 종류
 ### (A) Disclosure-to-HTML (Python 3)

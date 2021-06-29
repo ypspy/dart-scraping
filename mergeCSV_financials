@@ -40,9 +40,17 @@ df6 = df6.loc[:, ~df6.columns.str.contains('^Unnamed')]  # 제거
 df7 = pd.read_csv('wp01.data11.output.csv', sep="\t")
 df7 = df7.loc[:, ~df7.columns.str.contains('^Unnamed')]  # 제거
 
-# 감사보고서 본문의 의견
-df8 = pd.read_csv('wp01.data08.output.csv', sep="\t")
+# 계약자산
+df8 = pd.read_csv('wp01.data17.output.csv', sep="\t")
 df8 = df8.loc[:, ~df8.columns.str.contains('^Unnamed')]  # 제거
+
+# 미청구공사
+df9 = pd.read_csv('wp01.data18.output.csv', sep="\t")
+df9 = df9.loc[:, ~df9.columns.str.contains('^Unnamed')]  # 제거
+
+# 감사보고서 본문의 의견
+df10 = pd.read_csv('wp01.data08.output.csv', sep="\t")
+df10 = df10.loc[:, ~df10.columns.str.contains('^Unnamed')]  # 제거
 
 # 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
 df = pd.merge(df2, df3[["key", "totalEquity"]], on="key")
@@ -50,7 +58,9 @@ df = pd.merge(df, df4[["key", "netIncome"]], on="key")
 df = pd.merge(df, df5[["key", "inventory"]], on="key")
 df = pd.merge(df, df6[["key", "receivable1"]], on="key")
 df = pd.merge(df, df7[["key", "receivable2"]], on="key")
-df = pd.merge(df, df8[["key", "opinion"]], on="key")
+df = pd.merge(df, df8[["key", "receivable3"]], on="key")
+df = pd.merge(df, df9[["key", "receivable4"]], on="key")
+df = pd.merge(df, df10[["key", "opinion"]], on="key")
 
 # 타임정보/활동정보 마지막
 df = pd.merge(df, df1[["key", "감사_합계"]], how="left", on="key")

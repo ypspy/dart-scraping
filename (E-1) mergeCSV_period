@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 17 23:40:48 2021
+
+@author: yoonseok
+"""
+
+import os
+import pandas as pd
+
+os.chdir(r"C:\Users\yoont\Desktop\output\\")
+
+# 외부감사 실시내용 총시간 정보 (MultiHeader 조정 필요)
+df1 = pd.read_csv('wp01.data06.output.csv', header=[0,1], sep="\t")
+df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
+df1 = df1.drop([0])  # 0번 row 삭제
+df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
+
+# 감사보고서 표지 보고기간
+df2 = pd.read_csv('wp01.data02.output.csv', sep="\t")
+df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
+
+# 사업보고서 표지에서 보고기간/회사명/법인유형 추출
+df3 = pd.read_csv('wp01.data03.output.csv', sep="\t")
+df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
+
+# 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
+df = pd.merge(df2, df3[["key", "businessReportCover"]], how="left", on="key")
+
+# 타임정보/활동정보 마지막
+df = pd.merge(df, df1[["key", "감사_합계"]], how="left", on="key")
+
+# 12월 말이 아닌 기업 제거
+
+df = df[(df["5"] == "(2017.12)") | (df["5"] == "(2018.12)") | (df["5"] == "(2019.12)")]
+
+# 금융업 제거
+
+df_ind = pd.read_excel("industry.xlsx", dtype={'KSIC': str}, sheet_name='data')
+df = df.rename(columns={"11": "INDUSTRY"})
+
+df = pd.merge(df, df_ind, on = "INDUSTRY", how ='left')
+df = df[df["FIN"] == 0]
+
+# 감사시간 합계 100시간 미만 제거
+
+df = df[df["감사_합계"] >= 100]
+
+# dfNa = df[df['합계_합계'].isna()]
+df.to_csv("wp01.data.period.csv", sep="\t")

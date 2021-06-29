@@ -19,13 +19,15 @@ df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
 # 감사보고서 표지 보고기간
 df2 = pd.read_csv('wp01.data02.output.csv', sep="\t")
 df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]  # 제거
+df2["subKey"] = df2["5"] + df2["10"]
 
 # 사업보고서 표지에서 보고기간/회사명/법인유형 추출
 df3 = pd.read_csv('wp01.data03.output.csv', sep="\t")
 df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]  # 제거
+df3["subKey"] = df3["5"] + df3["10"]
 
 # 입수 정보 Key로 병합(merge) - 타임 누락 3건 공백 나타나게 조정
-df = pd.merge(df2, df3[["key", "businessReportCover"]], how="left", on="key")
+df = pd.merge(df2, df3[["subKey", "businessReportCover"]], how="left", on="subKey")
 
 # 타임정보/활동정보 마지막
 df = pd.merge(df, df1[["key", "감사_합계"]], how="left", on="key")

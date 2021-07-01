@@ -25,14 +25,6 @@ def row_span_count(soup):
         result= 1
     return result
 
-def FindTargetTable(soup):
-    tables = soup.find_all("table")
-    for i in tables:
-        tds = i.find_all("td")
-        if len(tds) > 20:  # 시간 파트가 약 80정도 된다. 비교 표시 없는 경우 td가 50도 안된다. 첫번째 나오는 20 초과 table 선택
-            break
-    return i
-
 def MatrixGenerator(table):
     table_row = table.find_all("tr")
 
@@ -63,58 +55,20 @@ def MatrixGenerator(table):
             colSpan += col_span_count(j)
     return matrix
 
-def ParsingTime(matrix, isComparative, tableLength, file, report):
-    if isComparative:
-        container = []
-        tableLength = int(tableLength / 2)
-        for i in range(tableLength):
-            container.append(matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i].replace('-', '0').replace(',',''))
-    else:
-        container = []
-        tableLength = int(tableLength)
-        for i in range(tableLength):
-            container.append(matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i].replace('-', '0').replace(',',''))
-    return container
-
-def Indexing(matrix):
-    """
-    당기, 전기 부분 삭제한 경우들이 있어서 찾아야함
-    """
-    container = []
-    for i in matrix:
-        try:
-            i[0:2].index("투입 인원수")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("분ㆍ반기검토")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("감사")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("합계")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-    return container
-
 # 1. 작업 폴더로 변경
-os.chdir("E:\workingDirectory\\")  # 작업 폴더로 변경
+os.chdir("C:\data\\")  # 작업 폴더로 변경
 
 # 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
 pathList = []
-for path in [".\A001_2017\\", ".\A001_2018\\",
-              ".\A001_2019\\", ".\A001_2020\\",
-              ".\F001_2017\\", ".\F001_2018\\",
-              ".\F001_2019\\", ".\F001_2020\\",
-              ".\F002_2017\\", ".\F002_2018\\",
-              ".\F002_2019\\", ".\F002_2020\\"              
+for path in [".\A001_2014\\", ".\A001_2015\\", ".\A001_2016\\",
+             ".\A001_2017\\", ".\A001_2018\\",
+             ".\A001_2019\\", ".\A001_2020\\",
+             ".\F001_2014\\", ".\F001_2015\\", ".\F001_2016\\",
+             ".\F001_2017\\", ".\F001_2018\\",
+             ".\F001_2019\\", ".\F001_2020\\",
+             ".\F002_2014\\", ".\F002_2015\\", ".\F002_2016\\",
+             ".\F002_2017\\", ".\F002_2018\\",
+             ".\F002_2019\\", ".\F002_2020\\"              
               ]:
     path = path + "*외부감사실시내용*.*"  # 필요한 Keyword 입력
     pathInProcess = glob.glob(path)
@@ -124,7 +78,12 @@ for path in [".\A001_2017\\", ".\A001_2018\\",
 pathList = [x for x in pathList if "duplicated" not in x]
 
 # 4. 분리
-pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(2018." in x] + [x for x in pathList if "(2019." in x] 
+pathList = [x for x in pathList if "(2014." in x] +\
+           [x for x in pathList if "(2015." in x] +\
+           [x for x in pathList if "(2016." in x] +\
+           [x for x in pathList if "(2017." in x] +\
+           [x for x in pathList if "(2018." in x] +\
+           [x for x in pathList if "(2019." in x] 
 
 # 5. Preprocess
 PathListDf = pd.DataFrame(pathList)
@@ -191,10 +150,9 @@ for file in pathListOut:
         i += 1  
     
     count += 1
-    print(str(count), end='\n')
+    print(count, end='  ')
 
 dfActivity = pd.DataFrame([x.split("_") for x in result])
-df = df.drop([0, 1, 14], axis=1)
 
-os.chdir(r"C:\\Users\\yoont\\Desktop\\output\\") 
+os.chdir(r"C:\\Users\\yoont\\Desktop\\") 
 dfActivity.to_csv("wp01.data10.output.csv", sep="\t")

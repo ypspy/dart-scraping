@@ -28,9 +28,9 @@ import time
 def governanceClassifier(textData):
     content = ''.join(textData.split())
     matchesPos = ['감사위원회', '監査委員會']
-    matchesNeg = ['감사의', '감사는', '監事는', '監事의']
+    matchesNeg = ['감사의선임', '감사는', '監事는']
     returnText = ''
-    if all(x in content for x in matchesPos) and any(x not in content for x in matchesNeg):
+    if any(x in content for x in matchesPos) and all(x not in content for x in matchesNeg):
         returnText = "감사위원회"
     if any(x in content for x in matchesNeg):
         returnText = "감사"
@@ -106,7 +106,7 @@ for file in pathListOut:
     
     result.append(returnText)
     count += 1
-    print(count, img, returnText)
+    print(count, returnText)
 
 df["AC2"] = result
 

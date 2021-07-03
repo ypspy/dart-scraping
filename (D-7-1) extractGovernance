@@ -24,6 +24,7 @@ import numpy as np
 from pytesseract import image_to_string
 from skimage import io
 import time
+import random
 
 def governanceClassifier(textData):
     content = ''.join(textData.split())
@@ -42,12 +43,15 @@ def imgParser(soup):
     result = ''
     for i in imglist[::-1]:  # 감사위원회/감사 등은 뒤에서부터 찾는게 더 빠르다. https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python
         link = r"http://dart.fss.or.kr/" + str(i["src"])
-        image = io.imread(link)
+        try:
+            image = io.imread(link)
+        except ValueError:  # "이 파일은 서비스하지 않습니다!"라는 메시지가 뜨는 경우
+            continue
         strings = image_to_string(image, config=config)
         result = governanceClassifier(strings)
         if result:
             break
-        time.sleep(1)
+        time.sleep(random.uniform(0.8, 1)) # 이렇게 하면 블락 안당하나
     return result
 
 # 1. 작업 폴더로 변경
@@ -126,4 +130,4 @@ df = df[df["toDrop"] == 1]
 df = df.drop("toDrop", axis=1)
 
 os.chdir(r"C:\\output\\") 
-df.to_csv("wp01.data20_output.csv", sep="\t")
+df.to_csv("wp01.data20.output.csv", sep="\t")

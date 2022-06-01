@@ -1,0 +1,326 @@
+# -*- coding: utf-8 -*-
+"""
+전면 개정
+정규표현식 사용 최소화
+"""
+
+import time
+import requests 
+from bs4 import BeautifulSoup
+import re
+import os.path
+import sys
+import smtplib
+
+def soup_maker(i, startDate, endDate, reportType):
+    """
+    
+    Parameters
+    ----------
+    i : int
+        전체 페이지 중 현재 진행중인 페이지 번호
+    startDate : int
+        대상기간 시작일. yyyymmdd 포멧으로 입력 사업보고서/감사보고서는 1999년 3월부터 공시내역이 존재
+    endDate : int
+        대상기간 종료일. yyyymmdd 포멧. 공시일이므로, 회계기간 종료일과 혼동하지 말 것
+    reportType : str
+        상세유형 (출처: DART 오픈API 개발가이드)
+        A001:사업보고서    A002:반기보고서    A003:분기보고서
+
+    Returns
+    -------
+    Soup
+        BeautifulSoup 라이브러리로 생성한 수프가 반환됨
+
+    """
+   
+    annualReportList = "http://dart.fss.or.kr/dsab001/search.ax"
+    data = {  
+              'currentPage': i,
+              'maxResults': '15',
+              'maxLinks': '10',
+              'sort': 'date',
+              'series': 'desc',
+              'textCrpCik': '',
+              'textCrpNm': '',
+              'finalReport': 'recent',
+              'startDate': startDate,
+              'endDate': endDate,
+              'publicType': reportType,  
+           }
+    companyList = requests.post(annualReportList, data=data)
+    return BeautifulSoup(companyList.content, "html.parser")
+
+def soup_maker_second(url):
+    """
+        Parameters
+    ----------
+    url : str
+        타겟 페이지 url
+
+    Returns
+    -------
+    Soup
+        BeautifulSoup 라이브러리로 생성한 수프가 반환됨
+
+    """
+    
+    html = requests.post(url)
+    return BeautifulSoup(html.content, "html.parser")
+
+def ID_card(companyInfoLink): 
+    """
+    
+    Parameters
+    ----------
+    companyInfoLink : str
+        기업개황 링크로 연결됨
+
+    Returns
+    -------
+    header : str
+        파일에 tag될 기업 식별 정보 반환
+
+    """
+      
+    page = requests.post(companyInfoLink)
+    html = BeautifulSoup(page.content, "html.parser")
+    header =''
+    for i in [7, 11, 13, 27, 29, 31]:
+        """
+        회사이름(1) 영문명(3) 공시회사명(5) 종목코드(7) 대표자명(9) 법인구분(11) 법인등록번호(13) 
+        사업자등록번호(15) 주소(17) 홈페이지(19) IR홈페이지(21) 전화번호(23) 팩스번호(25) 업종명(27) 
+        설립일(29) 결산월(31) 
+        """
+        header = header + html.find_all(["td", "th"])[i].get_text(strip=True) + '_'
+    return header
+
+def content_link_producer(number, contentSoup):
+    """
+    
+    Parameters
+    ----------
+    number : int
+        문서/첨부 문서 수 입력됨
+    contentSoup : str
+        문서 소스 수프 입력
+        contentSoup.text가 EC2(python v3.8)에서 이상하게 반응해서 str(contentSoup)으로 변경
+
+    Returns
+    -------
+    reportLink : str
+        문서와 첨부의 링크 반환
+    """
+ 
+    contentNumber = "// " + str(number)
+
+    startBlock = re.compile(contentNumber).search(str(contentSoup)).start()
+    subBlock = str(contentSoup)[int(startBlock): int(startBlock) + 270]
+
+    linkList = re.compile(r"'\S+'").findall(subBlock)
+
+    reportLinkType = ["rcpNo=", "&dcmNo=", "&eleId=", "&offset=", "&length=", "&dtd="][0: len(linkList)]
+
+    blankLink = ""
+
+    for a in range(len(linkList)):
+        blankLink = blankLink + reportLinkType[a] + linkList[a].replace("'","")
+
+    reportLink = "http://dart.fss.or.kr/report/viewer.do?" + blankLink
+    return reportLink
+
+def content_name_producer(number, contentSoup):
+    """
+    
+    Parameters
+    ----------
+    number : int
+        문서/첨부 문서 수 입력됨
+    contentSoup : str
+        문서 소스 수프 입력
+        contentSoup.text가 EC2(python v3.8)에서 이상하게 반응해서 str(contentSoup)으로 변경
+
+    Returns
+    -------
+    contentName : str
+        문서와 첨부의 문서명 반환
+
+    """        
+   
+    contentNumber = "// " + str(number)
+
+    startBlock = re.compile(contentNumber).search(str(contentSoup)).start()
+    subBlock = str(contentSoup)[int(startBlock): int(startBlock) + 270]
+
+    contentName = re.compile("text:.+\"\,\\n\\t\\t\\tid:")
+    contentName = contentName.findall(subBlock)[0].replace('text: "',"").replace('",\n\t\t\tid:', "").replace("<BR>", "")
+    contentName = "".join(contentName.split())
+    
+    return contentName
+
+
+# 변수 입력
+
+# 입수대상 기간
+targetYear = "2019"
+startDate = targetYear + "0101"
+endDate = targetYear + "1231"
+
+# 보고서 유형 
+reportType = "A001" 
+
+""" 
+상세유형  bsn_tp 설명 (출처: DART 오픈API 개발가이드, https://github.com/nKiNk/scrapdart)
+A001 사업보고서    A002 반기보고서   A003 분기보고서
+F001 감사보고서    F002 연결감사보고서 F003 결합감사보고서    F004 회계법인사업보고서
+"""
+
+# 건당 입수 지연시간 (분당 100건 이상 접속 시도시 차단)
+delay = 1
+
+# 저장 폴더 경로 입력
+path = r"C:\Users\user\Desktop\\" + reportType + "_" + targetYear  # Administrator
+if os.path.exists(path) != True:
+    os.makedirs(path)
+
+# 대상 기간 입수 페이지 (오류 발생시 변수 확인 후 변경하는 방법으로 복구)
+i = 1
+
+# 입수 코드 시작
+
+jailKey = 99999999
+
+while i <= jailKey:
+    
+    startTimeTotal = time.time()
+    
+    soupPrepared = soup_maker(i, startDate, endDate, reportType)
+    
+    targetText = soupPrepared('p', {"class", "page_info"})[0].text
+    
+    if jailKey == 99999999:
+        jailKey = int(re.compile(r"\/\d+").findall(targetText)[0].replace("/",""))
+    
+    listCompanyInfo, listReportOne = [], []
+    for li in soupPrepared.find_all("a"):
+           addressBlock = li["href"]
+           if addressBlock[1:5] == "dsae":
+               listCompanyInfo.append("http://dart.fss.or.kr/" + addressBlock)
+           elif addressBlock[1:5] == "dsaf":
+               listReportOne.append("http://dart.fss.or.kr/" + addressBlock)
+    
+    reportCount = len(listReportOne)
+    
+    companyName = []
+    reportName = []
+    reportYearEnd = []
+    
+    tdTags = soupPrepared.find_all("td")
+ 
+    for j in range(reportCount):        
+        companyName.append(tdTags[j*6+1].text.split()[0])
+        try:
+            reportYearEnd.append(tdTags[j*6+2].text.split()[1])
+        except IndexError:
+            reportYearEnd.append("미기재")
+        reportName.append(tdTags[j*6+2].text.split()[0])
+        
+    for k in range(reportCount):
+                
+        # Document 입수
+        documentDropdown = soup_maker_second(listReportOne[k]).find_all("p")[2]("option")
+        appendixDropdown = soup_maker_second(listReportOne[k]).find_all("p")[3]("option")
+        
+        documentUrl = []
+        documentName = []
+        
+        companyID = ID_card(listCompanyInfo[k]).strip()
+                
+        for m in range(1, len(documentDropdown)):
+            report = ''
+            for p in documentDropdown[m].text.split():
+                report = report + p + ' '
+            documentName.append(report)
+            documentUrl.append(documentDropdown[m].get("value"))
+            
+        for n in range(1, len(appendixDropdown)):
+            report = ''
+            for p in appendixDropdown[n].text.split():
+                report = report + p + ' '
+            documentName.append(report)
+            documentUrl.append(appendixDropdown[n].get("value"))
+               
+        for q in range(len(documentName)):
+            startTimeCompany = time.time()
+                        
+            listOfContentUrl = "http://dart.fss.or.kr/dsaf001/main.do?"+documentUrl[q]
+            contentSoup = soup_maker_second(listOfContentUrl)
+            
+            contentCount = 1
+            jailBreaker = True
+        
+            while jailBreaker:
+                startTimeDocument = time.time()
+                try:                                    
+                    contentLink = content_link_producer(contentCount, contentSoup)
+                                        
+                    filename = (reportType + '_' +
+                                soupPrepared.find_all("td", "cen_txt")[3*k+1].get_text(strip=True) + '_' +
+                                companyName[k] + '_' +
+                                reportName[k] + '_' +
+                                reportYearEnd[k] + '_' +
+                                documentName[q].strip() + '_' +
+                                content_name_producer(contentCount, contentSoup) + '_' +
+                                companyID)
+                    
+                    fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
+                    fullname = os.path.join(path, fullname + ".html")
+                    
+                    # 사업보고서에 대표이사 서명 페이지가 두 건 들어간 경우의 처리
+                    
+                    if os.path.exists(fullname):
+                        filename = filename + "duplicated"
+                        fullname = re.sub("[/\*]", "", filename)  # 나리지*온, 제이엠티/JMT 등 예외 처리
+                        fullname = os.path.join(path, fullname + ".html")
+                    
+                    file = open(fullname, "w", encoding="utf-8")
+                  
+                    documentSoup = BeautifulSoup(requests.post(contentLink).content, "html.parser")
+                    
+                    for lines in documentSoup.contents:
+                        file.write(str(lines))
+                    
+                    file.close()
+                                                            
+                    contentCount += 1
+                    time.sleep(delay)
+                    documentDuration = int(time.time() - startTimeDocument)
+                    sys.stdout.write(str(documentDuration))
+                
+                except AttributeError:
+                    """
+                    문서 안에 목차는 까보기 전에는 픽업할 수 없다. 에러 처리를 하지 않으면, 아래 에러 뱉어냄
+                    AttributeError: 'NoneType' object has no attribute 'start'
+                    """
+                    jailBreaker = False
+                    
+                    companyDuration = int(time.time() - startTimeCompany)
+                    totalDuration = int(time.time() - startTimeTotal)
+                    sys.stdout.writelines('[' + str(companyDuration) + '/' + str(totalDuration) + ']')
+                    sys.stdout.writelines(' | (' + str(k) + '/' + str(i) + '/' + str(jailKey) + ')' + "\n")
+               
+    i += 1  # 페이지 넘기기
+
+# 프로세스 종료시 E-mail Notification (Connection Error 발생시에도 연락 필요)
+
+subject = "Process Notification"
+text = reportType + "_" + targetYear + " done"
+content = 'Subject: %s\n\n%s' % (subject, text)
+mail = smtplib.SMTP('smtp.gmail.com',587)
+mail.ehlo()
+mail.starttls()
+mail.login('your+gmail+account@gmail.com','your-password')
+mail.sendmail('your+gmail+account@gmail.com','your+gmail+account@gmail.com',content) 
+mail.close()
+
+print("Sent")

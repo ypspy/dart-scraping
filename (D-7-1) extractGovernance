@@ -1,0 +1,133 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 13 15:19:08 2020
+
+@author: user
+
+References
+
+1. 이미지 인식 참고 https://blog.daum.net/geoscience/1266 (Tesseract at UB Mannheim 설치 C:\Program Files\Tesseract-OCR)
+2. CV2 설치 https://pypi.org/project/opencv-python/
+3. tesseract 환경변수에 추가 https://joyhong.tistory.com/79
+4. tesseract config 사용법 https://m.blog.naver.com/hn03049/221957851802
+6. skimage 설치 https://scikit-image.org/docs/stable/install.html
+7. 웹페이지 이미지를 다운로드 없이 이미지 링크로 array 직접 변환 https://stackoverflow.com/questions/21061814/how-can-i-read-an-image-from-an-internet-url-in-python-cv2-scikit-image-and-mah
+8. 리스트를 뒤에서부터 읽기 https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python
+"""
+
+from bs4 import BeautifulSoup
+import os
+import glob
+import pandas as pd
+import numpy as np
+
+from pytesseract import image_to_string
+from skimage import io
+import time
+import random
+
+def governanceClassifier(textData):
+    content = ''.join(textData.split())
+    matchesPos = ['감사위원회', '監査委員會']
+    matchesNeg = ['감사의선임', '감사는', '監事는']
+    returnText = ''
+    if any(x in content for x in matchesPos) and all(x not in content for x in matchesNeg):
+        returnText = "감사위원회"
+    if any(x in content for x in matchesNeg):
+        returnText = "감사"
+    return returnText
+
+def imgParser(soup):
+    config = ('-l kor --oem 3 --psm 4')
+    imglist = soup.find_all("img")
+    result = ''
+    for i in imglist[::-1]:  # 감사위원회/감사 등은 뒤에서부터 찾는게 더 빠르다. https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python
+        link = r"http://dart.fss.or.kr/" + str(i["src"])
+        try:
+            image = io.imread(link)
+        except ValueError:  # "이 파일은 서비스하지 않습니다!"라는 메시지가 뜨는 경우
+            continue
+        strings = image_to_string(image, config=config)
+        result = governanceClassifier(strings)
+        if result:
+            break
+        time.sleep(random.uniform(0.8, 1)) # 이렇게 하면 블락 안당하나
+    return result
+
+# 1. 작업 폴더로 변경
+os.chdir("C:\data\\")  # 작업 폴더로 변경
+
+# 2. 타겟 폴더에 있는 필요 문서 경로 리스트업
+pathList = []
+for path in [".\A001_2017\\", ".\A001_2018\\",
+              ".\A001_2019\\", ".\A001_2020\\"              
+              ]:
+    path = path + "*정관_정관*.*"  # 필요한 Keyword 입력
+    pathList = pathList + glob.glob(path)
+    
+# 3. 입수 과정에서 중복입수되어 표시된 duplicated 표시 파일 제거
+pathList = [x for x in pathList if "duplicated" not in x]
+
+# 4. 분리
+pathList = [x for x in pathList if "(2017." in x] + [x for x in pathList if "(2018." in x] + [x for x in pathList if "(2019." in x] 
+
+# 5. Preprocess
+PathListDf = pd.DataFrame(pathList)
+df = pd.DataFrame([x.split("_") for x in pathList])
+df["path"] = PathListDf[0]
+df["con"] = df[6].str.contains("연결")
+df['con'] = np.where(df['con']==True, "C", "S")
+df['amend'] = df[6].str.contains("정정")
+df['amend'] = np.where(df['amend']==True, "A", "B")
+df["key"] = df[2] + df[6].str.slice(stop=10) + df["con"] + df["amend"] + df[5] + df[8] + df[10]
+# key = 접수일 + 보고서 제출일(DRT 인증일) + 연결(C/S) + 정정(A/B) + 보고기간종료월 + 종목코드 + 법인등록번호
+
+df["duplc"] = df.duplicated(subset=["key"], keep=False)
+isTrue = df[df["duplc"] == True]
+df = df.drop_duplicates(subset=["key"])
+
+pathListOut = df["path"].tolist()
+
+result = []
+
+count = 0
+
+for file in pathListOut:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close()
+    returnText = ""
+    
+    content = ''.join(soup.text.split())
+        
+    img = "text"  # 정관의 입력 형태
+    returnText = img + "_" + governanceClassifier(content)
+    
+    if soup.img:
+        img = "image"
+        returnText = img + "_" + imgParser(soup)
+    
+    result.append(returnText)
+    count += 1
+    print(count, returnText)
+
+df["AC2"] = result
+
+df = df.drop([0, 1, 14, "path", "duplc"], axis=1)
+df = df.sort_values(by=[10, 5, "con", 2, 6, "amend"],
+                    ascending=[True, True, True, False, False, True])
+
+df["toDrop"] = 1
+
+for i in range(1, len(df)):
+    if df.iloc[i,3] == df.iloc[i-1,3] and df.iloc[i,8] == df.iloc[i-1,8]:
+        df.iloc[i, 16] = df.iloc[i-1, 16] + 1
+    else:
+        df.iloc[i, 16] = 1
+
+df = df[df["toDrop"] == 1]
+df = df.drop("toDrop", axis=1)
+
+os.chdir(r"C:\\output\\") 
+df.to_csv("wp01.data20.output.csv", sep="\t")

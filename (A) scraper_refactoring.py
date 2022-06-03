@@ -49,4 +49,21 @@ def Address_Parser(i, startDate, endDate, reportType):
     
     return BeautifulSoup(companyList.content, "html.parser")
 
-soup = Address_Parser(1, 20210531, 20220531, "A001")
+reportType = "A001"
+soup = Address_Parser(1, 20210531, 20220531, reportType)
+corpList = soup.findAll("td")
+
+loop = 1  # 최대 15개의 주소를 loop한다. 주소당 td 태그가 6개. corpList는 Max 90.
+docList = {}  # 고유번호와 문서 주소를 dictionary에 담는다.
+while True:
+    docAddress = "http://dart.fss.or.kr" + corpList[loop+1].a["href"]  # db 접근용 주소
+    doc_key = '_'.join([reportType,
+                        corpList[loop].a["href"][28:36],
+                        docAddress.split('=')[1]
+                        ])# 문서 고유번호 생성    
+    docList[doc_key] = docAddress
+    loop += 6
+    if loop > len(corpList):  # 마지막 페이지 등에서 문서 수가 15개가 안되면 오류 발생함
+        break
+
+print(docList)

@@ -7,6 +7,7 @@ Refactoring (2022. 06)
     → 공시 문서에서 첨부 문서 주소 입수 (B) 
     → 첨부 문서에서 하위 문서 HTML 주소 입수 (C) ▶ HTML 입수
 3. Unique Key 생성 문제 : 고유번호_접수번호_문서명_사업연도종료일
+4. scraper_refactoring에서 loop 가능하도록 Dart_Scraper로 변경 
 """
 
 import requests 
@@ -14,6 +15,8 @@ from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 import js2py
 import urllib.request
+from os import path
+import time
 
 
 def Document_Address_Parser(i, startDate, endDate, reportType):
@@ -103,8 +106,9 @@ def SubDocument_Address_Parser(docAddress):
 
         subDocAddress = "http://dart.fss.or.kr/dsaf001/main.do?" + subDocList[loop]["value"]
         if subDocAddress != 'http://dart.fss.or.kr/dsaf001/main.do?null':  # 옵션 값이 null인 경우 제
+            docName = ''.join(subDocList[loop].text.split())
             subDocName = '_'.join([subDocAddress[44:58],
-                                  ''.join(subDocList[loop].text.split())]) # Key 생성
+                                  '_'.join([docName[:10], docName[10:]])])# Key 생성
             subDocAddressList[subDocName] = subDocAddress
         
         loop += 1
@@ -159,28 +163,39 @@ def HTML_Address_Parser(subDocAddress):
 
     return addList
 
-# 리포트타입 결정
-reportType = "A001"
 
-# 보고서 주소 추출
-docAddressDict = Document_Address_Parser(1, 20210531, 20220531, reportType)
-docAddressList = list(docAddressDict.items())  # temporary
-docAddress = docAddressList[0][1]
+def Dart_Scraper(reportType,  # report type 선택 A001: 사업보고서
+                 currentPage,  # 현재 page 선택
+                 startDate,
+                 endDate,
+                 delay=3):
+    # 보고서 주소 추출
+    docAddressDict = Document_Address_Parser(currentPage, startDate, endDate, reportType)
+    
+    docsInThisPage = list(docAddressDict.items())
 
-# 보고서 내부 개별 문서 주소 추출
-subDocAddressDict = SubDocument_Address_Parser(docAddress)
-subDocAddressList = list(subDocAddressDict.items())
-subDocAddress = subDocAddressList[2][1]
-
-# 개별 문서 내부 HTML 주소 추출
-htmlAddressDict = HTML_Address_Parser(subDocAddress)
-htmlAddressList = list(htmlAddressDict.items())
-htmlAddress = htmlAddressList[0][1]
-
-
-# 단계별 key를 뽑아 파일명 생성
-filename = '_'.join([docAddressList[0][0], subDocAddressList[2][0], htmlAddressList[0][0]])
-
-# Html로 저장
-urllib.request.urlretrieve(htmlAddress,
-                            r"C:\Users\yoont\test.html")
+    for i in docsInThisPage:
+        docAddress = i[1]
+        
+        # 보고서 내부 개별 문서 주소 추출
+        subDocAddressDict = SubDocument_Address_Parser(docAddress)
+        subDocAddressList = list(subDocAddressDict.items())
+        
+        for subDocAddress in subDocAddressList:            
+            # 개별 문서 내부 HTML 주소 추출
+            htmlAddressDict = HTML_Address_Parser(subDocAddress[1])
+            htmlAddressList = list(htmlAddressDict.items())
+            
+            for html in htmlAddressList:
+                docKey = '_'.join([i[0],  # 보고서 타입, FSS 고유번호, 문서접수번호, 접수문서명, 보고기간말
+                                   subDocAddress[0],  # 문서접수번호 + 제출일과 본(첨부)문서명
+                                   html[0],  # 문서명
+                                   '.html'])  # HTML 확장자
+                if path.exists(docKey):
+                    None  # 실행 중단 후 다시 시작하는 경우 중복으로 쓰지 않음
+                else:
+                    urllib.request.urlretrieve(html[1],
+                                               docKey)
+                
+                time.sleep(delay)  # loop의 말단에서 3초씩 쉰다. 그래도 차단될 듯.
+    return None  # 반환 없음                

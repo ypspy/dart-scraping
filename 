@@ -1,0 +1,1969 @@
+[33mcommit 6894ff7aee03e872cc69de3754ef84c3a964c1a5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: hooniDad <yoontjr@gmail.com>
+Date:   Thu Jun 2 16:57:06 2022 +0900
+
+    DART 사이트 개편에 맞게입수 코드 재구성
+
+[33mcommit 6cb811fe14e6d9ad2f46d2f52e51bbd6f0aa8717[m
+Author: hooniDad <yoontjr@gmail.com>
+Date:   Wed Jun 1 21:54:18 2022 +0900
+
+    change content
+
+[33mcommit d4a624aa7f82e4dfbe5ea1c812fab9d352264261[m
+Merge: f3bbe59 325d3c5
+Author: hooniDad <yoontjr@gmail.com>
+Date:   Wed Jun 1 21:42:27 2022 +0900
+
+    Merge branch 'master' of https://github.com/ypspy/dart-scraping
+
+[33mcommit f3bbe59f034159576ce3b39d35c9175cc6eb5f6d[m
+Author: hooniDad <yoontjr@gmail.com>
+Date:   Wed Jun 1 21:30:38 2022 +0900
+
+    Test commitgit add test.txt
+
+[33mcommit 325d3c55439604867f9182d825ec3821bda2ff60[m
+Author: YS <yoontjr@gmail.com>
+Date:   Mon Nov 22 00:39:11 2021 +0900
+
+    Update README.md
+    
+    입수월 최종 Data 입수월(2020.11)로 수정
+
+[33mcommit 910b3b929cfc74d9830a0c09a5faa9173e0b9d01[m
+Merge: ed8c82f a2f1f92
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jul 4 02:17:18 2021 +0900
+
+    Merge pull request #27 from ypspy/ypspy-patch-19
+    
+    Delete (G-1) mergeCSV
+
+[33mcommit a2f1f929102b7811928dd57a047a6d876f5ec6ab[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jul 4 02:17:08 2021 +0900
+
+    Delete (G-1) mergeCSV
+
+[33mcommit ed8c82fc9317f3032592763ce19889d2c747ec73[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jul 4 02:16:36 2021 +0900
+
+    Create (G-1) output
+
+[33mcommit d4cb8485d92b14104c09193c2f6c5c216d589fd2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Jul 3 23:41:01 2021 +0900
+
+    Create (E-5) auditCommittee
+
+[33mcommit 17c0af931f8a26a9321a428957b170dff7b14944[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Jul 3 23:13:55 2021 +0900
+
+    Update (D-7-1) extractGovernance
+
+[33mcommit 0c3ae8be0d6a8f24ed657e0ef1eb8d2f2d08cf43[m
+Merge: 95139de 3e0c431
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jul 2 08:24:09 2021 +0900
+
+    Merge pull request #26 from ypspy/ypspy-patch-18
+    
+    Delete (D-4-2) phase_information
+
+[33mcommit 3e0c431d96480b3907afd98ef9992bdecb3d74fb[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jul 2 08:23:55 2021 +0900
+
+    Delete (D-4-2) phase_information
+    
+    (D-4-2) auditActivity와 중복되었고, 이 코드는 outdated됨.
+
+[33mcommit 95139deb2519a5eadbe19de4bf239d5e1e61778e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jul 2 08:23:06 2021 +0900
+
+    Update and rename (D-4-2) AuditActivity to (D-4-2) auditActivity
+
+[33mcommit c4a4ef54de452701707b42e7edfe0513ad57cf13[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 18:01:49 2021 +0900
+
+    Update and rename data01.auditor.txt to (D-2-2) data01.auditor.txt
+
+[33mcommit 3c9069600cfca2b59228b26140758d0630b0cc73[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 17:03:16 2021 +0900
+
+    Update (D-7-1) extractGovernance
+    
+    감사위원회/감사 등은 정관의 끝에서부터 거꾸로 찾는게 더 빠르다. 이미지 Parsing의 경우 request와 프로세스 시간 단축 목적으로 해당 처리 필요하다.
+
+[33mcommit 36f2ead8e57d0b209be9014bde6093149c2591e0[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 16:51:42 2021 +0900
+
+    Update (D-7-1) extractGovernance
+    
+    "감사의"는 구분자로 사용할 수가 없다. "감사의 실시" 또는 "감사의견" 같은 워딩이 감사위원회 설치를 정한 정관에도 포함되어 있다.
+
+[33mcommit 78db69a261eadddba9c13d3a047641b585d31f1d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 15:25:30 2021 +0900
+
+    Create (D-7-1) extractGovernance
+    
+    사업보고서 제출법인이 첨부하는 정관의 감사위원회/감사 선임 관련 조항에서 정보를 추출하여 내부통제조직 식별. Text가 아닌 그림(<img> 태그로 판단)으로 공시한 경우에는 Tesseract로 image-to-text 작업을 한 이후 추출 작업 수행한다. DART 서버에 요청하는 것이라, IP 차단 리스크가 있다. Time.sleep(1)과 Loop break를 사용해서 차단을 피해보려고 하였다.
+
+[33mcommit d15be6cb5e236edd5d542671b0592c193b5b0182[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 12:05:59 2021 +0900
+
+    Update README.md
+
+[33mcommit 7550e2007050c5aa12b4f1541679458b9aefe9e1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 11:07:34 2021 +0900
+
+    Rename mergeCSV to (G-1) mergeCSV
+
+[33mcommit 27691b9d0dc6188ada6086523d7df239bc5fa5ab[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 11:06:56 2021 +0900
+
+    Rename external_audit_summary_parsing_1 to (D-4-2) AuditActivity
+
+[33mcommit 4673eabf56d3b80db8cf4698e47b54a3612b685c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:52:29 2021 +0900
+
+    Rename icReview to (D-6-1) icReview
+
+[33mcommit 66214f79aab7dfc462071dcf1c5e1d3f7005ac4d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:44:32 2021 +0900
+
+    Rename auditReportOpinion to (D-3-2) auditReportOpinion
+
+[33mcommit ec558057be516182b251dd18585be8aecf8f9dd5[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:43:54 2021 +0900
+
+    Rename extract_invRec to (D-5-3) extract_invRec
+
+[33mcommit e40abcef0e47003f2345d3e493cf38f9f1311aae[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:43:23 2021 +0900
+
+    Rename extract_netIncome to (D-5-2) extract_netIncome
+
+[33mcommit ab807b57cbdcdfee467191bdb9b8769f85c9a4be[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:42:23 2021 +0900
+
+    Rename extract_totalAsset to (D-5-1) extract_totalAsset
+
+[33mcommit 553664ee2183916e8e787b8e0313927500fff946[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:40:59 2021 +0900
+
+    Update README.md
+
+[33mcommit c327e6dcc29bc6b5f1f3ee5ad705860631b6a172[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:34:35 2021 +0900
+
+    Rename phase_information to (D-4-2) phase_information
+
+[33mcommit 9b188c487fc591b131f40f6c67ba6bc8d9d5d9f5[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:32:03 2021 +0900
+
+    Rename extract_time_information to (D-4-1) extract_time_information
+
+[33mcommit 9285da871d54adcf30e908012b378d889844f583[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:31:21 2021 +0900
+
+    Rename auditReportGAAP to (D-3-4) auditReportGAAP
+
+[33mcommit f2969145087b9dffb0bd3352dd82096cf5d1b535[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:30:59 2021 +0900
+
+    Rename auditReportDate to (D-3-3) auditReportDate
+
+[33mcommit 2b3ebdfa4d7979bde8448b81f1f8f980f63ab58b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:30:19 2021 +0900
+
+    Rename auditReportFirm to (D-3-1) auditReportFirm
+
+[33mcommit a9f712bfcc5ce4cd9e61e7b9c2018d971c73c33e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:29:44 2021 +0900
+
+    Rename auditReportCover to (D-2-2) auditReportCoverAuditor
+
+[33mcommit bad41f0bc213fec336364af465737d87b948ebed[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jul 1 10:28:44 2021 +0900
+
+    Rename auditReportCoverCurrentPeriod to (D-2-1) auditReportCoverCurrentPeriod
+
+[33mcommit 068e9fd2be0337563b9e65d168e8e2c1fdec3600[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 11:39:56 2021 +0900
+
+    Create (D-4-3) auditActivity_communication
+    
+    외부감사실시내용의 '4. 감사(감사위원회)와의 커뮤니케이션'의 표에서 "감사위원회"가 언급된 경우 감사위원회가 설치된 것으로 본다. 2019년 이후 공시에만 포함되어 있지만, 일부 사업보고서 제출 대상이 아닌 경우에도 포함될 수 있는 장점이 있다.
+
+[33mcommit 5bf324f3af4faa33d8d34ce57d0a7b1ef0ffe00c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 01:28:24 2021 +0900
+
+    Create (E-2) mergeCSV_auditor
+    
+    감사인 정보는 손실/누락을 최소화하기 위해 필요한 후가공이 많다. 따라서 금융업, 100시간 미만 등 제거하지 않는다.
+
+[33mcommit 5c5d6a0643471759f79255c1b224711e88b9e076[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 01:05:38 2021 +0900
+
+    Create (E-3) mergeCSV_reportdate
+
+[33mcommit f7b2b755ad961958ff8f430a9c33e80fbbcbc405[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 01:01:20 2021 +0900
+
+    Update README.md
+
+[33mcommit 066e84520099fb45f4e41a414ecfa92b1ca307a0[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 00:57:46 2021 +0900
+
+    Update README.md
+
+[33mcommit 974be551845ea417b5cddb82e53b4bc76b8f3d4d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 00:52:04 2021 +0900
+
+    Rename (E-3) mergeCSV_financials to (E-4) mergeCSV_financials
+
+[33mcommit 9a1d94164bdf188862418ba405b7bf2cb8f478c7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 30 00:27:15 2021 +0900
+
+    Update (E-1) mergeCSV_period
+
+[33mcommit a64cd21e3bbd7980fa72777786fa793d619aaa45[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:46:17 2021 +0900
+
+    Update README.md
+
+[33mcommit 3671adec3947b9c62430f4f3fef2b24d9cb675a3[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:44:54 2021 +0900
+
+    Add files via upload
+
+[33mcommit b6538c2c8be113eb7519919faa387cd79c03af00[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:29:38 2021 +0900
+
+    Rename businessReportCover to (D-1) businessReportCover
+
+[33mcommit 21f3fe1b0290871a725355460793391d13f87de2[m
+Merge: 53bdf4d 7af07c1
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:28:47 2021 +0900
+
+    Merge pull request #24 from ypspy/ypspy-patch-16
+    
+    Delete ParseDuplicatedDocuments
+
+[33mcommit 53bdf4d93c4d0395d04a121612b1f0e3ed4796a8[m
+Merge: 8f949e1 7328054
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:28:36 2021 +0900
+
+    Merge pull request #25 from ypspy/ypspy-patch-17
+    
+    Delete ParseDuplicatedDocuments2
+
+[33mcommit 7328054dfe9da210b655a1e5f5dcaa6bbb64e9a8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:28:19 2021 +0900
+
+    Delete ParseDuplicatedDocuments2
+    
+    개별 파일에 embed됨
+
+[33mcommit 7af07c10421a007ad9fe35203f51b11d9b8cabdb[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:27:52 2021 +0900
+
+    Delete ParseDuplicatedDocuments
+    
+    개별 파일에 Embed됨
+
+[33mcommit 8f949e1fcaeaf9a87e6ca9cf1c363830389f8283[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:26:42 2021 +0900
+
+    Create (E-1) mergeCSV_period
+
+[33mcommit 137279eb6debff5d0e894921ae32fa010350dacc[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 19:00:20 2021 +0900
+
+    Rename (E-2) mergeCSV_financials to (E-3) mergeCSV_financials
+
+[33mcommit a9437f4eb7b1d14d60cdba6fe412cf222afebc97[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 18:48:17 2021 +0900
+
+    Update README.md
+
+[33mcommit 1578055e33da3ad8983fe06a67927770e52bf385[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 17:58:29 2021 +0900
+
+    Update README.md
+
+[33mcommit 1a40f8e5d0dcead6093fb33c338989d83e9381af[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:34:07 2021 +0900
+
+    Update README.md
+
+[33mcommit de277fae5fae75fbe9a5f37711635f6dd3c4c491[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:33:38 2021 +0900
+
+    Rename scraper to (A) scraper
+
+[33mcommit 7e4e979249d5f5bb4bc2130b375ef709597f0527[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:30:14 2021 +0900
+
+    Update README.md
+
+[33mcommit 412ec8e9c00b84445a83f452a7c32019752c3f08[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:27:57 2021 +0900
+
+    Rename mergeCSV_financials to (E-2) mergeCSV_financials
+
+[33mcommit ad23757bf8310806123b75da8cfe26f8bec728e1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:25:41 2021 +0900
+
+    Update mergeCSV_financials
+
+[33mcommit e052fd947b0e772f6fec1ccee375afe93cff742d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:25:05 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit d773c315a5aa966c1c452bc55a6018bdb6a902ed[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 12:24:01 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit 482a4dae1cee1287c1252713950919e7d7e2766e[m
+Merge: 1ee26cc 9e885ee
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:11:45 2021 +0900
+
+    Merge pull request #22 from ypspy/ypspy-patch-15
+    
+    Delete dart_reporting_form_dsd_to_html
+
+[33mcommit 1ee26cc08a09508c2e5cbb59d53068badc0f078f[m
+Merge: cdc06a9 3b75d31
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:11:33 2021 +0900
+
+    Merge pull request #21 from ypspy/ypspy-patch-14
+    
+    Delete dart_reporting_form_parsing
+
+[33mcommit 9e885ee33c438f28cc00bba410908c67955fc79d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:11:15 2021 +0900
+
+    Delete dart_reporting_form_dsd_to_html
+    
+    외부감사실시내용 관련 코드 삭제
+
+[33mcommit 3b75d31ac0f796ea1bdbf687dbe0b9564d674b67[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:10:45 2021 +0900
+
+    Delete dart_reporting_form_parsing
+    
+    외부감사 실시내용 정보 입수 코드 삭제
+
+[33mcommit cdc06a99c7da07b55b09057dad083de35c626fde[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:05:47 2021 +0900
+
+    Update README.md
+
+[33mcommit 43ed95031ba773937399fce2a993ce52ef205a7b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 01:02:50 2021 +0900
+
+    Update README.md
+
+[33mcommit 12490f70211e613655e0f282f2e7ee5f84838f74[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 29 00:58:32 2021 +0900
+
+    Update README.md
+
+[33mcommit f3b1dfe02d3ad343549cd31ae3f4da4ed9c07962[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jun 28 23:34:02 2021 +0900
+
+    Rename auditor.txt to data01.auditor.txt
+
+[33mcommit c6fdb9a8d6d74a6ce29910f17fbdcd5533793434[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jun 28 20:05:51 2021 +0900
+
+    Update README.md
+
+[33mcommit d6fde6c24ae7c344a83992ecb2bcf5d79a96fb3a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jun 25 23:45:34 2021 +0900
+
+    Update extract_netIncome
+
+[33mcommit eb60450532143c1151d89415e7777a7d52e39191[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jun 25 01:37:41 2021 +0900
+
+    Update extract_invRec
+
+[33mcommit 306d88364ec0035853d1951df960f901f7a157ab[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jun 24 14:42:14 2021 +0900
+
+    Create mergeCSV_financials
+
+[33mcommit 09e180ffa7c3cabb61337441dd1e10a3a0b66a9f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jun 24 14:37:29 2021 +0900
+
+    Update extract_netIncome
+
+[33mcommit 861f21c6a1f07af5dc7b5d7dc27c9fc5b017ad2d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 23 23:14:30 2021 +0900
+
+    Create auditReportGAAP
+
+[33mcommit 5728cecaeeabbb421195ee19375b8081b64ed5b4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 23 23:10:08 2021 +0900
+
+    Add files via upload
+
+[33mcommit d2e594e524e09d69febba170ec705767988e98b2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 23 23:07:32 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit bb78828f92bc9f9e57336f1ec879edfdcebd78d1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 23 22:36:17 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit 931ef343f101996002c5e5cf46153dbff0f0ad88[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jun 23 10:11:47 2021 +0900
+
+    Create extract_invRec
+
+[33mcommit b2105998cfb80104f83d9c48c3cb90b86ff56b1e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 22 10:26:14 2021 +0900
+
+    Create extract_netIncome
+
+[33mcommit 43eb9f6ac7709027e88400790e3046c5c92fc266[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jun 18 13:20:11 2021 +0900
+
+    Update icReview
+
+[33mcommit d0cf59a8597670eae397e92cf2be982911dbdb7c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Jun 18 11:49:05 2021 +0900
+
+    Create icReview
+
+[33mcommit a7a15822a6488c0eb14f4ba43e68f529eb7c6d2b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 8 22:27:08 2021 +0900
+
+    Update extract_totalAsset
+    
+    직전 추출값 리셋 처리
+
+[33mcommit 4cc74f630b6beb3b900e32337c4e85b081c280c8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jun 8 15:59:05 2021 +0900
+
+    Update auditReportCover
+
+[33mcommit 02e09ce69a1d6013c70a9b0304ec06065b2d452e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jun 3 02:03:51 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit f41eeee7152e09e510c919301e235665dd6f3796[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu May 20 16:30:43 2021 +0900
+
+    Update external_audit_summary_parsing_1
+
+[33mcommit 989fd70e6bf7cfadf2d74f135ab67a20170b66c4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed May 19 02:25:50 2021 +0900
+
+    Update auditReportFirm
+
+[33mcommit 6ca4eb8142c7657d596c665eb4d7007f53d7f7f4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed May 19 01:56:58 2021 +0900
+
+    Update auditReportFirm
+
+[33mcommit 6de4af6e3a3705d94f35b73e37a7d028e3d0a6e3[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed May 19 01:16:02 2021 +0900
+
+    Update auditReportDate
+
+[33mcommit 34ba7c57051bec6ab49239f56f52f4df876d7c95[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 23:58:21 2021 +0900
+
+    Update businessReportCover
+
+[33mcommit 94888b45e2a49ab1a8a38344cb8d10ca3ee3769c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 18:20:56 2021 +0900
+
+    Update mergeCSV
+
+[33mcommit b4621a44df74520f07e4d192d772cc695c0ecbc0[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 18:04:56 2021 +0900
+
+    Update auditReportCoverCurrentPeriod
+
+[33mcommit 075645e1c678cb1fa1e4c384d7d8863f0e906d1f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 17:44:46 2021 +0900
+
+    Update auditReportCover
+
+[33mcommit c7a310eeea81c3a562d5a4f3353da8a8859c7bfa[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 17:43:05 2021 +0900
+
+    Update auditReportCover
+
+[33mcommit 2b25faaa194ff06433ab88cef45004b24283974a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 01:23:43 2021 +0900
+
+    Create mergeCSV
+    
+    입수 정보 모두 병합. Excel에서 비정형 입수자료/오류 수정 필요
+
+[33mcommit ad3458c2d914b79cbcc83c280220e8098da3ea7e[m
+Merge: 01a24d8 dd7f51e
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue May 18 01:21:43 2021 +0900
+
+    Merge pull request #20 from ypspy/ypspy-patch-13
+    
+    Update README.md
+
+[33mcommit 01a24d86d7ee38cdcf96c4242914f5c728af267b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon May 17 18:09:48 2021 +0900
+
+    Update extract_time_information
+
+[33mcommit fed55cb3ee15f633e26631108dc40a568cd17e88[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun May 16 15:38:17 2021 +0900
+
+    Update auditReportOpinion
+
+[33mcommit 35a7d04f32927975a4b441a2da66d3061e6a96fe[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun May 16 14:31:48 2021 +0900
+
+    Update extract_totalAsset
+    
+    Pandas로 전가공/후가공 모두 반영해서 최종 산출물로 추출하도록 코드 업데이트
+
+[33mcommit 7185af4a5b0ca63ca91c38cf737f678b039bf92f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat May 15 20:08:36 2021 +0900
+
+    Update auditReportOpinion
+    
+    중복 판단 변경 → 최종 샘플이 (마지막) 정정 후 연결 재무제표가 될 수 있도록 조정
+
+[33mcommit 2306082daa5011f5cdb4f5ef4bebb52fe628263c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri May 14 02:16:01 2021 +0900
+
+    Update auditReportOpinion
+
+[33mcommit 1be63a70a9e4e5cb07d556062e423d5500056569[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri May 14 01:43:35 2021 +0900
+
+    Update auditReportOpinion
+
+[33mcommit c01c44dfb125afa855695087a63aea29df3a33cb[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu May 13 13:47:46 2021 +0900
+
+    Update extract_totalAsset
+
+[33mcommit 29010fa672f3edd11dec55e4958e5016e4bdcd23[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed May 12 20:50:35 2021 +0900
+
+    Create extract_totalAsset
+
+[33mcommit f4d84d04750713a60e9ed37d31e58cc0caeb0276[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Apr 14 21:17:57 2021 +0900
+
+    Create auditReportDate
+
+[33mcommit b0ebcd367aa44e65e712e465834c40c654090b75[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Feb 14 09:51:46 2021 +0900
+
+    Update extract_time_information
+
+[33mcommit 5b8c19717e3c92ece61d9143df9b576a3408d2c4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Feb 14 00:29:22 2021 +0900
+
+    Update auditor.txt
+
+[33mcommit 833d22ba96d19949e2b54a8c572e637caaeec38b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Feb 14 00:28:06 2021 +0900
+
+    Update auditReportFirm
+
+[33mcommit f2024089862e92b627a3df0d631898a181264f26[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 21:54:56 2021 +0900
+
+    Update businessReportCover
+
+[33mcommit acc58bd550b20a80e7c03060f2f5c3a7b5407da0[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 20:44:49 2021 +0900
+
+    Update auditReportCover
+
+[33mcommit c6e8ac0bdbe70ad49548a283c02e87b25acb6326[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 20:18:02 2021 +0900
+
+    Update auditReportCoverCurrentPeriod
+
+[33mcommit 62c2707d2098f61d92cc11c14297a4e0147af169[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 16:36:40 2021 +0900
+
+    Update auditReportCover
+    
+    firmName이 Loop에서 정리되지 않아서 값이 없는 경우에도 입력되는 문제, p-tag가 아니고 td-tag에 회계법인명이 들어가 있는 경우 추출하도록 수정
+    이렇게 해도 연간 약 1,000건 정도는 남는다. 감사보고서 표지에 감사인 명칭을 쓰지 않는 사례들이다.
+
+[33mcommit b51eb61ecc2a91533c59a5e4f1b8ddba8fb6441b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 16:35:00 2021 +0900
+
+    Update auditReportFirm
+    
+    firmName이 Loop에서 정리되지 않아서 값이 없는 경우에도 입력되는 문제, p-tag가 아니고 td-tag에 회계법인명이 들어가 있는 경우 추출하도록 수정
+    이렇게 해도 연간 약 1,000건 정도는 남는다. 감사보고서 표지에 감사인 명칭을 쓰지 않는 사례들이다.
+
+[33mcommit d01e67b03953344f0f76122053b29fd0a824de7a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 13:53:26 2021 +0900
+
+    Update auditReportCover
+
+[33mcommit 97642d13305503874c423bf7d6c23a810333385b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 12:01:40 2021 +0900
+
+    Update README.md
+
+[33mcommit 1bc529df2a06d53fe40f90d0065066d63141059c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 12:00:46 2021 +0900
+
+    Update README.md
+
+[33mcommit 47c37532435c509ce3d37a6322454bac36d4ed97[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Feb 13 00:23:59 2021 +0900
+
+    Update businessReportCover
+
+[33mcommit dd7f51e5435ad1560c7145026c43beb5b54d3609[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Feb 11 12:44:13 2021 +0900
+
+    Update README.md
+
+[33mcommit 30f53ea1e57944c6f1e1f3b4a3ac57bc2fc1cc1c[m
+Merge: 33a212c 221f05d
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 19:09:21 2021 +0900
+
+    Merge pull request #19 from ypspy/ypspy-patch-12-1
+    
+    Create README.md
+
+[33mcommit 221f05dbe1fcbfd135d99a798642011e7611fd51[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 19:08:58 2021 +0900
+
+    Create README.md
+    
+    Pooling Files의 설명은 해당 프로세스가 개별 분석 과정에 반영되어 있기 때문에 더 이상 유효하지 않음. 삭제 필요.
+
+[33mcommit 33a212cd53f244e5574b4fe88bfbfeee06e3f013[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 18:59:14 2021 +0900
+
+    Delete poolingFiles
+    
+    추출 코드에 반영되어 있음
+
+[33mcommit 2dbee058376d53ff68f07f274d6c0728c5ec67dc[m
+Merge: 6e59847 9dc643a
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 18:57:08 2021 +0900
+
+    Merge pull request #18 from ypspy/ypspy-patch-11
+    
+     Delete table_html_to_matrix
+
+[33mcommit 9dc643afbd82cc31ae6e815cd96d2a81b368c773[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 18:56:40 2021 +0900
+
+    Delete table_html_to_matrix
+    
+    Matrix function은 외부감사 실시내용 등 specific table에서 정보를 추출하는 여러 코드에 녹아있음.
+
+[33mcommit 6e59847456dea32314c4878332ca8150197304ed[m
+Merge: c651ee5 5fce7d4
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 18:54:44 2021 +0900
+
+    Merge pull request #17 from ypspy/ypspy-patch-10
+    
+    Delete time_long_to_wide
+
+[33mcommit 5fce7d4465d2addfd22e181bd1642ea951e48c70[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Feb 10 18:54:18 2021 +0900
+
+    Delete time_long_to_wide
+    
+    Long format을 Wide format으로 변경하는 여러 코드에 해당 내용이 포함되어 있음
+
+[33mcommit c651ee5b9aa40de3284d60372c39690f135e7680[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Jan 7 10:56:23 2021 +0900
+
+    Update phase_information
+
+[33mcommit 61d228484210ea28b504b4cedce3b1d04e768c30[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Jan 6 00:00:38 2021 +0900
+
+    Update phase_information
+
+[33mcommit 6c58e6d7fffaf4b3c112b210ea8976acb2cc47d2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jan 5 23:18:50 2021 +0900
+
+    Create phase_information
+    
+    외부감사 실시내용의 '3. 주요 감사실시내용'에서 Phase 정보 추출
+
+[33mcommit 2d622cb3c3dcffeec0ec951072fb48a3fb3fa7b7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Jan 5 15:55:38 2021 +0900
+
+    Update extract_time_information
+    
+    경로생성 코드, 중복제거 코드, long-to-wide 코드 조합. 중간 산출물(long-format)과 최종 산출물 두 건을 산출
+
+[33mcommit 3e892a5907cc8938318f803ce5475a6e532f5cdc[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 17:33:15 2021 +0900
+
+    Update README.md
+
+[33mcommit 23d724d4933364815270347578921d644b1878c2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 14:11:11 2021 +0900
+
+    Update README.md
+
+[33mcommit 06606351523f3c663e536cc2b05ccec4a2b2971f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 00:15:00 2021 +0900
+
+    Update README.md
+
+[33mcommit c80005f71ab017321432355622206f339df2b480[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 00:05:30 2021 +0900
+
+    Update poolingFiles
+    
+    통으로 이동하고 어쩌고 이런 작업 다 제거하고, path를 만들고 조건별로 정제한 이후 refined path를 후속 과정에 사용
+
+[33mcommit e6d57af6f13dabd826f43dc3a657fafb6914c66b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 00:04:23 2021 +0900
+
+    Update auditReportOpinion
+    
+    잘못 만져서 복구. 이제 pull request 사용하자.
+
+[33mcommit a7e64ea1667d6ffa406b0b8c3862cb38fb121218[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Jan 4 00:01:49 2021 +0900
+
+    Update auditReportOpinion
+    
+    파일을 이 통 저 통 옮길것이 아니고 경로를 만들어서 정제한 후 refined Path를 가공에 활용
+
+[33mcommit d0e6234538abc565e0f6855194caaab103df1f60[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jan 3 22:43:27 2021 +0900
+
+    Update README.md
+
+[33mcommit 4f874d040f163bbc95fd5bf2da531912ee877e37[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jan 3 17:59:22 2021 +0900
+
+    Update README.md
+
+[33mcommit ce2b168a5c5f52cd87286976551cf100adba8bcc[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jan 3 17:57:43 2021 +0900
+
+    Update README.md
+
+[33mcommit e346a2d21424594a468b459cf680ecdfdae8f75f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jan 3 17:45:44 2021 +0900
+
+    Update README.md
+
+[33mcommit 00db08ff2701ceef80ac85e3e02c90d869b3fcae[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Jan 3 17:39:01 2021 +0900
+
+    Update README.md
+
+[33mcommit 05ff3aebcf5a7f2576569dca9e6c4889780db32d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Dec 30 16:11:13 2020 +0900
+
+    Update README.md
+
+[33mcommit fa922c793684c044a205dbec01b00cad11728bca[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Dec 20 17:32:17 2020 +0900
+
+    Create ParseDuplicatedDocuments2
+    
+    중복 제거. pandas.read_csv가 raw data의 17번째  column 이후를 가져오지 못해서 usecols 부분 추가
+
+[33mcommit 7b92f9eaff9ff8a6e88262306ecb7d885f7bcad3[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Dec 20 00:55:48 2020 +0900
+
+    Create auditReportOpinion
+    
+    감사보고서에서 의견 픽업
+
+[33mcommit 4d1356b406fb670080ed06c64bc628aaa236d1d2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 22:05:55 2020 +0900
+
+    Update time_long_to_wide
+    
+    출력 반영
+
+[33mcommit 3c2d7e394bf7d66f5537744cae38ef2700bce138[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 19:51:48 2020 +0900
+
+    Update extract_time_information
+    
+    key 마다 30건 정도의 자료가 입수되어, 다른 경우와 달리 후반에 중복을 제거하기 어려움. 따라서 경로 단계에서 중복을 먼저 제거하고 시작
+
+[33mcommit da420385bbe5487c821ef5e4f549095775f0bcdf[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 16:23:09 2020 +0900
+
+    Update ParseDuplicatedDocuments
+
+[33mcommit 69e222b6ffd544ebea01d39150dbb02cbb1daed9[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 01:07:31 2020 +0900
+
+    Create time_long_to_wide
+
+[33mcommit b5893f4b18f4b23fda1c4729736aded5dbec14a3[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:50:46 2020 +0900
+
+    Update extract_time_information
+    
+    시간 입력 형식이 '-'와 ','를 제거한다. ('-'→'0', ','→'')
+
+[33mcommit c232915548ae909de31c482c627437f05a7f24a7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:25:18 2020 +0900
+
+    Update README.md
+
+[33mcommit 285446416507853e4acac212f66601080ee6a237[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:24:18 2020 +0900
+
+    Update README.md
+
+[33mcommit b8186df0595cd61a1f3b02115763b6f54a9c64f2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:23:41 2020 +0900
+
+    Update README.md
+
+[33mcommit 840e7d18106ab1fc715a419f7875875dd233b89a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:21:34 2020 +0900
+
+    Update README.md
+
+[33mcommit f6065adc49629c7a9d65909a142b2d1c6ad1f1fb[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 19 00:14:32 2020 +0900
+
+    Update README.md
+
+[33mcommit fff68139fb0ffc486b13a64f946206cbdb055921[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 17:36:35 2020 +0900
+
+    Update README.md
+
+[33mcommit 9914da8313c709bfcb6126b210054151ce0f4cad[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 17:35:43 2020 +0900
+
+    Update README.md
+
+[33mcommit 1d341404c9ffa2a0550410f68ed66577818bec16[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 16:58:04 2020 +0900
+
+    Update README.md
+
+[33mcommit d009447f6db5dfbecaabbe0e50a891665e0f94a6[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 16:52:16 2020 +0900
+
+    Update README.md
+
+[33mcommit 27acd2746dd888cce4e3c9641f40d0ea2344a916[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 16:47:37 2020 +0900
+
+    Update README.md
+
+[33mcommit 4f7b73610ef04b607f0cf768e3b05d3fca876acb[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 14:18:23 2020 +0900
+
+    Update README.md
+
+[33mcommit 2c0b558df19d54b230c7760463148a0deb3802bc[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 12:17:57 2020 +0900
+
+    Update extract_time_information
+    
+    당기/전기 표시 안한 경우 고려하여 수정
+
+[33mcommit 7d345cc3a07d0366ea6c1fe2d96a758d78cb0e25[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 18 11:27:07 2020 +0900
+
+    Update extract_time_information
+    
+    모든 정보를 추출하도록 코드 수정. 파일 1건당 28건
+
+[33mcommit 038765b98da0af185292785e7411af5800d9ee42[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 17 15:34:10 2020 +0900
+
+    Update auditor.txt
+
+[33mcommit 79b448b2ae0223193c5a78bfe8a5f998515b623b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 17 14:28:37 2020 +0900
+
+    Update auditor.txt
+
+[33mcommit 6fc21c9f1c87ebfebcda46fedab2697f91279bee[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Dec 13 00:53:15 2020 +0900
+
+    Add files via upload
+    
+    From: /auditReportCover
+    To: /auditReportFirm
+    사업보고서 표지 입수한 회계법인 명칭으로 감사보고서 본문에서 감사인 명칭 정보 추출
+
+[33mcommit fe6bf9f9c4170efdd45eda3c6af1bb03ef4ad09d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Dec 13 00:50:06 2020 +0900
+
+    Create auditReportFirm
+    
+    감사보고서 표시에서 감사인 명칭을 추출한 결과로 auditor.txt 파일을 만들고, 감사보고서 본문 안에서 명칭 추출. 아래 고려,
+    (1) 두 건 이상 감사인 명칭 존재
+    (2) '안진회계법인', '진회계법인'이 중복 카운트 될 수 있음
+
+[33mcommit 35d3a80f8fc172bf4c6c518e18574c4afbeddd2b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 10 21:27:47 2020 +0900
+
+    Update businessReportCover
+
+[33mcommit 05b2d0182c144240f3576aef7ed3634dfdb16c39[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 10 18:12:16 2020 +0900
+
+    Create ParseDuplicatedDocuments
+    
+    duplicated 표지가 붙어있지 않지만, 회사가 감사보고서를 사업보고서에 첨부하여 제출하고, 감사인이 동일한 감사보고서를 직접 제출하는 경우 등 중복 문서 존재
+    pandas로 사업보고서 첨부 감사보고서와 감사인 제출 감사보고서를 붙이고 key1을 생성한 후 중복 제거 후 key2와 필요 정보만 뱉어내는 코드
+
+[33mcommit ed55bd25f5852c36d317c49c91ee909ac6c712cc[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 10 17:45:02 2020 +0900
+
+    Update businessReportCover
+    
+    - if 안에서 선언한 변수가 그대로 다음 파일에 넘어가는 문제 발견하여 수정
+    - matrix에서 뽑아내는 것이 정밀도가 떨어져서 후가공 엑셀에서 수행
+
+[33mcommit 855dadc1f3bfd2a2e20c9a43a13c1fca7ee64300[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Dec 5 01:15:25 2020 +0900
+
+    Create auditReportCoverCurrentPeriod
+
+[33mcommit e8ae8be20dc790d164824f5381c3bec2a1c005ae[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Dec 4 16:21:09 2020 +0900
+
+    Create auditReportCover
+    
+    입수된 감사보고서 표지에서 감사인(회계법인 혹은 감사반)의 명칭을 추출
+
+[33mcommit f25a32fd8ece98145941e95920ca14a7daccb68e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 3 23:33:24 2020 +0900
+
+    Create businessReportCover
+    
+    사업보고서 표지에서 법인 유형, 회사명, 사업연도 개시일, 종료일 정보 추출-
+
+[33mcommit 6e3afd1e9c6ccde8a2730e4551bafb4bb92a5384[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 3 12:05:10 2020 +0900
+
+    Update extract_time_information
+
+[33mcommit bf5afa22c660c040b9cd1c36f284dc2c8fbf4c8c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Dec 3 11:13:21 2020 +0900
+
+    Update poolingFiles
+    
+    입수 단계에서, 사업보고서의 기재정정 등이 있는 경우 원본 문서와 정정 문서 모두 기재정정 Tag가 붙는다.
+    기재정정 Tag가 붙은 것 중 세부 문서에서 [정정] Tag가 붙은 경우만 제거한다.
+
+[33mcommit 563219a3bd040d1a2b0fb2598b4add99e0a606a1[m
+Merge: a1e678c 815fc20
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Dec 2 15:50:45 2020 +0900
+
+    Merge pull request #15 from ypspy/ypspy-patch-9
+    
+    Update poolingFiles
+
+[33mcommit 815fc2007730a36210b979668cff3887cd54bee9[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Dec 2 15:50:30 2020 +0900
+
+    Update poolingFiles
+    
+    Working Directory → 입수통 → pool(1) → pool에서 불필요한 파일(*) dump(2)로 이동 → 취합 폴더로 이동
+    (*) Key : duplicated, 연결감사보고서(사업보고서만), 기재정정, [정정](첨부정정의 경우),
+
+[33mcommit a1e678c30aa7a793d1ec25bee0ab24df45a293f6[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Nov 27 16:52:10 2020 +0900
+
+    Create poolingFiles
+
+[33mcommit 50ccfc1fd8019558e772c92b7828487bc4a646ae[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Nov 18 13:26:55 2020 +0900
+
+    Create extract_time_information
+
+[33mcommit bcc923ef617b49f2ea5cc3a7415ca1cbd7c04531[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Sep 23 10:41:30 2020 +0900
+
+    Create external_audit_summary_parsing_1
+    
+    특정 폴더에 있는 외부감사실시내역을 찾아서, 그 안에 있는 '3. 주요 감사실시내용'을 선택하여 필요 정보 입수
+
+[33mcommit cbfc4287425a6646f8f2022aa35d20ff5ad70ca2[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Sep 21 14:37:41 2020 +0900
+
+    Create dart_reporting_form_dsd_to_html
+
+[33mcommit db275bb84a364ffadf1e5bd20daedaa226246d0a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Sep 21 14:35:10 2020 +0900
+
+    Create dart_reporting_form_parsing
+
+[33mcommit 23d0995f55d3c172ff5adf4c1d53d08f7ef372b5[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Sep 21 14:30:05 2020 +0900
+
+    Update README.md
+
+[33mcommit 414daaa225fd5e88429631a85047d39147b6b662[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Sep 10 20:40:19 2020 +0900
+
+    Update README.md
+
+[33mcommit ec3b298858ae3e50ec8f47ee1f882b095c042476[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 24 21:20:03 2020 +0900
+
+    Update README.md
+
+[33mcommit 70d8d5597440a4d2f3dfd5008801f5a966bcf568[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 24 14:59:42 2020 +0900
+
+    Create table_html_to_matrix
+    
+    HTML의 <table> tag에서는 merge된 column과 row를 표현할 수 있는 attribute인 colspan과 rowspan을 조정할 수 있다. (default=1)
+    코드는 column, row의 수를 카운트하여 Matrix를 만들고  table tag 안에 들어있는 정보를 위치에 맞게 입력한다.
+
+[33mcommit 0b2d44a260fce39c1fde5271d0b4fa59145a78d8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 24 12:51:38 2020 +0900
+
+    Update README.md
+
+[33mcommit 6783fe096a1a8ce31c8f785594f92e6449fdc9d3[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 24 12:49:44 2020 +0900
+
+    Update README.md
+
+[33mcommit 3e0ce1f9861e10e99c52f7d73a4d8625a1a98bc8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 24 12:49:15 2020 +0900
+
+    Update README.md
+
+[33mcommit 93629a71336689cd92ddd452f907def859dfcd40[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 23 21:51:46 2020 +0900
+
+    Update README.md
+
+[33mcommit e942dada2d9b08d777b5b25b4a93e2349dc72535[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 23 00:10:45 2020 +0900
+
+    Update README.md
+
+[33mcommit 49d3e3ad4c0bce10e59c57e2bb8316d0ea2d0e9b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 22 23:19:29 2020 +0900
+
+    Update README.md
+
+[33mcommit 51811fc619d6948194ba323ff41b960aebd62528[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 21 13:59:52 2020 +0900
+
+    Update README.md
+
+[33mcommit d93c179bf30a943ceec24437c118fb6767e623a9[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 21 12:16:45 2020 +0900
+
+    Update README.md
+
+[33mcommit 515ede3e04c56e5668f29b8c32bfadf98f5908a7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 21 00:14:35 2020 +0900
+
+    Update README.md
+
+[33mcommit 853849d4b4c6e3eecc05fa41e7adaaa78731f619[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 21 00:14:27 2020 +0900
+
+    Update README.md
+
+[33mcommit a24aea92e3f39f3b89175417a84a12a6f898d48e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 22:30:54 2020 +0900
+
+    Update README.md
+
+[33mcommit 335801aff216808397b261775a6a8ba5d78843c8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 16:38:05 2020 +0900
+
+    Update README.md
+
+[33mcommit 42a4b0acf80b73d24befca6ff79033fed0030cf1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 11:52:00 2020 +0900
+
+    Update README.md
+
+[33mcommit 8138c1b0d7b49d0ddbf86b68b19f4047669fe6f1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 11:51:22 2020 +0900
+
+    Update README.md
+
+[33mcommit 5a390feced42f1677cbc838ea9a3f02cf5b8634c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 11:45:31 2020 +0900
+
+    Update README.md
+
+[33mcommit ef59d6802edf65ca6ce953edf63969c8b907b059[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 20 11:41:16 2020 +0900
+
+    Update README.md
+
+[33mcommit 0724d228c8c4cbef0121695c4133ea3178fb740a[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 19 23:09:28 2020 +0900
+
+    Update README.md
+
+[33mcommit d237e53e00f9d2c585f9361790256ba470b0d551[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 19 00:05:02 2020 +0900
+
+    Update README.md
+
+[33mcommit 339c28383f5552c65ccb197db9367c1415f71a53[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 18 23:17:43 2020 +0900
+
+    Update README.md
+
+[33mcommit ee669b70b8c278a447a0736f9381193a04df5e10[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 18 23:10:24 2020 +0900
+
+    Update README.md
+
+[33mcommit 8a80ff0867dff810296abd41518c5a8b417e0d2f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 18 23:05:47 2020 +0900
+
+    Update README.md
+
+[33mcommit 5fed7320389b807d7efc4515c6d78ed5055735b7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 23:47:32 2020 +0900
+
+    Update README.md
+
+[33mcommit 6eb842e22c9ec75381602c1b132ddb1a7298630a[m
+Merge: 5445124 2c7b905
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 22:15:04 2020 +0900
+
+    Merge pull request #14 from ypspy/ypspy-patch-8
+    
+    Update scraper
+
+[33mcommit 2c7b90575ef51ff3d384e07b04cb3f6d3a14546f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 22:11:50 2020 +0900
+
+    Update scraper
+
+[33mcommit 54451248ab12acf4ec8f09f0ad1222d12727b96e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 14:53:28 2020 +0900
+
+    Update README.md
+
+[33mcommit 60978bc12c139a8af0432d8fa1a30f5bcdb45838[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 14:48:18 2020 +0900
+
+    Update README.md
+
+[33mcommit a15422f696f34e132cc987755dd1188abb448792[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 17 14:29:51 2020 +0900
+
+    Update README.md
+
+[33mcommit abe6f915a8f0c76f4e8d8fe2b94de6abdeae8162[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 19:52:58 2020 +0900
+
+    Update README.md
+
+[33mcommit 06e16f03e7335ef148e00027a84009b52a31cca0[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 19:25:09 2020 +0900
+
+    Update README.md
+
+[33mcommit 6985a4d63749eb52d53d4b13e83a9a078f65a4fe[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 19:25:02 2020 +0900
+
+    Update README.md
+
+[33mcommit be0d79e118166929ddf3140e1ec93d6ba9bdaa6b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 19:20:46 2020 +0900
+
+    Update README.md
+
+[33mcommit 859ce537aa4f13bfa92e26fb15907b6a2d7d0bff[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 19:20:02 2020 +0900
+
+    Update README.md
+
+[33mcommit a8c0680fe08d99d90b41c05d2d8ce52b214572a4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 18:11:15 2020 +0900
+
+    Update README.md
+
+[33mcommit 9356d81430a47a408571baf861400f083134b448[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 18:02:25 2020 +0900
+
+    Update README.md
+
+[33mcommit 972e65c8a73236a531aa8f819ae44783a0b4281e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sun Aug 16 17:38:39 2020 +0900
+
+    Update README.md
+
+[33mcommit 980fbaf6b31efbc83f557ef3311039f7568bec40[m
+Merge: db0e365 054a3ea
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:28:33 2020 +0900
+
+    Merge pull request #13 from ypspy/ypspy-patch-7
+    
+    Update scraper
+
+[33mcommit 054a3eafeb97da97d20e88cec28a8a3bfd24a588[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:26:33 2020 +0900
+
+    Update scraper
+
+[33mcommit db0e365502b33c498b2497cff0af95a4d54632cf[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:18:51 2020 +0900
+
+    Update README.md
+
+[33mcommit 7af09cecf1b2a98eb2321b52c9f1c9935582e7e1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:17:09 2020 +0900
+
+    Update README.md
+
+[33mcommit e04db6bf87ed5d2c7c841fe67758bde8d7358f5f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:15:37 2020 +0900
+
+    Update README.md
+
+[33mcommit ad76250d227f2b975c52ae6f055519523e52b507[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Sat Aug 15 14:14:25 2020 +0900
+
+    Update README.md
+
+[33mcommit 4b2fe67a12132895fb14f7947e46538543cdfb78[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 14 14:25:25 2020 +0900
+
+    Update README.md
+
+[33mcommit f057750e0b64ca8a86bbb017e57219731911b924[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 14 14:06:45 2020 +0900
+
+    Update README.md
+
+[33mcommit 523bda3e1cbebf40513820e5e061468da4f09bd4[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 14 14:04:44 2020 +0900
+
+    Update README.md
+
+[33mcommit 64403074bc5bc7dc43c52dcc7bd23db4eeea84e7[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Fri Aug 14 14:02:21 2020 +0900
+
+    Update README.md
+
+[33mcommit 9a7a52ba430296cf610235487962c6327488234f[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Thu Aug 13 14:46:16 2020 +0900
+
+    Update README.md
+
+[33mcommit e21d42918ab7c3ef34598b3a490450bbf9bdd979[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 22:50:28 2020 +0900
+
+    Update README.md
+
+[33mcommit 68ccbc56288da9cbebd6dbd270e5002563fc3f93[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 22:49:34 2020 +0900
+
+    Update README.md
+
+[33mcommit fd7b410ae6340695200cb5fb6e11066726e2e92c[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 17:31:03 2020 +0900
+
+    Update README.md
+
+[33mcommit 2dc376e5c3a638f2bb890b7255584cfc5a17f452[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:38:37 2020 +0900
+
+    Update README.md
+
+[33mcommit acd17b11926f81dddf7a93ef502e123fda076480[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:38:16 2020 +0900
+
+    Update README.md
+
+[33mcommit 23470792d46d3f0b99e9ae54e30e2ae074c6981b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:37:50 2020 +0900
+
+    Update README.md
+
+[33mcommit d7cbb8605e1f92c4be9f46c8667f42327c4ef42b[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:32:55 2020 +0900
+
+    Update README.md
+
+[33mcommit 438877d0b40b2237a755957157b6d8470861851e[m
+Merge: e22436c 717b59d
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:29:30 2020 +0900
+
+    Merge pull request #11 from ypspy/add-license-1
+    
+    Create LICENSE
+
+[33mcommit 717b59d4746f0b8fbb080d0a47a240e574a27e5e[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:28:50 2020 +0900
+
+    Create LICENSE
+
+[33mcommit e22436c31f0e33649188e0fa6912d122ced7bd4d[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Wed Aug 12 13:19:32 2020 +0900
+
+    Update README.md
+
+[33mcommit ec9c71ec9714761ed7397c3fd896bd4a84ac9347[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 11 23:37:06 2020 +0900
+
+    Update README.md
+
+[33mcommit d0ef57b7331ec447509881cc45fde17474117992[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 11 23:35:00 2020 +0900
+
+    Update README.md
+
+[33mcommit 7a3c176702246ca5ab7b2c9b31c9b9bbb9d2753e[m
+Merge: 25972b1 fbb72c7
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 11 10:48:09 2020 +0900
+
+    Merge pull request #8 from ypspy/ypspy-patch-6
+    
+    Update scraper
+
+[33mcommit fbb72c7d3d313bdaa45ddf6f4b33835d6229fb58[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Tue Aug 11 10:45:58 2020 +0900
+
+    Update scraper
+
+[33mcommit 25972b1da28154be4414f376b1502802edd50dcd[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 10 23:03:07 2020 +0900
+
+    Update README.md
+
+[33mcommit 9bffd95a2174c78338faf8cadff8cc7018789bd8[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 10 16:20:01 2020 +0900
+
+    Update README.md
+
+[33mcommit 846ad0c9a1b6e6dbba2544957b8294fcf29cc9b1[m
+Author: Yoonseok Seong <yoontjr@gmail.com>
+Date:   Mon Aug 10 14:13:24 2020 +0900
+
+    Update README.md
+
+[33mcommit d0f95c12ac8012fdd1fc3d85491193cd822b00ba[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Mon Aug 10 11:39:27 2020 +0900
+
+    Update README.md
+
+[33mcommit eb4c7e6d320ddcce5082008b8fa0a88f2f24a94c[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Mon Aug 10 11:33:31 2020 +0900
+
+    Update README.md
+
+[33mcommit d87e365f7e45105774818bccef3efb7c458106de[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Mon Aug 10 11:32:20 2020 +0900
+
+    Update README.md
+
+[33mcommit e1aea01eff4b76494d3f3aede5b2bd12fbc1cae1[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Mon Aug 10 11:28:18 2020 +0900
+
+    Update README.md
+
+[33mcommit dde14496e79a12b7ab4eac75b10ea31002db5436[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Mon Aug 10 10:58:08 2020 +0900
+
+    Update README.md
+
+[33mcommit 56af2af34cad6e2090b5e265f3e29bfbaf95262b[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 23:23:03 2020 +0900
+
+    Update README.md
+
+[33mcommit 311f1080079b05359273788b1f2e54ed13efae95[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 21:25:15 2020 +0900
+
+    Update README.md
+
+[33mcommit db4391fd728dfc8694c8674090f003c4e3c48cca[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 21:24:17 2020 +0900
+
+    Update README.md
+
+[33mcommit be3273a8fa895d187cc50706553228c098defa54[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 21:14:50 2020 +0900
+
+    Update README.md
+
+[33mcommit 8f1b20d4a29c0623835ce96f3af6c8c1d6fc70f0[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:54:30 2020 +0900
+
+    Update README.md
+
+[33mcommit 7c94dda90666e7593d438bb93e3e79ccc631ce3a[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:39:26 2020 +0900
+
+    Update README.md
+
+[33mcommit 5af9cce113780e00c14150014a5d1d0e98b648d2[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:22:45 2020 +0900
+
+    Update README.md
+
+[33mcommit af2a9d0f16ad8eccf63ebb31c0e2f529cb6a494f[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:09:23 2020 +0900
+
+    Update README.md
+
+[33mcommit ae1dba299bc581783cf5108e8a234842ae5324c4[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:08:36 2020 +0900
+
+    Update README.md
+
+[33mcommit ce7548484730163fbb588290b675a96e3dba2356[m
+Merge: 8782749 8c3ab94
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sun Aug 9 00:01:04 2020 +0900
+
+    Merge pull request #6 from ypspy/ypspy-patch-5
+    
+    Update scraper
+
+[33mcommit 8c3ab9423281a667c38631fd562f05db1e8e7bbd[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 23:59:20 2020 +0900
+
+    Update scraper
+
+[33mcommit 8782749bb808ebf29029047869bd3abde75e9339[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 23:36:14 2020 +0900
+
+    Update README.md
+
+[33mcommit cc5b65efa31b49adffdbc15127fbd13260cf01db[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 23:34:18 2020 +0900
+
+    Update README.md
+
+[33mcommit 1b5c4c7b6e212a7191dbf588c53496737c5528a0[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 23:33:58 2020 +0900
+
+    Update README.md
+
+[33mcommit 9ede6d0526ed5fd964589cfe01b6b724c336895e[m
+Merge: 7327b34 c73d118
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 20:31:17 2020 +0900
+
+    Merge pull request #5 from ypspy/ypspy-patch-4
+    
+    Update scraper
+
+[33mcommit c73d118ffb25b61fccab3fa2313f6a4c702c0ad3[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 20:30:23 2020 +0900
+
+    Update scraper
+
+[33mcommit 7327b34347d3ee2cc3d5f581b5a05fd27e241be9[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 19:22:37 2020 +0900
+
+    Update README.md
+
+[33mcommit 7ccb21fe619b600fb766bc00d8116a8b4de548f6[m
+Merge: 229adea cbae8de
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 16:05:23 2020 +0900
+
+    Merge pull request #4 from ypspy/ypspy-patch-3
+    
+    Update scraper
+
+[33mcommit cbae8deb80ebb696b991d6db3d757834b224f2cb[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 15:59:32 2020 +0900
+
+    Update scraper
+
+[33mcommit 229adea1187a274bb1cb2d99102653e44bada3be[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 00:07:20 2020 +0900
+
+    Update README.md
+
+[33mcommit babb6ab42d92167fcffe4cd5edec4c63a1e11e03[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Sat Aug 8 00:04:42 2020 +0900
+
+    Update README.md
+
+[33mcommit 54c607d74dc52b2a5e4b6bbbcc2e1377c4ca93eb[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 23:42:50 2020 +0900
+
+    Update README.md
+
+[33mcommit a7399b9ac138f8625844caba6e5dc87163070947[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 23:35:38 2020 +0900
+
+    Update README.md
+
+[33mcommit e31dfba4be992443249c82758bd5c8274d6fc7d4[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 23:25:07 2020 +0900
+
+    Update README.md
+
+[33mcommit faf021134addaf9b630057bf9fabf82d51994267[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 23:14:33 2020 +0900
+
+    Update README.md
+
+[33mcommit 032b6615f109f06d9f8fdcdc4daeb83678597924[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 23:03:57 2020 +0900
+
+    Update README.md
+
+[33mcommit 620e3446593d0570ed130cce17cbdb69e236a9a3[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 18:44:11 2020 +0900
+
+    Update README.md
+
+[33mcommit 1e4b3aa537ce7b5106a52bd60d889d7e431e8a2d[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 18:13:19 2020 +0900
+
+    Update README.md
+
+[33mcommit 3cc3ecd0e8e2a9202730cc6c72b9ef1fb60f44a1[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 18:00:33 2020 +0900
+
+    Update README.md
+
+[33mcommit a9c8431be10c6babae66ead01dcf203abd7a2ba4[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 17:59:00 2020 +0900
+
+    Update README.md
+
+[33mcommit 30a63b5124f42a69557eb533598057ed196b766b[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 17:50:18 2020 +0900
+
+    Update README.md
+
+[33mcommit 797598ece0a36809c796531f1dcf637e0924bad1[m
+Merge: 096538b 9681133
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 16:05:39 2020 +0900
+
+    Merge pull request #2 from ypspy/ypspy-patch-2
+    
+    Update scraper
+
+[33mcommit 9681133eee76cc5e352fa8cf44cbf9a75eb6781e[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 16:05:15 2020 +0900
+
+    Update scraper
+    
+    함수 안에 있는 contentSoup.text가 EC2(python v3.8)에서 이상하게 반응해서 str(contentSoup)으로 변경
+
+[33mcommit 096538bb426f895c3f0e59849b6751ecbf3a3cb0[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 14:48:55 2020 +0900
+
+    Update README.md
+
+[33mcommit b3ef5fa0e4f2207437ffd5e8352f6c894a2b2a9b[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:48:19 2020 +0900
+
+    Update README.md
+
+[33mcommit 2b6dab3cc748e6c90bf05627af6ad7d18dd3a862[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:47:33 2020 +0900
+
+    Update README.md
+
+[33mcommit 778b590413ca70ef32edfd50f68ab12abc9b1941[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:46:52 2020 +0900
+
+    Update README.md
+
+[33mcommit 4d4226dc7333cea99887b374f8fd4bb5b3fb2459[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:46:29 2020 +0900
+
+    Update README.md
+
+[33mcommit 3ad70e6f168eea701a60d95f37cf812c1b08709c[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:45:34 2020 +0900
+
+    Update README.md
+
+[33mcommit d8eddccdc9eeb1fd032bcf5f4a1003af9007dcc0[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:40:58 2020 +0900
+
+    Update README.md
+
+[33mcommit 4b295a9bd309ce6ed94570187559e0bf758e0717[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:40:42 2020 +0900
+
+    Update README.md
+
+[33mcommit d5353e52c937b26a13c243b543d0a73b02b5515a[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:40:06 2020 +0900
+
+    Update README.md
+
+[33mcommit f07986d71892497a99181ef900bcd672d96b2dec[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:39:43 2020 +0900
+
+    Update README.md
+
+[33mcommit eb954b3ef50b18760252ff2574cdb844c6c3b357[m
+Merge: 7aa9488 d0481e5
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:29:55 2020 +0900
+
+    Merge pull request #1 from ypspy/ypspy-patch-1
+    
+    Update scraper
+
+[33mcommit d0481e54d6a948bc22c0fb6ca00004dcf7931f88[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Fri Aug 7 13:28:16 2020 +0900
+
+    Update scraper
+    
+    함수 parameter/return 설명 입력. 코드 Purge.
+
+[33mcommit 7aa94889c07caabc853de9f8c4bde576b519305a[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:47:54 2020 +0900
+
+    Update README.md
+
+[33mcommit 5e7a13cce0c21f10c1c0ff62a4eeab6007a9e93d[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:46:35 2020 +0900
+
+    Create scraper
+    
+    입수용 코드. 기간과 보고서 타입 등을 조정하여 필요한 공시 Page를 Html로 저장한다.
+
+[33mcommit 78a8269892fde10ba125aaf437f320b2071423a9[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:44:29 2020 +0900
+
+    Update README.md
+
+[33mcommit 09c05f5c516f67724f7f435d67ac619f7b6e56db[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:44:05 2020 +0900
+
+    Update README.md
+
+[33mcommit d55f7d8da96998f63a6ec5d37fef1aac1ee4bc61[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:43:49 2020 +0900
+
+    Update README.md
+
+[33mcommit a1e0be95ee25e2a7b69f7a269dca8f653d51191f[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:27:31 2020 +0900
+
+    Update README.md
+
+[33mcommit 6056585858c2aee4244ae8ac48f45a7abe5f1aa2[m
+Author: Yoonseok Seong <33425859+ypspy@users.noreply.github.com>
+Date:   Thu Aug 6 23:21:55 2020 +0900
+
+    Initial commit

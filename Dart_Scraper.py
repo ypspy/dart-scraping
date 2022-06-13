@@ -198,4 +198,4 @@ def Dart_Scraper(reportType,  # report type 선택 A001: 사업보고서
                                                docKey)
                 
                 time.sleep(delay)  # loop의 말단에서 3초씩 쉰다. 그래도 차단될 듯.
-    return None  # 반환 없음                
+    return len(docsInThisPage)  # 반환 없음                

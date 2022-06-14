@@ -17,6 +17,7 @@ import js2py
 import urllib.request
 from os import path
 import time
+from tqdm import tqdm
 
 
 def Document_Address_Parser(i, startDate, endDate, reportType):
@@ -56,6 +57,8 @@ def Document_Address_Parser(i, startDate, endDate, reportType):
     listURL = detailSearch + query_string 
     companyList = requests.get(listURL)  
     # DART는 Post로 요청하나 requests로 post하면 안됨. query string 만들어서 get으로 요청함
+    time.sleep(1)  # 1분에 100개 규정 고려. Request당 1초 대기
+    
     DocListSoup = BeautifulSoup(companyList.content, "html.parser")
     
     corpList = DocListSoup.findAll("td")
@@ -96,6 +99,7 @@ def SubDocument_Address_Parser(docAddress):
     
     # 문서 최초 조회
     docHTML = requests.get(docAddress)
+    time.sleep(1)  # 1분에 100개 규정 고려. Request당 1초 대기
     docSoup = BeautifulSoup(docHTML.content, "html.parser")    
     
     # 문서와 첨부 문서의 URL 주소 추출
@@ -131,7 +135,9 @@ def HTML_Address_Parser(subDocAddress):
 
     """    
     
-    docHTML = requests.get(subDocAddress)
+    docHTML = requests.get(subDocAddress)    
+    time.sleep(1)  # 1분에 100개 규정 고려. Request당 1초 대기
+    
     docSoup = BeautifulSoup(docHTML.content, "html.parser")
 
     # HTML의 script tag 안애 포함된 내용을 취합
@@ -163,30 +169,36 @@ def HTML_Address_Parser(subDocAddress):
 
     return addList
 
+def Get_HTML(htmlAddress, docKey):  # 재귀함수로 에러 부분 계속 시도
+    try:
+        urllib.request.urlretrieve(htmlAddress, docKey)
+    except FileNotFoundError:
+        print("Error Occurred at", htmlAddress)
+        time.delay(3)
+        Get_HTML(htmlAddress, docKey)
 
 def Dart_Scraper(reportType,  # report type 선택 A001: 사업보고서
                  currentPage,  # 현재 page 선택
                  startDate,
                  endDate,
-                 delay=3):
+                 delay=1):
     # 보고서 주소 추출
     docAddressDict = Document_Address_Parser(currentPage, startDate, endDate, reportType)
-    
     docsInThisPage = list(docAddressDict.items())
 
-    for i in docsInThisPage:
+    for i in tqdm(docsInThisPage, desc="docs in this page"):
         docAddress = i[1]
         
         # 보고서 내부 개별 문서 주소 추출
         subDocAddressDict = SubDocument_Address_Parser(docAddress)
         subDocAddressList = list(subDocAddressDict.items())
         
-        for subDocAddress in subDocAddressList:            
+        for subDocAddress in tqdm(subDocAddressList, desc="1st loop", leave=False):            
             # 개별 문서 내부 HTML 주소 추출
             htmlAddressDict = HTML_Address_Parser(subDocAddress[1])
             htmlAddressList = list(htmlAddressDict.items())
             
-            for html in htmlAddressList:
+            for html in tqdm(htmlAddressList, desc="2nd loop", leave=False):
                 docKey = '_'.join([i[0],  # 보고서 타입, FSS 고유번호, 문서접수번호, 접수문서명, 보고기간말
                                    subDocAddress[0],  # 문서접수번호 + 제출일과 본(첨부)문서명
                                    html[0],  # 문서명
@@ -194,8 +206,7 @@ def Dart_Scraper(reportType,  # report type 선택 A001: 사업보고서
                 if path.exists(docKey):
                     None  # 실행 중단 후 다시 시작하는 경우 중복으로 쓰지 않음
                 else:
-                    urllib.request.urlretrieve(html[1],
-                                               docKey)
-                
-                time.sleep(delay)  # loop의 말단에서 3초씩 쉰다. 그래도 차단될 듯.
-    return len(docsInThisPage)  # 반환 없음                
+                    Get_HTML(html[1], docKey)  # 에러 발생하면 계속 시도. 발생지점에서 에러가 생기는 것이 아님.
+                    time.sleep(delay)  # 1분에 100개 규정 고려. Request당 1초 대기
+    
+    return len(docsInThisPage)  # 페이지 문서수 반환 (Max: 15, 변경 가능)                

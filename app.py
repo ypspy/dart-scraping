@@ -32,7 +32,7 @@ def app(i, query):
             ConnectionAbortedError,
             ssl.SSLEOFError,
             exceptions.SSLError) as e: 
-            # 이 중에 내 문제가 있나? 해결가능한게 있나?
+            # 네트워크 연결 문제
         
         print("Wait for 300 seconds. Error occurred: ", e)
         
@@ -41,17 +41,17 @@ def app(i, query):
 
 
 # Working Directory
-chdir(r"C:\results")
+chdir(input("Enter location (C:\F001_2020): "))
 
 # Query 입력
 query = {
-    'reportType' : 'A001',
-    'start' : 20200101,
-    'end' : 20201231,
+    'reportType' : str(input("Enter reportType (A001, F001): ")),
+    'start' : input("Registered from (20200101): "),
+    'end' : input("Registered to (20201231): "),
     }
 
-# Page 1에서 Loop 시작
-i = 78
+# Page 1에서 Loop 시작 #1708)
+i = int(input("loop start(resume) from page Number: "))
 
 # 시작
 app(i, query)

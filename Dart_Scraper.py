@@ -111,6 +111,7 @@ def SubDocument_Address_Parser(docAddress):
         subDocAddress = "http://dart.fss.or.kr/dsaf001/main.do?" + subDocList[loop]["value"]
         if subDocAddress != 'http://dart.fss.or.kr/dsaf001/main.do?null':  # 옵션 값이 null인 경우 제
             docName = ''.join(subDocList[loop].text.split())
+            
             subDocName = '_'.join([subDocAddress[44:58],
                                   '_'.join([docName[:10], docName[10:]])])# Key 생성
             subDocAddressList[subDocName] = subDocAddress
@@ -198,11 +199,12 @@ def Dart_Scraper(reportType,  # report type 선택 A001: 사업보고서
             htmlAddressDict = HTML_Address_Parser(subDocAddress[1])
             htmlAddressList = list(htmlAddressDict.items())
             
-            for html in tqdm(htmlAddressList, desc="2nd loop", leave=False):
+            for html in tqdm(htmlAddressList, desc="2nd loop", leave=False):                    
                 docKey = '_'.join([i[0],  # 보고서 타입, FSS 고유번호, 문서접수번호, 접수문서명, 보고기간말
                                    subDocAddress[0],  # 문서접수번호 + 제출일과 본(첨부)문서명
                                    html[0],  # 문서명
                                    '.html'])  # HTML 확장자
+                                
                 if path.exists(docKey):
                     None  # 실행 중단 후 다시 시작하는 경우 중복으로 쓰지 않음
                 else:

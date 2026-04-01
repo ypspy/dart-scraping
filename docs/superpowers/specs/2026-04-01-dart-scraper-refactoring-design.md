@@ -61,7 +61,7 @@ dart-scraper/
 dart-scraper/
 ├── config.yaml                              ← 신규: 경로·파라미터 중앙화
 ├── requirements.txt                         ← 신규
-├── app.py                                   ← 수정: config.yaml 사용
+├── app.py                                   ← 수정: config.yaml 사용, 재귀→while
 ├── scraper/
 │   ├── __init__.py
 │   └── dart_scraper.py                      ← Dart_Scraper.py 이동 + 수정
@@ -95,8 +95,10 @@ dart-scraper/
 ├── data/
 │   └── industry.xlsx
 ├── output/                                  ← (G-1) output 대체
-└── archive/                                 ← 기존 archive + (A) scraper_refactoring.py
+└── archive/                                 ← 기존 archive + (A) scraper_refactoring.py 이동
 ```
+
+**참고:** `(A) scraper_refactoring.py`는 `Dart_Scraper.py`의 초기 프로토타입으로 `archive/`로 이동한다. 이 파일 이동은 구현 작업의 일부로 포함된다 (사전 수동 작업이 아님).
 
 ---
 
@@ -104,9 +106,10 @@ dart-scraper/
 
 ```yaml
 paths:
-  working_dir: "E:/workingDirectory"
-  output_dir: "C:/Users/ckpys/Desktop/output"
+  working_dir: "E:/workingDirectory"        # 파서 스크립트의 HTML 파일 루트 경로
+  output_dir: "C:/Users/ckpys/Desktop/output"  # CSV 출력 경로 (기존 yoont → ckpys로 변경)
   data_dir: "data"
+  governance_dir: "C:/data"                 # d7_1_governance 전용 (별도 경로 사용)
   report_dirs:
     - "A001_2017"
     - "A001_2018"
@@ -132,7 +135,10 @@ scraper:
 각 스크립트에서 사용:
 ```python
 import yaml
-with open("config.yaml") as f:
+from pathlib import Path
+
+CONFIG_PATH = Path(__file__).parents[1] / "config.yaml"  # 프로젝트 루트 기준
+with open(CONFIG_PATH) as f:
     config = yaml.safe_load(f)
 WORKING_DIR = config["paths"]["working_dir"]
 OUTPUT_DIR = config["paths"]["output_dir"]
@@ -149,14 +155,76 @@ D-series 스크립트에서 중복되는 함수들을 통합:
 | `col_span_count(soup)` | td/th colspan 반환, 없으면 1 |
 | `row_span_count(soup)` | td/th rowspan 반환, 없으면 1 |
 | `matrix_generator(table)` | HTML table → 2D list, rowspan/colspan 처리 |
+| `find_target_table(soup)` | 대상 table 1개 반환 (td > 20 조건) |
+| `find_all_tables(soup)` | 모든 table 리스트 반환 |
 | `load_config(path)` | config.yaml 로드 |
-| `build_path_list(dirs, pattern, working_dir)` | glob으로 파일 경로 리스트 생성 |
-| `preprocess_df(path_list)` | 파일명 파싱 → DataFrame → 중복 제거 |
+| `build_path_list(working_dir, report_dirs, pattern)` | glob으로 파일 경로 리스트 생성 |
+| `preprocess_df(path_list)` | 파일명 파싱 → DataFrame → key 컬럼 추가 |
 | `deduplicate_df(df)` | key 기반 중복 제거 + 정렬 + toDrop 로직 |
+
+**`find_target_table` vs `find_all_tables` 사용 구분:**
+
+- `find_target_table(soup)` (단일 table, td > 20): `d4_1`, `d5_1`, `d5_2`, `d5_3`, `d6_1`
+- `find_all_tables(soup)` (전체 table 리스트): `d1`, `d3_1`, `d7_1`
 
 각 파서 스크립트는 고유 도메인 로직만 유지:
 ```python
 from parsers.common import load_config, build_path_list, preprocess_df, matrix_generator
+```
+
+### 독립 실행 시 sys.path 처리
+
+파서(`parsers/`) 및 병합(`merge/`) 스크립트 모두 상단에 아래를 추가:
+
+```python
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parents[1]))  # 프로젝트 루트를 sys.path에 추가
+```
+
+이렇게 하면 `python parsers/d1_business_report_cover.py` 또는 `python merge/e1_merge_period.py` 등 어느 위치에서 실행해도 `from parsers.common import ...`가 동작한다.
+
+### 신규 함수 인터페이스
+
+`load_config`, `build_path_list`, `preprocess_df`, `deduplicate_df`는 기존 인라인 코드를 추출·일반화한 신규 함수다.
+
+```python
+def load_config(path: Path = None) -> dict:
+    """
+    config.yaml 로드.
+    path가 None이면 Path(__file__).parents[1] / "config.yaml" 사용 (프로젝트 루트 기준).
+    """
+
+def build_path_list(working_dir: str, report_dirs: list[str], pattern: str) -> list[str]:
+    """
+    각 report_dir에서 glob 패턴으로 파일 경로 수집.
+    "duplicated" 포함 파일 제거.
+    연도 필터링(예: "(2017." 포함 여부)은 각 파서 스크립트에서 호출 후 처리한다.
+    이유: 연도 범위가 파서마다 다르기 때문 (D-1은 2017~2019, D-4-2는 2014~2019 등).
+    """
+
+def preprocess_df(path_list: list[str]) -> pd.DataFrame:
+    """
+    파일명을 '_' 기준으로 분리해 DataFrame 생성.
+    con(연결/별도), amend(정정/원본), key 컬럼 추가.
+    key = df[2] + df[6].str.slice(stop=10) + con + amend + df[5] + df[8] + df[10]
+    (접수일 + 제출일 + 연결여부 + 정정여부 + 보고기간종료월 + 종목코드 + 법인등록번호)
+    중복 제거(drop_duplicates)는 포함. path 컬럼은 "path"로 명시적 추가.
+    반환 DataFrame에는 중복 제거 전 isTrue(중복 항목) 보존하지 않음.
+    """
+
+def deduplicate_df(df: pd.DataFrame, sort_cols: list, key_cols: list[str]) -> pd.DataFrame:
+    """
+    key 기반 중복 제거 후 정렬 및 toDrop 로직.
+    - sort_cols: 정렬 기준 컬럼명 리스트 (호출자가 지정).
+    - key_cols: toDrop 비교에 사용할 컬럼명 2개 (호출자가 지정).
+      대부분 스크립트에서 [df[3]에 해당하는 컬럼, df[8]에 해당하는 컬럼]이나,
+      drop() 순서에 따라 실제 컬럼명이 달라지므로 호출자가 명시적으로 전달.
+    - toDrop 로직: key_cols[0]과 key_cols[1]이 이전 행과 동일하면 toDrop 누적,
+      아니면 1로 초기화. 최종적으로 toDrop == 1인 행만 유지.
+    - df.iloc 위치 기반 접근 금지. df.loc[idx, col] 레이블 기반으로만 접근.
+    이유: 스크립트마다 drop() 순서와 컬럼 수가 달라 위치 인덱스가 일치하지 않음.
+    """
 ```
 
 ---
@@ -166,7 +234,8 @@ from parsers.common import load_config, build_path_list, preprocess_df, matrix_g
 | 파일 | 위치 | 문제 | 수정 |
 |------|------|------|------|
 | `Dart_Scraper.py` | line 178 | `time.delay(3)` — 존재하지 않는 메서드 | `time.sleep(3)` |
-| `(D-1) businessReportCover` | line 76 | `container(...)` — 리스트를 함수처럼 호출 | `container.append(...)` |
+| `(D-1)`, `(D-2-1)`, `(D-2-2)`, `(D-3-1)`, `(D-3-2)`, `(D-3-3)`, `(D-3-4)`, `(D-5-1)`, `(D-6-1)` | `ParsingTime()` else 분기 (각 line 76~77) | `container(...)` — 리스트를 함수처럼 호출 | `container.append(...)`. `parsers/common.py`로 통합 시 일괄 수정됨 |
+| `app.py` | line 40 | `app(i, query)` 재귀 호출 — 지속적 네트워크 오류 시 스택 오버플로 발생. 현재 페이지 번호 `i`를 보존하며 재시도하는 구조를 `while True` 루프로 교체해야 함 | `while True` 루프로 교체. 에러 발생 시 현재 `i` 유지하고 sleep 후 계속 |
 
 ---
 
@@ -174,10 +243,11 @@ from parsers.common import load_config, build_path_list, preprocess_df, matrix_g
 
 | 항목 | 현재 | 변경 |
 |------|------|------|
-| 함수명 | `PascalCase` (`Document_Address_Parser`) | `snake_case` (`document_address_parser`) |
+| 함수명 (`scraper/`) | `PascalCase` (`Document_Address_Parser`) | `snake_case` (`document_address_parser`) |
+| 함수명 (`parsers/common.py`) | `PascalCase` (`MatrixGenerator`, `FindTargetTable`) | `snake_case` (`matrix_generator`, `find_target_table`) |
+| 함수명 (각 파서 스크립트 내 고유 함수: `ParsingTime`, `Indexing` 등) | `PascalCase` | `snake_case`. 각 파서 내 모든 호출 지점도 함께 변경 |
 | while 루프 | 수동 인덱스 증가 (`loop += 6`) | `for` 루프로 교체 가능한 경우 변경 |
 | magic string | `href[28:36]` 등 | 상수명 또는 인라인 주석으로 의도 명시 |
-| 재귀 호출 | `app.py` 에러 후 재귀 호출 | `while` 루프로 교체 (스택 오버플로 방지) |
 
 ---
 
@@ -193,7 +263,13 @@ numpy
 pyyaml
 lxml
 openpyxl
+jupyter
+pytesseract
+scikit-image
+opencv-python
 ```
+
+`pytesseract`, `scikit-image`, `opencv-python`은 `d7_1_governance.py`(OCR 기반 거버넌스 파서)에서 사용.
 
 ---
 
@@ -201,5 +277,5 @@ openpyxl
 
 - js2py 기반 스크래핑 로직
 - 각 파서의 DART 도메인 파싱 로직
-- app.py의 대화형 입력 방식 (chdir, input())
+- `app.py`의 대화형 입력 방식 (`chdir`, `input()`)
 - 각 스크립트의 독립 실행 가능성

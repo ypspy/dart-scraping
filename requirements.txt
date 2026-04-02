@@ -1,0 +1,14 @@
+requests
+beautifulsoup4
+js2py
+tqdm
+pandas
+numpy
+pyyaml
+lxml
+openpyxl
+jupyter
+pytesseract
+scikit-image
+opencv-python
+pytest

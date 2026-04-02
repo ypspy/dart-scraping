@@ -7,8 +7,6 @@ import glob
 import yaml
 import pandas as pd
 import numpy as np
-from bs4 import BeautifulSoup
-
 
 def col_span_count(soup) -> int:
     """Return td/th colspan value, or 1 if absent."""
@@ -96,10 +94,8 @@ def preprocess_df(path_list: list) -> pd.DataFrame:
     basenames_no_ext = [Path(p).stem for p in path_list]
     df = pd.DataFrame([n.split("_") for n in basenames_no_ext])
     df["path"] = path_list
-    df["con"] = df[6].str.contains("연결")
-    df["con"] = np.where(df["con"] == True, "C", "S")
-    df["amend"] = df[6].str.contains("정정")
-    df["amend"] = np.where(df["amend"] == True, "A", "B")
+    df["con"] = np.where(df[6].str.contains("연결", na=False), "C", "S")
+    df["amend"] = np.where(df[6].str.contains("정정", na=False), "A", "B")
     df["key"] = (
         df[2].astype(str)
         + df[6].str.slice(stop=10)
@@ -120,14 +116,11 @@ def deduplicate_df(df: pd.DataFrame, sort_cols: list, key_cols: list) -> pd.Data
     """
     df = df.sort_values(by=sort_cols).reset_index(drop=True)
     df["toDrop"] = 1
-    idx_list = df.index.tolist()
-    for i in range(1, len(idx_list)):
-        curr = idx_list[i]
-        prev = idx_list[i - 1]
-        if (df.loc[curr, key_cols[0]] == df.loc[prev, key_cols[0]]
-                and df.loc[curr, key_cols[1]] == df.loc[prev, key_cols[1]]):
-            df.loc[curr, "toDrop"] = df.loc[prev, "toDrop"] + 1
+    for i in range(1, len(df)):
+        if (df.loc[i, key_cols[0]] == df.loc[i - 1, key_cols[0]]
+                and df.loc[i, key_cols[1]] == df.loc[i - 1, key_cols[1]]):
+            df.loc[i, "toDrop"] = df.loc[i - 1, "toDrop"] + 1
         else:
-            df.loc[curr, "toDrop"] = 1
+            df.loc[i, "toDrop"] = 1
     df = df[df["toDrop"] == 1].drop(columns=["toDrop"])
     return df

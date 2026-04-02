@@ -2,7 +2,6 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-import pytest
 import pandas as pd
 from bs4 import BeautifulSoup
 from parsers.common import (
@@ -77,6 +76,20 @@ def test_find_target_table_returns_table_with_most_tds():
     assert result is not None
     assert len(result.find_all("td")) == 25
 
+def test_find_target_table_returns_none_when_no_large_table():
+    small_tds = "".join("<td>x</td>" for _ in range(5))
+    html = f"<html><body><table><tr>{small_tds}</tr></table></body></html>"
+    soup = BeautifulSoup(html, "lxml")
+    result = find_target_table(soup)
+    assert result is None
+
+def test_matrix_generator_empty_table():
+    html = "<table></table>"
+    soup = BeautifulSoup(html, "lxml")
+    table = soup.find("table")
+    result = matrix_generator(table)
+    assert result == []
+
 
 # --- find_all_tables ---
 
@@ -119,11 +132,7 @@ def test_preprocess_df_creates_key_column(tmp_path):
     f = tmp_path / filename
     f.write_text("x")
     df = preprocess_df([str(f)])
-    # con: "CONNECTED" → contains "연결"? No → "S"; amend: "ORIGINAL" → contains "정정"? No → "B"
-    # Wait - need to check actual Korean logic. Let me reconsider:
-    # df[6] = "2021.01.01CONNECTEDORIGINAL"
-    # con check: df[6].str.contains("연결") → False → "S"
-    # amend check: df[6].str.contains("정정") → False → "B"
+    # "CONNECTEDORIGINAL" does not contain Korean "연결" or "정정" → con="S", amend="B"
     expected_key = "RCPNO" + "2021.01.01" + "S" + "B" + "PERIOD" + "STOCKCD" + "CORPNO"
     assert df["key"].iloc[0] == expected_key
 

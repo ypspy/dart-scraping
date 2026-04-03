@@ -15,6 +15,7 @@ DATA_DIR = config["paths"]["data_dir"]
 df1 = pd.read_csv(os.path.join(OUTPUT_DIR, 'wp01.data06.output.csv'), header=[0,1], sep="\t")
 df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
 df1 = df1.drop([0])  # 0번 row 삭제
+df1["감사_합계"] = pd.to_numeric(df1["감사_합계"], errors="coerce")
 df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
 
 # 총자산(total_asset) 정보

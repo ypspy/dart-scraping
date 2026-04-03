@@ -5,7 +5,6 @@ sys.path.insert(0, str(Path(__file__).parents[1]))
 
 import os
 import re
-import pandas as pd
 from bs4 import BeautifulSoup
 from parsers.common import (
     load_config, build_path_list, preprocess_df, deduplicate_df,

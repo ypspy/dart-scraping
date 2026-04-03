@@ -4,7 +4,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
 import os
-import pandas as pd
 from bs4 import BeautifulSoup
 from parsers.common import (
     load_config, build_path_list, preprocess_df, deduplicate_df,
@@ -15,8 +14,9 @@ WORKING_DIR = config["paths"]["working_dir"]
 OUTPUT_DIR = config["paths"]["output_dir"]
 REPORT_DIRS = config["paths"]["report_dirs"]
 
-file = open(os.path.join(WORKING_DIR, "wp01.data02_auditor.txt"), 'r', encoding='utf-8')
-import_list = file.readlines()
+auditor_file = open(os.path.join(WORKING_DIR, "wp01.data02_auditor.txt"), 'r', encoding='utf-8')
+import_list = auditor_file.readlines()
+auditor_file.close()
 auditor_list = []
 
 for i in import_list:

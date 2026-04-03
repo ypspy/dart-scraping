@@ -48,7 +48,7 @@ def app(i, query):
 
 
 # Working Directory
-chdir(input("Enter location (C:\F001_2020): "))
+chdir(input(r"Enter location (C:\F001_2020): "))
 
 # Query 입력
 query = {

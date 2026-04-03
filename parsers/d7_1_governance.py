@@ -2,7 +2,7 @@
 """
 References
 
-1. 이미지 인식 참고 https://blog.daum.net/geoscience/1266 (Tesseract at UB Mannheim 설치 C:\Program Files\Tesseract-OCR)
+1. 이미지 인식 참고 https://blog.daum.net/geoscience/1266 (Tesseract at UB Mannheim 설치 C:\\Program Files\\Tesseract-OCR)
 2. CV2 설치 https://pypi.org/project/opencv-python/
 3. tesseract 환경변수에 추가 https://joyhong.tistory.com/79
 4. tesseract config 사용법 https://m.blog.naver.com/hn03049/221957851802

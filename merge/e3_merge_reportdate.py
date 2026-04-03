@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parents[1]))
+
+import os
+import pandas as pd
+from parsers.common import load_config
+
+config = load_config()
+OUTPUT_DIR = config["paths"]["output_dir"]
+DATA_DIR = config["paths"]["data_dir"]
+
+# 외부감사 실시내용 총시간 정보 (MultiHeader 조정 필요)
+df1 = pd.read_csv(os.path.join(OUTPUT_DIR, 'wp01.data06.output.csv'), header=[0,1], sep="\t")
+df1.columns = df1.columns.map('_'.join)  # Header 정보 하나로 합치기
+df1 = df1.drop([0])  # 0번 row 삭제
+df1 = df1.rename(columns={'B_C': 'key'})  # key 헤더명 변경
+
+# 감사보고서일
+df = pd.read_csv(os.path.join(OUTPUT_DIR, 'wp01.data04.output.csv'), sep="\t")
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]  # 제거
+
+# 타임정보/활동정보 마지막
+df = pd.merge(df, df1[["key", "감사_합계"]], how="left", on="key")
+
+# 12월 말이 아닌 기업 제거
+
+df = df[(df["5"] == "(2017.12)") | (df["5"] == "(2018.12)") | (df["5"] == "(2019.12)")]
+
+# 금융업 제거
+
+df_ind = pd.read_excel(os.path.join(DATA_DIR, "industry.xlsx"), dtype={'KSIC': str}, sheet_name='data')
+df = df.rename(columns={"11": "INDUSTRY"})
+
+df = pd.merge(df, df_ind, on = "INDUSTRY", how ='left')
+df = df[df["FIN"] == 0]
+
+# 감사시간 합계 100시간 미만 제거
+
+df = df[df["감사_합계"] >= 100]
+
+# dfNa = df[df['합계_합계'].isna()]
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+df.to_csv(os.path.join(OUTPUT_DIR, "wp01.data.reportdate.csv"), sep="\t")

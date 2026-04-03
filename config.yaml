@@ -1,0 +1,25 @@
+paths:
+  working_dir: "E:/workingDirectory"
+  output_dir: "C:/Users/ckpys/Desktop/output"
+  data_dir: "data"
+  governance_dir: "C:/data"  # d4_2_audit_activity + d7_1_governance 공용
+  report_dirs:
+    - "A001_2017"
+    - "A001_2018"
+    - "A001_2019"
+    - "A001_2020"
+    - "F001_2017"
+    - "F001_2018"
+    - "F001_2019"
+    - "F001_2020"
+    - "F002_2017"
+    - "F002_2018"
+    - "F002_2019"
+    - "F002_2020"
+
+scraper:
+  start_date: 20210531
+  end_date: 20220531
+  report_type: "A001"
+  delay_seconds: 300
+  max_results_per_page: 15

@@ -1,0 +1,79 @@
+# -*- coding: utf-8 -*-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parents[1]))
+
+import os
+from bs4 import BeautifulSoup
+from parsers.common import (
+    load_config, build_path_list, preprocess_df, deduplicate_df,
+)
+
+config = load_config()
+WORKING_DIR = config["paths"]["working_dir"]
+OUTPUT_DIR = config["paths"]["output_dir"]
+REPORT_DIRS = config["paths"]["report_dirs"]
+
+# path collection
+path_list = build_path_list(WORKING_DIR, REPORT_DIRS, "*감사인의감사보고서*.*")
+
+# year filter
+path_list = (
+    [x for x in path_list if "(2017." in x]
+    + [x for x in path_list if "(2018." in x]
+    + [x for x in path_list if "(2019." in x]
+)
+
+# preprocess
+df = preprocess_df(path_list)
+path_list_out = df["path"].tolist()
+
+result = []
+
+"""
+감사보고서 사례 2014 (https://www.kicpa.or.kr/portal//default/kicpa/gnb/kr_pc/menu08/menu01/menu12/menu01.page?action=READ&boardId=acc1201&bltnNo=11539847365665)
+감사보고서 사례 2018 (https://www.kicpa.or.kr/portal//default/kicpa/gnb/kr_pc/menu08/menu01/menu12/menu01.page?action=READ&boardId=acc1201&bltnNo=11539847365665)
+"""
+
+# disclaimer of opinion
+keyWord1 = ['의견거절근거', '의견을표명하지않', '감사의견을표명하지아니합니다', '의견을표명하지아니', '의견을표명할수없']
+# qualified
+keyWord2 = ['한정의견근거', '한정의견근거단락에기술된사항이미치는영향을제외']
+# adverse
+keyWord3 = ['부적정의견근거', '부적정의견근거단락에서기술된사항의유의성']
+
+keyWord = [keyWord1, keyWord2, keyWord3]
+opinion = ["의견거절", "한정", "부적정"]
+
+for file in path_list_out:
+
+    html = open(file, "r", encoding="utf-8")
+    soup = BeautifulSoup(html, "lxml")
+    html.close()
+
+    content = ''.join(soup.text.split())
+
+    num = 0
+    container = []
+    returnText = "적정"
+    for i in keyWord:
+        for j in i:
+            if j in content:
+                returnText = opinion[num]
+                break
+
+        num += 1
+    result.append(returnText)
+    print('.', end='')
+
+df["opinion"] = result
+
+df = df.drop([0, 1, 14, "path", "duplc"], axis=1, errors="ignore")
+df = deduplicate_df(
+    df,
+    sort_cols=[10, 5, "con", 2, 6, "amend"],
+    key_cols=[5, 10],
+)
+
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+df.to_csv(os.path.join(OUTPUT_DIR, "wp001_data_009_output.csv"), sep="\t")

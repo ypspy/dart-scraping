@@ -22,8 +22,9 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-CORP_NO_SLICE = slice(28, 36)  # DART URL corp number position
-RCP_NO_SLICE = slice(44, None)  # DART URL reception number position
+CORP_NO_SLICE = slice(28, 36)    # DART URL corp number position
+RCP_NO_SLICE = slice(44, None)   # DART URL reception number position
+SUB_DOC_NO_SLICE = slice(44, 58) # DART sub-document number position
 
 
 def document_address_parser(i, startDate, endDate, reportType):
@@ -118,7 +119,7 @@ def sub_document_address_parser(docAddress):
         if subDocAddress != 'http://dart.fss.or.kr/dsaf001/main.do?null':  # 옵션 값이 null인 경우 제
             docName = ''.join(subDocList[loop].text.split())
 
-            subDocName = '_'.join([subDocAddress[44:58],
+            subDocName = '_'.join([subDocAddress[SUB_DOC_NO_SLICE],
                                   '_'.join([docName[:10], docName[10:]])])# Key 생성
             subDocAddressList[subDocName] = subDocAddress
 

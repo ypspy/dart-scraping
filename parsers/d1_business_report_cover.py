@@ -3,64 +3,17 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-import yaml
 import os
-import glob
 import pandas as pd
-import numpy as np
 from bs4 import BeautifulSoup
 from parsers.common import (
-    col_span_count, row_span_count, matrix_generator,
-    find_all_tables, load_config, build_path_list, preprocess_df, deduplicate_df,
+    load_config, build_path_list, preprocess_df, deduplicate_df,
 )
 
 config = load_config()
 WORKING_DIR = config["paths"]["working_dir"]
 OUTPUT_DIR = config["paths"]["output_dir"]
 REPORT_DIRS = config["paths"]["report_dirs"]
-
-
-def parsing_time(matrix, isComparative, tableLength, file, report):
-    if isComparative:
-        container = []
-        tableLength = int(tableLength / 2)
-        for i in range(tableLength):
-            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+2*i] + "_" + matrix[report][2+2*i].replace('-', '0').replace(',','') + "\n")
-    else:
-        container = []
-        tableLength = int(tableLength)
-        for i in range(tableLength):
-            container.append(file + "_" + matrix[report][1] + "_" + matrix[1][2+i] + "_" + matrix[report][2+i].replace('-', '0').replace(',','') + "\n")
-    return container
-
-
-def indexing(matrix):
-    """
-    당기, 전기 부분 삭제한 경우들이 있어서 찾아야함
-    """
-    container = []
-    for i in matrix:
-        try:
-            i[0:2].index("투입 인원수")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("분ㆍ반기검토")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("감사")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-        try:
-            i[0:2].index("합계")
-            container.append(matrix.index(i))
-        except ValueError:
-            pass
-    return container
 
 
 # 1. 타겟 폴더에 있는 필요 문서 경로 리스트업

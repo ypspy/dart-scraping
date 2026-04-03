@@ -172,56 +172,6 @@ A001_2019.12.31_회사명_[기재정정]사업보고서_(2019.06)_문서명_섹�
 | F002 | 연결감사보고서 |
 | F004 | 회계법인사업보고서 |
 
-## 수집 데이터 다운로드
-
-2020년 수집한 HTML 파일(CSS/Image 없음)입니다.
-
-**[패널 1] 2011년–2020년**
-
-| 공시기간 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서 | F004 회계법인보고서 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 2019 | [1GB](https://bit.ly/31SEzHh) | [591MB](https://bit.ly/31yIQzt) | [903MB](https://bit.ly/3h1qYnb) | [882MB](https://bit.ly/2XTYfJt) | [100MB](https://bit.ly/2DqYmFA) | [12MB](https://bit.ly/3gCDk55) |
-| 2018 | [1,005MB](https://bit.ly/2PHSmL1) | [561MB](https://bit.ly/31GpzMj) | [730MB](https://bit.ly/3gQoZSz) | [867MB](https://bit.ly/2PZD5Ft) | [90MB](https://bit.ly/31yHG72) | [8MB](https://bit.ly/2XGIO7z) |
-| 2017 | [900MB](https://bit.ly/2DNMcqv) | [508MB](https://bit.ly/30LPMKk) | [788MB](https://bit.ly/2PVDVmP) | [785MB](https://bit.ly/2DHpwYV) | [80MB](https://bit.ly/3ihJwjg) | [8MB](https://bit.ly/2XXvnAj) |
-| 2016 | [840MB](https://bit.ly/33UOazN) | [482MB](https://bit.ly/2DViuiZ) | [750MB](https://bit.ly/3gcU1mG) | [729MB](https://bit.ly/2XW0LyO) | [77MB](https://bit.ly/2PzJgjm) | [9MB](https://bit.ly/3ikLiQP) |
-| 2015 | [825MB](https://bit.ly/2Y4GSpp) | [458MB](https://bit.ly/3gP8h6b) | [746MB](https://bit.ly/349mC9V) | [694MB](https://bit.ly/346jYBV) | [72MB](https://bit.ly/33HAVT5) | (주1) |
-| 2014 | [650MB](https://bit.ly/3430KwT) | [376MB](https://bit.ly/2DYkxCX) | [662MB](https://bit.ly/3aBbRyp) | [672MB](https://bit.ly/310sVdZ) | [67MB](https://bit.ly/33JttGV) | (주1) |
-| 2013 | [601MB](https://bit.ly/343U6Xj) | [374MB](https://bit.ly/3kF1VZs) | [655MB](https://bit.ly/3gf1qBV) | [552MB](https://bit.ly/3iUatdn) | [63MB](https://bit.ly/3a9Dizg) | (주1) |
-| 2012 | [564MB](https://bit.ly/349exCe) | [327MB](https://bit.ly/2CsB8hO) | [544MB](https://bit.ly/31dZANr) | [522MB](https://bit.ly/3g8NQje) | [61MB](https://bit.ly/3iDuDbk) | (주1) |
-| 2011 | [455MB](https://bit.ly/2E8neSj) | [336MB](https://bit.ly/2PUzgkW) | [564MB](https://bit.ly/34dYRhb) | [461MB](https://bit.ly/3209Bgs) | [52MB](https://bit.ly/3127QzX) | (주1) |
-
-(주1) F004 회계법인사업보고서는 2016년 7월 1일부터 공시
-
-**[패널 2] 2001년–2010년**
-
-| 공시기간 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서 |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| 2010 | [446MB](https://bit.ly/3az7R1f) | [256MB](https://bit.ly/3kIOLum) | [423MB](https://bit.ly/3aFVGQk) | [448MB](https://bit.ly/2CLGB3q) | [62MB](https://bit.ly/3h4X7ui) |
-| 2009 | [469MB](https://bit.ly/2Q5GDpU) | [252MB](https://bit.ly/3kJtSzn) | [411MB](https://bit.ly/2Qcsase) | [538MB](https://bit.ly/2CFUkbQ) | [74MB](https://bit.ly/3iXQgn1) |
-| 2008 | [472MB](https://bit.ly/3g8YmqI) | [258MB](https://bit.ly/3gWzjsl) | [431MB](https://bit.ly/3hktG7E) | [528MB](https://bit.ly/34iQ7Gj) | [62MB](https://bit.ly/344xpCs) |
-| 2007 | [428MB](https://bit.ly/3aEb8fN) | [260MB](https://bit.ly/3iXPdn5) | [453MB](https://bit.ly/2Ec7azw) | [459MB](https://bit.ly/34qN6Uq) | [53MB](https://bit.ly/2E3rcvw) |
-| 2006 | [440MB](https://bit.ly/2E9QW9P) | [277MB](https://bit.ly/3g5rfnQ) | [421MB](https://bit.ly/2YqWmnU) | [418MB](https://bit.ly/2CPtRc2) | [46MB](https://bit.ly/3asRXpi) |
-| 2005 | [420MB](https://bit.ly/2QdOFg8) | [263MB](https://bit.ly/340W6zD) | [399MB](https://bit.ly/32kxdfF) | [373MB](https://bit.ly/2YkZ4Lv) | [40MB](https://bit.ly/3axNEt0) |
-| 2004 | [563MB](https://bit.ly/2Ek0z63) | [272MB](https://bit.ly/315jdXT) | [550MB](https://bit.ly/3j9C36y) | [342MB](https://bit.ly/3gf4X35) | [36MB](https://bit.ly/2CuVabi) |
-| 2003 | [374MB](https://bit.ly/32aOAQc) | [240MB](https://bit.ly/2FAOI3X) | [453MB](https://bit.ly/3l6Kkdf) | [291MB](https://bit.ly/3hnQD9W) | [31MB](https://bit.ly/3kWGW4D) |
-| 2002 | [342MB](https://bit.ly/2YpHuGy) | [210MB](https://bit.ly/3gaVSZ2) | [325MB](https://bit.ly/3lcDumb) | [260MB](https://bit.ly/2FQIqx9) | [27MB](https://bit.ly/3g0LaEC) |
-| 2001 | [270MB](https://bit.ly/2FIudlN) | [184MB](https://bit.ly/3kYXQiV) | [272MB](https://bit.ly/2EiFskv) | [206MB](https://bit.ly/3j4q0XZ) | [22MB](https://bit.ly/30YkJeo) |
-
-**[패널 3] 1999년–2000년**
-
-| 공시기간 | A001 사업보고서 | A002 반기보고서 | A003 분기보고서 | F001 감사보고서 | F002 연결보고서 |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| 2000 | [196MB](https://bit.ly/3hcmdr0) | [150MB](https://bit.ly/3iVmP4X) | [272MB](https://bit.ly/3hlwJME) | [131MB](https://bit.ly/3aPWQcn) | [14MB](https://bit.ly/3h3pEA7) |
-| 1999 | [179MB](https://bit.ly/3hhccbX) | [70MB](https://bit.ly/3gbYHZU) | (주2) | (주2) | (주2) |
-
-(주2) A003, F001, F002는 2000년부터 공시
-
-**[패널 4] 결합감사보고서**
-
-| 공시기간 | 파일 | 설명 |
-|:---:|:---:|:---|
-| 전기간 | [9MB](https://bit.ly/3j8IAOJ) | 2000년–2011년 결합감사보고서 |
-
 ## 참고 문헌
 
 김형준 박종원 이재원. 2015. 전자공시시스템(DART)을 활용한 국내 텍스트 분석(Textual Analysis) 환경에 관한 연구. 회계저널 24 (4). 199-221
